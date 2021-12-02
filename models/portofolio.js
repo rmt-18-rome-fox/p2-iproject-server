@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Portofolio.belongsTo(models.User)
-      Portofolio.belongsToMany(models.Tag, {through: models.PortofolioTag})
+      Portofolio.belongsToMany(models.Tag, {through: models.PortofoliosTag})
     }
   };
   Portofolio.init({
