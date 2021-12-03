@@ -3,8 +3,9 @@ const { comparePassword } = require('../helpers/bcrypt')
 const { createToken } =require('../helpers/jwt') 
 
 const login = async (req, res, next) => {
-    const {email, password} = req.body;
     try {
+        const {email, password} = req.body;
+        console.log(email,password)
         const loginUser = await User.findOne({where: {
             email
         }})
@@ -24,6 +25,7 @@ const login = async (req, res, next) => {
         if (err.name == 'unauthorized') {
             res.status(401).json('invalid email/password')
         } else {
+            // console.log(err)
             res.status(500).json({message: "Internal Server Error"})
         }
     }
