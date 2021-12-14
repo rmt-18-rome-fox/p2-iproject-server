@@ -3,7 +3,8 @@ const MovieController = require("../controllers/movieController");
 const router = express.Router();
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
-// const upload = multer();
 
+router.get('/',MovieController.getMovies)
+router.get('/:mid',MovieController.getByPk)
 
 module.exports = router;
