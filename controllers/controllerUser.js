@@ -50,7 +50,7 @@ class ControllerUser {
         attributes: {
           exclude: ["createdAt", "updatedAt"],
         },
-        include: [{ model: User, attributes: ["name", "CityId"] }],
+        include: [{ model: User, attributes: ["name", "CityId", "cityName"] }],
       });
       if (!book) throw { name: "bookNotFound" };
 

@@ -4,15 +4,16 @@ const { Op } = require("sequelize");
 class ControllerCustomer {
   static async register(req, res, next) {
     try {
-      const { name, email, password, CityId } = req.body;
+      const { name, email, password, CityId, cityName } = req.body;
 
       if (!name) throw { name: "emptyName" };
       if (!email) throw { name: "emptyEmail" };
       if (!password) throw { name: "emptyPassword" };
       if (!CityId) throw { name: "emptyCity" };
+      if (!cityName) throw { name: "emptyCity" };
 
       const role = "customer";
-      const data = { name, email, password, CityId, role };
+      const data = { name, email, password, CityId, role, cityName };
 
       const user = await User.create(data);
 
@@ -24,7 +25,11 @@ class ControllerCustomer {
 
   static async carts(req, res, next) {
     try {
+      const CustomerId = +req.user.id;
       const carts = await Cart.findAll({
+        where: {
+          CustomerId,
+        },
         include: "Book",
         attributes: {
           exclude: ["createdAt", "updatedAt"],

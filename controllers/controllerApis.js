@@ -15,7 +15,7 @@ class ControllerApis {
       const response = await axios.get(url, rajaOngkirHeaders);
       const cities = response.data.rajaongkir.results;
 
-      res.status(200).json({ cities });
+      res.status(200).json(cities);
     } catch (err) {
       next(err);
     }
