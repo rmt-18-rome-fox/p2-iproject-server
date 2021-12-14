@@ -19,10 +19,10 @@ router.post(
     userController.register
     )
 
-// router.post(
-//     '/authGoogle', 
-//     userController.authGoogle
-//     )
+router.post(
+    '/authGoogle', 
+    userController.authGoogle
+    )
  
 router.post(
     '/login', 
