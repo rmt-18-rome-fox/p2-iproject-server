@@ -21,17 +21,15 @@ const userRegister = async (req, res, next) =>{
 
 const userLogin = async (req, res, next) =>{
     try{
-        const {email, password, name} = req.body
-        if(!email || !password || !name) throw {name: "BAD_REQUEST"}
-
+        const {email, password} = req.body
+        if(!email || !password) throw {name: "BAD_REQUEST"}
         const userLogin = await User.findOne({
             where:{
-                name: name,
                 email: email
             }
         })
-
-        const validation = bcrypt.compareSync(userLogin.password, password)
+        
+        const validation = bcrypt.compareSync(password, userLogin.password)
         if(!validation) throw {name: "UNAUTHORIZED"}
 
         const payload = {

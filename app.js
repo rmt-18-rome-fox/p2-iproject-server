@@ -9,7 +9,11 @@ app.use(express.json())
 
 app.post("/register", userController.userRegister)
 app.post("/login", userController.userLogin)
-app.use(middleware.authentication)
-app.get("/books", bookController)
-app.get("/bookmarks", bookController)
-app.post("/bookmarks/:bookId", bookController)
+// app.use(middleware.authentication)
+app.get("/books", bookController.allBooks)
+app.get("/bookmarks", bookController.allBookmarks)
+app.post("/bookmarks/:bookId", bookController.addBookmark)
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+  })
