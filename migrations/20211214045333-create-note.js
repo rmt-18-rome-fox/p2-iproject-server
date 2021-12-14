@@ -10,8 +10,7 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: { msg: 'You already have this note before!' }
+        allowNull: false
       },
       content: {
         type: Sequelize.TEXT,

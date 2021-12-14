@@ -16,6 +16,15 @@ const getNotes = async (req, res, next) => {
 
 const postNote = async (req, res, next) => {
     try {
+        const notes = await Note.findAll({
+            where: {
+                UserId: req.user.id
+            }
+        })
+        notes.forEach(note => {
+            if (note.title === req.body.title) throw { name: 'UniqueTitle' }
+        })
+
         const newNote = await Note.create({
             title: req.body.title,
             content: req.body.content,

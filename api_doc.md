@@ -79,7 +79,7 @@ OR
 }
 OR
 {
-  "message": "Email must be unique"
+  "message": "Email has already been taken"
 }
 OR
 {
@@ -135,7 +135,7 @@ _Response (401 - Unauthorized)_
 ## 3. GET /notes
 
 Description:
-- Fetch all notes from database
+- Fetch all notes from database for user who is currently logged in
 
 Request:
 
@@ -236,7 +236,7 @@ _Response (201 - Created)_
 ## 6. DELETE /notes/:id
 
 Description:
-- Delete a note
+- Delete a note (needs authorization)
 
 Request:
 
@@ -266,7 +266,7 @@ _Response (404 - Not Found)_
 ## 7. PUT /notes/:id
 
 Description:
-- Update a note
+- Update a note (needs authorization)
 
 Request:
 
@@ -311,7 +311,7 @@ _Response (404 - Not Found)_
 ## 8. PATCH /notes/:id
 
 Description:
-- Update a note's status
+- Update a note's status (needs authorization)
 
 Request:
 

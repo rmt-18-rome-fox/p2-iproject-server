@@ -29,6 +29,9 @@ const errorHandler = (err, req, res, next) => {
         case 'MaxWIP':
             res.status(400).json({ message: 'You currently have too much work!' });
             break;
+        case 'UniqueTitle':
+            res.status(400).json({ message: 'You already have this note before!' });
+            break;
         default:
             res.status(500).json(err);
             break;
