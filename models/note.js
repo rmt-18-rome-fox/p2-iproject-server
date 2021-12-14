@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Note.hasMany(models.NoteLabel, { foreignKey: 'NoteId' });
       Note.belongsTo(models.User, { foreignKey: 'UserId' });
     }
   };
@@ -34,17 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'Fresh',
       validate: {
         notNull: { msg: 'Status is required' },
         notEmpty: { msg: 'Status is required' }
-      }
-    },
-    label: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'Label is required' },
-        notEmpty: { msg: 'Label is required' }
       }
     },
     UserId: {

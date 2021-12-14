@@ -1,5 +1,4 @@
 const errorHandler = (err, req, res, next) => {
-    console.log('Error handler');
     console.log(err, '<<< ERROR HANDLER');
 
     switch (err.name) {
@@ -15,11 +14,17 @@ const errorHandler = (err, req, res, next) => {
         case 'SequelizeValidationError':
             res.status(400).json({ message: err.errors[0].message });
             break;
+        case 'SequelizeUniqueConstraintError':
+            res.status(400).json({ message: err.errors[0].message });
+            break;
         case 'JsonWebTokenError':
             res.status(401).json({ message: 'Invalid token' });
             break;
         case 'NotFound':
             res.status(404).json({ message: 'Content not found' });
+            break;
+        case 'MaxWIP':
+            res.status(400).json({ message: 'You currently have too much work!' });
             break;
         default:
             res.status(500).json(err);

@@ -2,7 +2,11 @@ const { Note } = require('../models');
 
 const getNotes = async (req, res, next) => {
     try {
-        const notes = await Note.findAll();
+        const notes = await Note.findAll({
+            where: {
+                UserId: req.user.id
+            }
+        });
 
         res.status(200).json(notes);
     } catch (err) {
@@ -14,9 +18,7 @@ const postNote = async (req, res, next) => {
     try {
         const newNote = await Note.create({
             title: req.body.title,
-            status: req.body.status,
             content: req.body.content,
-            label: req.body.label,
             UserId: req.user.id
         });
 
@@ -25,7 +27,6 @@ const postNote = async (req, res, next) => {
             title: newNote.title,
             content: newNote.content,
             status: newNote.status,
-            label: newNote.label,
             UserId: newNote.UserId
         })
     } catch (err) {
@@ -90,6 +91,23 @@ const patchNote = async (req, res, next) => {
     try {
         const note = await Note.findByPk(+req.params.id);
         if (!note) throw { name: 'NotFound' };
+        let noteCounter = 0;
+
+        const notes = await Note.findAll({
+            where: {
+                UserId: req.user.id
+            }
+        })
+
+        notes.forEach(note => {
+            if (note.status === 'Work in progress') {
+                noteCounter++;
+
+                if (noteCounter >= 3) {
+                    throw { name: 'MaxWIP' }
+                }
+            }
+        })
 
         await Note.update(
         {

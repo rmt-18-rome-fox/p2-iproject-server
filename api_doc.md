@@ -350,6 +350,13 @@ _Response (404 - Not Found)_
 }
 ```
 
+_Response (400 - Bad Request)_
+```json
+{
+  "message": "You currently have too much work!"
+}
+```
+
 &nbsp;
 
 ## Global Error
