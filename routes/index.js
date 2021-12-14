@@ -29,8 +29,6 @@ route.post('/register', register);
 route.post('/login', login);
 route.get('/products', fetchAllProducts);
 
-
-
 //admin
 route.post('/cms/register', adminRegister);
 route.post('/cms/login', adminLogin);
