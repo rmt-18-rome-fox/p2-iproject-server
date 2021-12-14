@@ -84,6 +84,23 @@ class Controller {
             })
             .catch(err => next(err)) 
     }
+
+    static postBook(req,res,next) {
+        const payload = convertPayLoad(req.headers.access_token)
+        console.log(getDateWithoutTime(req.body.dateStart))
+        Booking.create({
+            dateStart: req.body.dateStart,
+            dateEnd: req.body.dateEnd,
+            userId: payload.id,
+            carId: req.params.carId 
+        })
+            .then(data => res.status(201).send(data))
+            .catch(err => next(err))
+    }
+}
+
+function getDateWithoutTime(date) {
+    return require('moment')(date).format('YYYY-MM-DD');
 }
 
 module.exports = { Controller }
