@@ -21,5 +21,6 @@ const architectAuthorization = (req, res, next) => {
 }
 
 module.exports = {
-    customerAuthorization
+    customerAuthorization,
+    architectAuthorization
 }
