@@ -10,13 +10,19 @@ module.exports = {
       },
       post: {
         allowNull: false,
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       like: {
         type: Sequelize.INTEGER
       },
       imageUrl: {
         type: Sequelize.STRING
+      },
+      locationLatitude: {
+        type: Sequelize.FLOAT
+      },
+      locationLongitude: {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,

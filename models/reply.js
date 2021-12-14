@@ -10,16 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Reply.belongsTo(models.UserTopic, {
-        foreignKey: `UserTopicId`
-      })
+      // define association here
     }
   };
   Reply.init({
-    post: DataTypes.TEXT,
+    post: DataTypes.STRING,
     like: DataTypes.INTEGER,
     imageUrl: DataTypes.STRING,
-    UserTopicId: DataTypes.INTEGER
+    TopicId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Reply',
