@@ -23,7 +23,14 @@ class ControllerUser {
       };
       const access_token = signToken(payload);
 
-      res.status(200).json({ access_token });
+      const userData = {
+        id: user.id,
+        name: user.name,
+        cityId: user.CityId,
+        cityName: user.cityName,
+      };
+
+      res.status(200).json({ access_token, userData });
     } catch (error) {
       next(error);
     }

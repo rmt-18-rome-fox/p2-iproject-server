@@ -66,7 +66,7 @@ function errorHandler(err, req, res, next) {
         .json({ message: "Published Year field must not be empty" });
       break;
     default:
-      res.status(500).json({ message: err });
+      res.status(500).json({ message: err.message });
       break;
   }
 }
