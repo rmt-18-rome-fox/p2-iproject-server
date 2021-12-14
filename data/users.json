@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Johannes",
+    "email": "johannes@gmail.com",
+    "password": "password",
+    "role": "customer",
+    "CityId": 1,
+    "cityName": "Aceh Barat"
+  },
+  {
+    "id": 2,
+    "name": "Udine",
+    "email": "udine@gmail.com",
+    "password": "password",
+    "role": "seller",
+    "CityId": 1,
+    "cityName": "Aceh Barat"
+  }
+]
