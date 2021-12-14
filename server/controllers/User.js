@@ -4,12 +4,9 @@ const {User} = require("../models")
 module.exports = class UserAccount {
   static register = async(req,res,next) =>{
     try {
-      const {name, username, password, email, phoneNumber, address} = req.body
-      const input = {name, username, password, email, phoneNumber, address}
+      const {name, username, password, email, phoneNumber, address, status} = req.body
+      const input = {name, username, password, email, phoneNumber, address, status}
       const respond = await User.create (input)
-      if (!respond) {
-        next({name : "badRequest"})
-      }
       res.status(201).json({
         id: respond.id,
         email: respond.email

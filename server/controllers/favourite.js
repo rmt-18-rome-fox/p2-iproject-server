@@ -55,6 +55,4 @@ module.exports = class FavouriteFood {
       next(err)
     }
   }
-
-
 }

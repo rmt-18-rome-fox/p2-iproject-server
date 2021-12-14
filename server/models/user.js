@@ -71,6 +71,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'Please enter your address'},
       }
     },
+    status: {
+      type : DataTypes.STRING,
+      defaultValue: "Regular",
+    },
   }, {
     sequelize,
         hooks: {
