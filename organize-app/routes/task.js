@@ -3,9 +3,13 @@ const TaskController = require('../controllers/task')
 const authentication = require('../middleware/authentication')
 const authorization = require('../middleware/authorization')
 
+// const multer = require('multer')
+// const upload = multer({ dest: 'uploads/' })
+
 router.use(authentication)
 router.get('/', TaskController.allTasks)
 router.post('/', TaskController.addTask)
+// router.post('/upload', upload.single('image'), TaskController.postCloudinary)
 router.get('/:id', authorization, TaskController.taskById)
 router.put('/:id', authorization, TaskController.editTask)
 router.delete('/:id', authorization, TaskController.deleteTask)

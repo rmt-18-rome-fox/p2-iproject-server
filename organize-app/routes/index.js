@@ -7,6 +7,7 @@ const errorHandlers = require('../middleware/errorHandlers')
 router.use('/', user)
 router.use('/categories', category)
 router.use('/tasks', task)
+
 router.use(errorHandlers)
 
 module.exports = router
