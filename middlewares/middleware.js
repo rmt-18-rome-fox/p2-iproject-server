@@ -1,5 +1,5 @@
 const { verifyToken } = require('../helpers/jwt')
-const { User, Movie } = require('../models')
+const { User, Product } = require('../models')
 
 class Middleware {
     static async authenticate(req, res, next) {
@@ -41,10 +41,10 @@ class Middleware {
             const { token } = req.headers
             // console.log(req.headers);
             const payload = verifyToken(token)
-            const movieId = +req.params.id
+            const productId = +req.params.id
             const idnyaUser = req.user.id
-            const movie = await Movie.findByPk(movieId)
-            if (!movie) {
+            const product = await Product.findByPk(productId)
+            if (!product) {
                 throw { name: "notFound" }
             }
             const user = await User.findOne({
@@ -55,9 +55,7 @@ class Middleware {
                 }
             })
             if (user.role !== 'Admin') {
-                if (movie.AuthorId !== idnyaUser) {
                     throw { name: "forbidden" }
-                }
             }
             next()
         } catch (err) {
