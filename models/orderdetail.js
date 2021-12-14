@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      OrderDetail.belongsTo(models.User, { foreignKey: 'UserId' }); //HASMANY
-      OrderDetail.belongsTo(models.CoffeePowder, { foreignKey: 'CoffeeId' }); //HASMANY
+      // OrderDetail.belongsTo(models.User, { foreignKey: 'UserId' }); //HASMANY
+      // OrderDetail.belongsTo(models.CoffeePowder, { foreignKey: 'CoffeeId' }); //HASMANY
     }
   }
   OrderDetail.init(
@@ -37,6 +37,14 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       orderStatus: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      orderId: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {

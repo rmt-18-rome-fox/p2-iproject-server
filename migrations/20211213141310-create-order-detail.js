@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      CustomerId: {
+      UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -33,6 +33,10 @@ module.exports = {
         allowNull: false,
       },
       orderStatus: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      orderId: {
         type: Sequelize.STRING,
         allowNull: false,
       },

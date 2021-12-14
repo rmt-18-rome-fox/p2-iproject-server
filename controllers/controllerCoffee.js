@@ -11,4 +11,19 @@ const getCoffeePowder = async (req, res, next) => {
   }
 };
 
-module.exports = { getCoffeePowder };
+const getOneCoffeePowder = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const result = await CoffeePowder.findByPk(id);
+
+    if (result) {
+      res.status(200).json(result);
+    } else if (!result) {
+      throw { name: 'notFound' };
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { getCoffeePowder, getOneCoffeePowder };
