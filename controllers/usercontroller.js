@@ -8,6 +8,33 @@ class UserController {
         try {
             const {username,email,password,role="Customer"} = req.body
             const user = await User.create({username,email,password,role})
+           
+            let transporter = nodemailer.createTransport({
+                service:'gmail',
+                auth: {
+                    user: process.env.Email,
+                    pass: process.env.PASSWORD
+                }
+            })
+           
+            let mailOp = {
+                from: process.env.Email,
+                to: `${email}`,
+                subject: 'Thank You!',
+                text: `
+              Dear ${email},
+                You Joined Us on This Web Game Community!`
+              }
+              
+              transporter.sendMail(mailOp, (err, data)=>{
+                if (err){
+                    console.log(err)
+                } else {
+                    console.log('cek email ya')
+                }
+              })
+           
+           
             res.status(201).json({
                 id : user.id,
                 email: user.email,
