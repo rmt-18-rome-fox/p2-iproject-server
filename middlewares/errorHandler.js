@@ -45,6 +45,26 @@ function errorHandler(err, req, res, next) {
     case "uniqueBookValidation":
       res.status(404).json({ message: "Book has been added to cart" });
       break;
+    case "emptyTitle":
+      res.status(400).json({ message: "Title field must not be empty" });
+      break;
+    case "emptyAuthor":
+      res.status(400).json({ message: "Author field must not be empty" });
+      break;
+    case "emptyGenre":
+      res.status(400).json({ message: "Genre field must not be empty" });
+      break;
+    case "emptyPrice":
+      res.status(400).json({ message: "Price field must not be empty" });
+      break;
+    case "emptyImageUrl":
+      res.status(400).json({ message: "Image Url field must not be empty" });
+      break;
+    case "emptyPublishedYear":
+      res
+        .status(400)
+        .json({ message: "Published Year field must not be empty" });
+      break;
     default:
       res.status(500).json({ message: err });
       break;

@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      publishedDate: {
+      publishedYear: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
