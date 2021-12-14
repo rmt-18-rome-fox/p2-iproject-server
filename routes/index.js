@@ -20,19 +20,24 @@ const route = require(`express`).Router();
 // const { register, login } = require(`../controllers/adminController`);
 // const { customerRegister, customerLogin } = require(`../controllers/customerController`);
 // const { googleAuth } = require(`../controllers/auths`);
-// const { authentication, authorization, slideUrl } = require("../middleware/middleware");
-const { register, login, fetchAllProducts, fetchOrderProduct } = require('../controllers/userController');
+const { authentication, authorization } = require("../middlewere/auth");
+const { register, login, fetchAllProducts, fetchOrderProduct, addOrderItem, checkout } = require('../controllers/userController');
 const { adminRegister, adminLogin } = require('../controllers/adminController');
 const errorsLog  = require("../middlewere/errorHandler");
-//customer
-route.post('/register', register);
-route.post('/login', login);
-route.get('/products', fetchAllProducts);
-route.get('/order', fetchOrderProduct);
 
 //admin
 route.post('/cms/register', adminRegister);
 route.post('/cms/login', adminLogin);
+
+//customer
+route.post('/register', register);
+route.post('/login', login);
+route.get('/products', fetchAllProducts);
+
+route.get('/order', [authentication, authorization] , fetchOrderProduct);
+route.get('/checkout', [authentication, authorization] , checkout);
+route.post('/order/:productId', [ authentication, authorization], addOrderItem);
+
 
 // ===CUSTOMER======
 
