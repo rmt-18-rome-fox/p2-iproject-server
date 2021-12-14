@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: false }))
 
 app.post('/register', Controller.register)
 app.post('/login', Controller.login)
+app.post('/car', Controller.postCard)
 
 app.use(errorHandler)
 
