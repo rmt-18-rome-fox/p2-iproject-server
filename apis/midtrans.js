@@ -97,6 +97,12 @@ let requestSnapToken = async (req, res, next) => {
             ammount: parameter.transaction_details.gross_amount
         })
 
+        const removeAllItems = await OrderProduct.destroy({
+            where: {
+                UserId: req.auth.id,
+            }
+        })
+
         let transporter = nodemailer.createTransport({
             service:  'gmail', 
             auth: {
