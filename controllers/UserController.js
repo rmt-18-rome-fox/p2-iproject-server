@@ -35,7 +35,7 @@ const register = async (req, res, next) => {
     const { email, password, role } = req.body
     console.log(email, password, role)
     try {
-        if (role !== 'architect' && role !== 'user' && role !== 'admin') {
+        if (role !== 'architect' && role !== 'customer' && role !== 'admin') {
             throw { name: 'ROLE_INVALID' }
         } else {
             const newUser = await User.create({ email, password, role })
@@ -44,6 +44,16 @@ const register = async (req, res, next) => {
                 email: newUser.email,
                 role: newUser.role
             }
+
+            Profile.create({
+                name: null,
+                phoneNumber: null,
+                description: null,
+                imageUrl: null,
+                address: null,
+                price: null,
+                UserId: newUser.id
+            })
             res.status(201).json(output)
         }
     } catch (err) {

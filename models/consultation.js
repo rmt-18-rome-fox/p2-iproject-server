@@ -20,56 +20,56 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'Schedule Date is required'},
+        notNull: {msg: 'Schedule Date is required'}
       }
     },
-    scheduleHour: {
-      type: DataTypes.DATE,
+    session: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'Session is required'},
+        notNull: {msg: 'Session is required'}
       }
     },
     ArchitectId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'ArchitedId is required'},
+        notNull: {msg: 'ArchitedId is required'}
       }
     },
     CustomerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'CustomerId is required'},
+        notNull: {msg: 'CustomerId is required'}
       }
     },
     notes: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'Notes is required'},
+        notNull: {msg: 'Notes is required'}
       }
     },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'Price is required'},
+        notNull: {msg: 'Price is required'}
       }
     },
     status: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        notNull: true
+        notEmpty: {msg: 'Status is required'},
+        notNull: {msg: 'Status is required'}
       }
     }
   }, {

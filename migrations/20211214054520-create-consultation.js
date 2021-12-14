@@ -12,8 +12,8 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false
       },
-      scheduleHour: {
-        type: Sequelize.STRING,
+      session: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       ArchitectId: {

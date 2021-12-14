@@ -10,7 +10,7 @@ router.post('/register', register)
 
 router.use(authentication)
 // router.use('/admin', adminRouter)
-// router.use('/architect', architectRouter)
+router.use('/architect', architectRouter)
 router.use('/customer', customerRouter)
 
 module.exports = router

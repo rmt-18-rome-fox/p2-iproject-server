@@ -23,6 +23,9 @@ module.exports = {
       address: {
         type: Sequelize.STRING
       },
+      price: {
+        type: Sequelize.INTEGER
+      },
       UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
