@@ -9,6 +9,16 @@ class Controller {
             .catch(err => next(err))
     }
 
+    static login(req, res, next) {
+        const { email, password } = req.body
+        User.findOne({ email: req.body.email })
+            .then(data => {
+                const isValid = bcryptCompare(req.body.password, data.password)
+                if(!isValid) throw {message: 'Invalid Password'}
+                // res.status(201).json({ id: data.id, email: data.email })
+            })
+            .catch(err => next(err))
+    }
 }
 
 module.exports = { Controller }
