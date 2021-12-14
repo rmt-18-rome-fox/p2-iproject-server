@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User,Hero } = require('../models')
 const bcrypt = require('bcrypt')
 const {signToken} = require('../helpers/jwt')
 
@@ -59,5 +59,18 @@ const login = async(req,res,next)=>{
     }
 }
 
+const addHero = async(req,res,next) => {
+    try {
+        
+        
+        const { name, location, imgUrl, date} = req.body
+        const result = await Hero.create({ name, location, imgUrl, date })  
+        res.status(201).json(result)
 
-module.exports = {register,login}
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+module.exports = {register,login,addHero}
