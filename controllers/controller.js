@@ -26,7 +26,6 @@ class Controller {
                     res.status(200).json({ access_token })
                 } else { message: "Password tidak valid" }
             })
-            .catch(err => next(err))
     }
 
     static postCar(req, res, next) {
