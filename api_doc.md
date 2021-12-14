@@ -203,6 +203,36 @@ _Response (201 - Created)_
 
 &nbsp;
 
+## 4. DELETE /notes/:id
+
+Description:
+- Delete a note
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string"
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Note with id (note id) has been deleted"
+}
+```
+
+_Response (404 - Not Found)_
+```json
+{
+  "message": "Content not found"
+}
+```
+
+&nbsp;
+
 ## Global Error
 
 _Response (401 - Unauthorized)_

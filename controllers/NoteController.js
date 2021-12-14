@@ -53,4 +53,23 @@ const deleteNote = async (req, res, next) => {
     }
 }
 
-module.exports = { getNotes, postNote, deleteNote };
+const putNote = async (req, res, next) => {
+    try {
+        await Note.update(
+        {
+            title: req.body.title,
+            content: req.body.content
+        },
+        {
+            where: {
+                id: +req.params.id
+            }
+        })
+
+        res.status(200).json(`Note has been successfully updated!`);
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { getNotes, postNote, deleteNote, putNote };
