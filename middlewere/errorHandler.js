@@ -29,7 +29,7 @@ const errorLog = (err, req, res, next) => {
          message = "Product not found"
     }
 
-    console.log(err)
+//     console.log(err)
     res.status(code).json({message})
 
 }
