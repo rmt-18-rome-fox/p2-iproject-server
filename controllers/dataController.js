@@ -34,6 +34,18 @@ class DataController {
             next(err)
         }
     }
+
+    static async getAllChapter (req, res, next) {
+        try {
+            let allSurah = await axios({
+                method: 'GET',
+                url: `${API_URL}/chapters`
+            })
+            res.status(200).json(allSurah.data)
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = DataController
