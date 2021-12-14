@@ -10,6 +10,7 @@ router.post('/login', UserController.login)
 router.use(authentication)
 
 router.get('/juzz', DataController.getAllJuzz)
+router.get('/juzz/:juzsNumber', DataController.getAyahByJuzs)
 
 router.use(errorHandler)
 
