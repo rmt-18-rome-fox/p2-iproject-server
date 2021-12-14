@@ -16,6 +16,17 @@ const errorLog = (err, req, res, next) => {
                 err.name === `ADMIN_NOT_FOUND`) {
         code = 401
         message = "Invalid email/password"
+    } else if (err.name === `NO_TOKEN` || 
+               err.name === `INVALID_TOKEN ` ){
+         code = 401
+         message = "Invalid token"
+    } else if (err.name === `FORBIDDEN`){
+         code = 403
+         message = "Invalid access"
+    } else if (     err.name === `PRODUCT_NOT_FOUND` || 
+                    err.name === `NO_PRODUCT_TO_ADD`) {
+         code = 404
+         message = "Product not found"
     }
 
     console.log(err)
