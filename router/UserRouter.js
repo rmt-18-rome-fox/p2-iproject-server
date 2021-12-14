@@ -19,4 +19,6 @@ user.get('/profile',
   UserController.getProfile
 )
 
+user.put('/profile/:id')
+
 module.exports = user

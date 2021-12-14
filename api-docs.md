@@ -63,12 +63,14 @@ List of available endpoints:
 - `POST/Register` 
 - `POST/login`
 - `POST/profiles`
-- `PUT/profiles`
 - `GET/profile`
+
 - `GET/posts`
+- `PUT/profile/:id`
 - `POST/post`
 - `PUT/post/:id`
 - `POST/organization`
+- `PUT/organization`
 - `POST/payment-status`
 
 ## 1. POST /register
