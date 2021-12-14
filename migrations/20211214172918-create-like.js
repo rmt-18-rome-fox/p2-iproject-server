@@ -1,28 +1,28 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Matches', {
+    await queryInterface.createTable('Likes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      FootballClubId: {
+      UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'FootballClubs',
+          model: 'Users',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      ScheduleId: {
+      PostId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Schedules',
+          model: 'Posts',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -39,6 +39,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Matches');
+    await queryInterface.dropTable('Likes');
   }
 };

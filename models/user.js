@@ -61,6 +61,14 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {msg: 'Username is required'},
       }
     },
+    profilePict: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
+    },
   }, {
     hooks: {
       beforeCreate: (user) => {
