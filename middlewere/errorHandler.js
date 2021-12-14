@@ -38,8 +38,6 @@ const errorLog = (err, req, res, next) => {
          message = "you just close the tab, please checkout again"
     }
 
-    console.log(err)
-
     res.status(code).json({message})
 
 }
