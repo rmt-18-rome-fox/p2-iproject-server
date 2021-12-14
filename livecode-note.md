@@ -71,3 +71,13 @@ jangan lupa npm i axios di client
         "developer": "Phoenix Labs, Iron Galaxy",
         "release_date": "2019-05-21",
     }
+
+
+PORT = 10000
+TOKEN = SECRETKEY
+
+APIURL = https://free-to-play-games-database.p.rapidapi.com/api/games
+APIHOST = free-to-play-games-database.p.rapidapi.com
+APIKEY = a0fd5fdf04msha9dde7e4ff273a1p10644fjsn1b7f916cb262
+APIID = 452
+
