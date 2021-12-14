@@ -5,6 +5,7 @@
 List of available endpoints:
 ​
 - `POST /register`
+- `POST /login`
 
 
 &nbsp;
@@ -28,6 +29,26 @@ _Response (201 - Created)_
   "id": "integer",
   "username": "string",
   "email": "string"
+}
+```
+
+&nbsp;
+## 2. POST /login
+
+Request:
+
+- body:
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+_Response (200 - Ok)_
+```json
+{
+  "access_token": "string",
 }
 ```
 
