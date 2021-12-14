@@ -10,7 +10,7 @@ module.exports = {
       },
       post: {
         allowNull: false,
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       like: {
         type: Sequelize.INTEGER
@@ -18,10 +18,17 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING
       },
-      UserTopicId: {
+      TopicId: {
         type: Sequelize.INTEGER,
         references: {
-          model: `UserTopics`,
+          model: `Topics`,
+          key: `id`
+        }
+      },
+      UserId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: `Users`,
           key: `id`
         }
       },

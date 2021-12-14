@@ -10,22 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Topic.belongsToMany(models.User, {
-        through: `UserTopic`
-        // foreignKey: `TopicId`,
-        // targetKey: `id`
-        // through: models.UserTopic,
-      })
-      // Topic.hasMany(models.UserTopic, {
-      //   // through: `UserTopic`,
-      //   foreignKey: `TopicId`
-      // })
+      // define association here
     }
   };
   Topic.init({
-    post: DataTypes.TEXT,
+    post: DataTypes.STRING,
     like: DataTypes.INTEGER,
-    imageUrl: DataTypes.STRING
+    imageUrl: DataTypes.STRING,
+    locationLatitude: DataTypes.FLOAT,
+    locationLongitude: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Topic',
