@@ -33,6 +33,7 @@ _Response (201 - Created)_
 ```
 
 &nbsp;
+
 ## 2. POST /login
 
 Request:
@@ -49,6 +50,36 @@ _Response (200 - Ok)_
 ```json
 {
   "access_token": "string",
+}
+```
+
+&nbsp;
+
+## 3. GET /juzz
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string" 
+}
+```
+
+_Response (200 - Ok)_
+```json
+{
+  "juzs": [
+    {
+      "id": 1,
+      "juz_number": "integer",
+      "verse_mapping": "object",
+      "first_verse_id": "integer",
+      "last_verse_id": "integer",
+      "verses_count":"integer"
+    },
+    ...
+  ]
 }
 ```
 
