@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Hamster",
+        "price": 500000,
+        "quantity": 3,
+        "imgUrl": "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80",
+        "summary": "Brown Hamster"
+    },
+    {
+        "name": "Puppy Pug",
+        "price": 3200000,
+        "quantity": 3,
+        "imgUrl": "https://images.unsplash.com/photo-1453227588063-bb302b62f50b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "summary": "Sad pug, need some warmth"
+    }
+]
