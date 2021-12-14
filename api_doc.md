@@ -175,7 +175,37 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 4. POST /notes
+## 4. GET /notes/:id
+
+Description:
+- Fetch a note from database
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "id": 5,
+  "title": "Bug 1",
+  "content": "Content bug 1",
+  "status": "To-solve",
+  "label": "Open",
+  "UserId": 1,
+  "createdAt": "2021-12-14T07:11:47.106Z",
+  "updatedAt": "2021-12-14T07:11:47.106Z"
+}
+```
+
+&nbsp;
+
+## 5. POST /notes
 
 Description:
 - Add new notes
@@ -203,7 +233,7 @@ _Response (201 - Created)_
 
 &nbsp;
 
-## 5. DELETE /notes/:id
+## 6. DELETE /notes/:id
 
 Description:
 - Delete a note
@@ -233,7 +263,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 6. PUT /notes/:id
+## 7. PUT /notes/:id
 
 Description:
 - Update a note
@@ -278,7 +308,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 6. PATCH /notes/:id
+## 8. PATCH /notes/:id
 
 Description:
 - Update a note's status

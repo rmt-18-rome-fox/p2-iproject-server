@@ -33,6 +33,17 @@ const postNote = async (req, res, next) => {
     }
 }
 
+const getNoteById = async (req, res, next) => {
+    try {
+        const result = await Note.findByPk(+req.params.id);
+        if (!result) throw { name: 'NotFound' };
+        
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+}
+
 const deleteNote = async (req, res, next) => {
     try {
         const note = await Note.findByPk(+req.params.id);
@@ -96,4 +107,4 @@ const patchNote = async (req, res, next) => {
     }
 }
 
-module.exports = { getNotes, postNote, deleteNote, putNote, patchNote };
+module.exports = { getNotes, postNote, getNoteById, deleteNote, putNote, patchNote };
