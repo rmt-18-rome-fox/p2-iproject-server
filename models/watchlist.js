@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {msg: "Is Required"},
+        notNull: {msg: "User Id is Required"},
         notEmpty: {msg: "Cannot Be Empty"},
       }
     },
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {msg: "Is Required"},
+        notNull: {msg: "Jikan Anime Id is Required"},
         notEmpty: {msg: "Cannot Be Empty"},
       }
     }
