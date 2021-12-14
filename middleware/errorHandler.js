@@ -13,7 +13,7 @@ const errorHandler = (err,req,res,next)=>{
             errMessage = err.errors[0].message
             break;
 
-        case "PostNotFound":
+        case "NoGame":
             code = 404
             errMessage = "Error Post Not Found"
             break;
@@ -22,7 +22,7 @@ const errorHandler = (err,req,res,next)=>{
             code = 400
             errMessage = "Please insert email and password"
             break;
-            
+
         case "wrong":
             code = 401
             errMessage = "wrong password/email"
