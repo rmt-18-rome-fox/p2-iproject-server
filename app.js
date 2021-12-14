@@ -14,6 +14,7 @@ app.post('/register', Controller.register)
 app.post('/login', Controller.login)
 
 app.post('/car', authentication, Controller.postCar)
+app.put('/car/:id', authentication, Controller.editCar)
 
 app.use(errorHandler)
 

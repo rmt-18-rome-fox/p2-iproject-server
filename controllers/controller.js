@@ -31,17 +31,26 @@ class Controller {
 
     static postCar(req, res, next) {
         const payload = convertPayLoad(req.headers.access_token)
+        const userId = payload.id
         const { name, brand, year, price, imageUrl } = req.body
-        Car.create({ 
-            name: name,
-            brand: brand,
-            year: year,
-            price: price,
-            imageUrl: imageUrl,
-            userId: payload.id
-         })
+        Car.create({ name, brand, year, price, imageUrl, userId })
             .then(data => {
                 res.status(201).send(data)
+            })
+            .catch(err => next(err))
+    }
+
+    static editCar(req, res, next) {
+        const payload = convertPayLoad(req.headers.access_token)
+        const userId = payload.id
+        const id = req.params.id
+        const { name, brand, year, price, imageUrl } = req.body
+        Car.update({ name, brand, year, price, imageUrl, userId }, { where: { id } })
+            .then(data => {
+                Car.findOne({ where: { id } })
+                    .then(data => {
+                        res.status(200).json(data)
+                    })
             })
             .catch(err => next(err))
     }
