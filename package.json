@@ -1,0 +1,29 @@
+{
+  "name": "tetangga-service",
+  "version": "1.0.0",
+  "description": "Servce Service for Tetangga App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariesastra/p2-iproject-server.git"
+  },
+  "author": "Arie Sastra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ariesastra/p2-iproject-server/issues"
+  },
+  "homepage": "https://github.com/ariesastra/p2-iproject-server#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-alpha.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.3.0"
+  }
+}
