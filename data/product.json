@@ -1,0 +1,151 @@
+[
+    {
+        "name": "N-ISO Whey Protein Hydrolyzed Isolated 100%",
+        "description": "READY STOCK!\n\nEXPIRED DATE : APRIL 2024\n\nWHEY PROTEIN HYDROLIZED ISOLATE 100% (PALING BAGUS QUALITASNYA DIANTARA SEMUA BRAND YANG ADA)\n\nREADY RASA : Chocolate / Vanilla / Cookies n Cream.\n\nserving size : 75-79serv \n1serv = 28-29gram\nProtein 25gram\nFat : 0,5 gram\ncarb : 3 gram\nsugar : 0 gram\n\n*100% Pure Hydrolyzed Whey Protein Isolate\n*Absolute Cleanest, Purest & Fastest Absorbing Protein Source\n*Ultimate Rapid Recovery Protein for Serious Athletes\n*Rich in Naturally Occurring BCAAs for Maximum Muscle Response\n*Sugar Free, Lactose Free, No Artificial Colors\n*Gluten Free & Banned Substance Free\n*Gourmet Award Winning Flavors\n",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/ANS-Hidro_OswgL4fMl.jpeg",
+        "weight": 5,
+        "stock": 10,
+        "price": 1300000,
+        "CategoryId": 1,
+        "UserId": 1
+    },
+    {
+        "name": "Muscletech Nitrotech Whey Gold",
+        "description": "Muscletech Nitrotech 100% Whey Gold adalah series Nitro-Tech dengan rasa paling enak. mengandung 24 gram protein ultra premium, 5.5gram Bcaa serta 4gram glutamin.\n\nCara Konsumsi : 1 atau 2 serving (2scoop) dicampur dengan 350ml air / air dingin diminum 30 menit sebelum latihan dan sesudah latihan atau bareng dengan makan\n\nGoal :\n- Membentuk Otot Bebas Lemak\n- Mendukung Program Fatloss / Cutting / diet ketat jelang kontes",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/NitroTechWheyGold_UMxhd0m5b.jpeg",
+        "weight": 5.5,
+        "stock": 10,
+        "price": 870000,
+        "CategoryId": 1,
+        "UserId": 1
+    },
+    {
+        "name": "DYMATIZE ISO100",
+        "description": "Dymatize iso 100 merupakan protein isolate terbaik di kelasnya yang mengandung 100% Hydrolyzed Whey Protein Isolate yang berkualitas tinggi yang sudah teruji kemurniannya. Formula ini mengandung 24 gram protein hydrolized cepat serap, bebas karbo, gula, kolesterol, dan laktosa. Juga dilengkapi dengan kandungan BCAa yang sangat lengkap untuk membantu mencegah terjadinya katabolic pada otot. Dymatize iso 100 sangat cocok digunakan pada proses cutting.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/Dymatize100_A5LNqDvzh.jpg",
+        "weight": 5,
+        "stock": 10,
+        "price": 870000,
+        "CategoryId": 1,
+        "UserId": 1
+    },
+    {
+        "name": "Bodylogix Whey Protein Isolate",
+        "description": "Whey protein Isolate dari BODYLOGIX, melewati proses Ultra Fitrasi dan bersumber dari Sapi GRASS FED (pemakan rumput)\nSelain tinggi protein, whey isolate bodylogix juga sangat cocok di konsumsi untuk orang yang concern terhadap Pewarna/Pemanis/Perasa Buatan. Whey ini sangat sehat karena tidak mengandung 3 bahan diatas.\nSelain itu juga Whey ini sangat cocok untuk diet karena mengandung CLA 3X lebih banyak dibanding whey pada umumnya.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/Bodylogix_aA2dhP9z7.jpeg",
+        "weight": 4,
+        "stock": 10,
+        "price": 1050000,
+        "CategoryId": 1,
+        "UserId": 1
+    },
+    {
+        "name": "Muscle Juice 2544",
+        "description": "Tinggi kalori (1020 Sekali Serving)\nTinggi protein (55gr Sekali Serving)\nProtein Ratio 22%\nBisa sampai 9 serving\nTinggi karbo 152gr\nMembantu menaikan massa otot dan berat badan\n\nCara Pakai : 2 scoop pagi dan 2 scoop setelah latihan dengan air 600-700ml\n",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/MuscleJuice2544_EWt12_5f0.jpeg",
+        "weight": 5,
+        "stock": 10,
+        "price": 550000,
+        "CategoryId": 2,
+        "UserId": 1
+    },
+    {
+        "name": "Carnivor Mass ",
+        "description": "Tinggi kalori (720 Sekali Serving)\nTinggi protein (50 gr Sekali Serving)\nServing hanya 194gr (4 Scoop)\nMengandung Bcaa,glutamine dan Creatine\nMembantu Menambah Massa Otot dan Berat Badan\n0 Fat 0 Sugar\nLactose dan Gluten Free\nTinggi Karbohidrat 125g\nSudah BPOM (Aman Dikonsumsi)\n\nCara Pakai : 2 scoop pagi dengan air 600-700ml dan 2 scoop setelah latihan.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/CarnivorMass_WGjs8RAvi.jpeg",
+        "weight": 5.6,
+        "stock": 10,
+        "price": 550000,
+        "CategoryId": 2,
+        "UserId": 1
+    },
+    {
+        "name": "MUSCLETECH MASSTECH",
+        "description": "Tinggi kalori (840 Sekali Serving)\nTinggi protein (63 gr Sekali Serving)\nBisa sampai 14 Serving\nSudah Mengadung BCAA\nMembantu Menambah Massa Otot dan Berat Badan\nTinggi Karbohidrat 131g\nProtein Ratio 27%\nAman dikonsumsi (Sudah BPOM)\n\nCara Pakai : 2 ½ scoop pagi dengan air 600-700ml dan 2 ½ scoop setelah latihan.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/MassTech_zmDg2ZIbM.jpeg",
+        "weight": 7,
+        "stock": 10,
+        "price": 770000,
+        "CategoryId": 2,
+        "UserId": 1
+    },
+    {
+        "name": "Xtend BCAA 90",
+        "description": "SciVation Xtend 90servings merupakan suplemen intra-workout yang dapat dikonsusmi selama Anda berlatih atau melakukan aktivitas olahraga apa saja. Dengan kandungan BCAA serta Vitamin B Kompleks yang tinggi dapat membantu menjaga stamina Anda selama berlatih untuk memperoleh hasil yang maksimal. Selain itu BCAA juga membantu mempercepat pemulihan massa otot.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/xtendBCAA_rP2uNYUme.jpeg",
+        "weight": 2,
+        "stock": 10,
+        "price": 880000,
+        "CategoryId": 3,
+        "UserId": 1
+    },
+    {
+        "name": "PLATINUM BCAA 200tab",
+        "description": "PLATINUM BCAA 8: 1: 1 adalah formula asam amino rantai bercabang yang dirancang dengan rasio BCAA poten 8: 1: 1 (leusin, isoleusin, valin). Tidak seperti pil BCAA lainnya yang menggunakan rasio seperti 3: 1: 2 atau 2: 1: 1, Platinum BCAA 8: 1: 1 menggunakan rasio 8: 1: 1 untuk memuat otot Anda dengan leusin dengan setiap porsi.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/PlatinumBCAA_br6CjziPp.jpg",
+        "weight": 1,
+        "stock": 10,
+        "price": 490000,
+        "CategoryId": 3,
+        "UserId": 1
+    },
+    {
+        "name": "ANS BCAA 5K 240 Caps",
+        "description": "ANS BCAA 5K merupakan suplemen yang digunakan untuk mempercepat pemulihan otot pasca latihan beban. ANS BCAA 5K merupakan suplemen keluaran terbaru dari ANS Performance. ANS BCAA 5K mengandung 5.000 mg BCAA tiap serving dengan komposisi 2:1:1 (L-Leucine : L-Valine : L-Isoleucine) yang merupakan komposisi terbaik dalam BCAA.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/ANSBCAA_wr7wHECwi.jpg",
+        "weight": 1,
+        "stock": 10,
+        "price": 300000,
+        "CategoryId": 3
+    },
+    {
+        "name": "ANS Creatine 60 Serving",
+        "description": "ANS CREATINE MERUPAKAN SATU SATUNYA CREATINE DI INDONESIA YANG SUDAH MENDAPAT PREDIKAT PHARMACEUTICAL GRADE, yang artinya kandungan nya terbukti murni 99 persen\nPharmaceutical grade adalah grade tertinggi dari sebuah makanam yg bs anda konsumsi",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/ANSCreatine_Gu6X9T_41.jpeg",
+        "weight": 1,
+        "stock": 10,
+        "price": 230000,
+        "CategoryId": 4,
+        "UserId": 1
+    },
+    {
+        "name": "Platinum Creatine",
+        "description": "Platinum Creatine Muscletech bekerja sebagai sumber fosfat terhadap otot yang bekerja keras, sehingga membantu Anda untuk latihan lebih panjang. Artinya, Anda dapat menambah ukuran dan kekuatan lebih baik dengan Platinum Creatine Muscletech.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/PlatinumCreatine_3Jcw59EfO.jpeg",
+        "weight": 1,
+        "stock": 10,
+        "price": 350000,
+        "CategoryId": 4,
+        "UserId": 1
+    },
+    {
+        "name": "Nitraflex GAT",
+        "description": "Dengan mengkonsumsi Nitraflex GAT dapat meningkatkan power dan stamina serta meningkatkan hormon testoteron anda secara alami tanpa ada efek samping. Dengan power dan stamina yang meningkat, akan membantu anda mendapatkan perkembangan otot anda lebih optimal. ",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/NitraFlexCreatine_s5-oJvUBT.jpg",
+        "weight": 1,
+        "stock": 10,
+        "price": 500000,
+        "CategoryId": 5,
+        "UserId": 1
+    },
+    {
+        "name": "The Curse Pre Workout 50",
+        "description": "Tambah fokus dan kekuatan anda dengan kekuatan supranatural dari The Curse! Campuran stimulan sinergis yang memberikan fokus mental yang ekstrem, energi fisik murni, kekuatan, dan daya tahan Anda.",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/TheCurse_MoxhhH9da.jpeg",
+        "weight": 1,
+        "stock": 10,
+        "price": 450000,
+        "CategoryId": 5,
+        "UserId": 1
+    },
+    {
+        "name": "VaporX5 Next Gen",
+        "description": "Teknologi Sel Hyper-build, Formula 5-in-1, Fokus utama neurosensorik & intens, Meningkatkan kekuatan otot & pemulihan, Kinerja & pump energy yang unggul",
+        "imgUrl": "https://ik.imagekit.io/ebq3r9zrvle/VaporX5_eC7GI2YEB.jpg",
+        "weight": 1,
+        "stock": 10,
+        "price": 400000,
+        "CategoryId": 5,
+        "UserId": 1
+    }
+]

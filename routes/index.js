@@ -13,22 +13,21 @@ const imageKit = require('../middlewares/imageKit')
 const imageValidation = require('../middlewares/imageValidation')
 
 
-
+//BUAT ADMIN MASUK TAPI CUMA 1 AJA
 router.post(
     '/register', 
     userController.register
     )
-
-router.post(
-    '/authGoogle', 
-    userController.authGoogle
-    )
- 
+// router.post(
+//     '/authGoogle', 
+//     userController.authGoogle
+//     )
 router.post(
     '/login', 
     userController.login
     )
 
+//BUAT PUBLIC
 router.post('/public/register', 
     customerController.register)
 
@@ -44,22 +43,30 @@ router.get('/public/products',
 router.get('/public/products/:id', 
     productController.detailProduct)
  
+// MIDDLEWARE AUTHENTICATION
 router.use(middleware.authenticate)
 
-// router.get('/genres', categoryController.showGenre )
-// router.post('/genres', categoryController.addGenre)
-
+//FOR PUBLIC
+//SHOW FAVORIT
 router.get('/public/favorite', 
     customerController.showFav)
-
+//NAMBAH FAVORIT
 router.post('/public/favorite/:id', 
     customerController.addFav)
-    
+//NTAR INI BUAT UBAH STOCK TAPI DI PUBLIC
+router.patch(
+    '/public/checkout/:id',
+    middleware.authorization, 
+    productController.updateStatus)
+
+
+//FOR ADMIN
 router.get(
     '/products', 
     productController.showProduct
     )
 
+//ADD PRODUCT
 router.post(
     '/products',
     iMulter,
@@ -68,30 +75,27 @@ router.post(
     productController.addProduct
     )
 
-router.patch(
-    '/products/:id',
-    middleware.authorization, 
-    productController.updateStatus)
 
 // router.get(
 //     '/products/:id', 
 //     productController.detailProduct
 //     )
 
-router.put(
-    '/products/:id',
-    middleware.authorization,
-    iMulter,
-    imageValidation,
-    imageKit.sentImage,
-    productController.updateProduct
-    )
+// INI BUAT EDIT, CUMA GA KEPAKE KAYAKNYA
+// router.put(
+//     '/products/:id',
+//     middleware.authorization,
+//     iMulter,
+//     imageValidation,
+//     imageKit.sentImage,
+//     productController.updateProduct
+//     )
 
-router.delete(
-    '/products/:id',
-    middleware.authorization,
-    productController.delete
-    )
+// router.delete(
+//     '/products/:id',
+//     middleware.authorization,
+//     productController.delete
+//     )
 
 router.use(errorHandler.errHandler)
 

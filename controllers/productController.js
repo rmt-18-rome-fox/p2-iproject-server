@@ -15,30 +15,17 @@ class productController {
 
     static async addProduct(req, res, next) {
         try {
-            
             const imgUrl = req.dataImgUrl
-            const AuthorId = req.user.id
-            const { title, synopsis, trailerUrl, rating, CategoryId } = req.body
+            const UserId = req.user.id
+            const { name, description, weight, stock, price, CategoryId } = req.body
 
             const response = await Product.create({ 
-                title, synopsis, trailerUrl, imgUrl, rating, CategoryId, AuthorId, status: 'Active' 
-            })
-
-            const findAuthor = await User.findOne({
-                where: {
-                    id: AuthorId
-                }
-            })
-
-            const findProduct = await Product.findOne({
-                where: {
-                    imgUrl
-                }
+                name, description, imgUrl, weight, stock, price, CategoryId, UserId
             })
             res.status(201).json(response)
 
         } catch (err) {
-            
+            // console.log(err);
             next(err)
 
         }

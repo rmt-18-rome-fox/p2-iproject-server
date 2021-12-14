@@ -17,37 +17,46 @@ module.exports = (sequelize, DataTypes) => {
   Product.init({
     name: {
       type : DataTypes.STRING,
-      allowNull: false,
-      validate : {
-        notEmpty: {msg : `Fill the name!`},
-        notNull : {msg : `Fill the name!`},
-      }
+      // allowNull: false,
+      // validate : {
+      //   notEmpty: {msg : `Fill the name!`},
+      //   notNull : {msg : `Fill the name!`},
+      // }
     },
     description: {
       type : DataTypes.TEXT,
-      allowNull: false,
-      validate : {
-        notEmpty: {msg : `Fill the description!`},
-        notNull : {msg : `Fill the description!`},
-      }
+      // allowNull: false,
+      // validate : {
+      //   notEmpty: {msg : `Fill the description!`},
+      //   notNull : {msg : `Fill the description!`},
+      // }
     },
     imgUrl: {
       type : DataTypes.STRING,
       allowNull: false,
-      validate : {
-        notEmpty: {msg : `Fill the image!`},
-        notNull : {msg : `Fill the image!`}
-      }
+      // validate : {
+      //   notEmpty: {msg : `Fill the image!`},
+      //   notNull : {msg : `Fill the image!`}
+      // }
     },
     weight: DataTypes.FLOAT,
     CategoryId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     stock : {
       type : DataTypes.INTEGER,
-      allowNull: false,
-      validate : {
-        notEmpty: {msg : `Fill the stock!`},
-        notNull : {msg : `Fill the stock!`}
-      }
+      // allowNull: false,
+      // validate : {
+      //   notEmpty: {msg : `Fill the stock!`},
+      //   notNull : {msg : `Fill the stock!`}
+      // }
+    },
+    price : {
+      type : DataTypes.INTEGER,
+      // allowNull: false,
+      // validate : {
+      //   notEmpty: {msg : `Fill the stock!`},
+      //   notNull : {msg : `Fill the stock!`}
+      // }
     },
   }, {
     sequelize,

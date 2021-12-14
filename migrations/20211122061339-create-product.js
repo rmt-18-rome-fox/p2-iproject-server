@@ -9,19 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.STRING
       },
       description: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.TEXT
       },
       imgUrl: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.STRING
       },
       weight: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.FLOAT
       },
       CategoryId: {
@@ -34,8 +34,21 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
+      UserId: {
+        // allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
       stock: {
-        allowNull: false,
+        // allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      price : {
         type: Sequelize.INTEGER
       },
       createdAt: {
