@@ -1,6 +1,7 @@
-const { User } = require(`../models/index`)
+const { User, Product, OrderProduct } = require(`../models/index`)
 const { getToken } = require(`../helpers/jwt`)
-const { compareHash } = require(`../helpers/bycrpt`)
+const { compareHash } = require(`../helpers/bycrpt`);
+
 
 let register = async (req, res, next) => {
     try {
@@ -44,7 +45,37 @@ let login = async (req, res, next) => {
 
 let fetchAllProducts = async (req, res, next) => {
     try {
-        
+    
+        const response = await Product.findAll({
+            attributes: {
+                exclude: ['createdAt', `updatedAt`]
+            },    
+        })
+
+        res.status(200).json({response})
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+let fetchOrderProduct = async (req, res, next) => {
+    try {
+    
+        const response = await OrderProduct.findAll({
+            attributes: {
+                exclude: ['createdAt', `updatedAt`]
+            },    
+            include: {
+                model: Product,
+                attributes: {
+                    exclude: ['createdAt', `updatedAt`]
+                },
+            }, 
+        })
+
+        res.status(200).json({response})
+
     } catch (error) {
         next(error)
     }
@@ -53,5 +84,6 @@ let fetchAllProducts = async (req, res, next) => {
 module.exports = {
     register,
     login,
-    fetchAllProducts
+    fetchAllProducts,
+    fetchOrderProduct
 }
