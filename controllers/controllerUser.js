@@ -41,6 +41,19 @@ class ControllerUser {
       next(error);
     }
   }
+
+  static async bookDetail(req, res, next) {
+    try {
+      const bookId = +req.params.bookId;
+
+      const book = await Book.findByPk(bookId);
+      if (!book) throw { name: "bookNotFound" };
+
+      res.status(200).json(book);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = ControllerUser;

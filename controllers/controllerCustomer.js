@@ -1,4 +1,5 @@
-const { User, Cart } = require("../models");
+const { User, Cart, Book } = require("../models");
+const { Op } = require("sequelize");
 
 class ControllerCustomer {
   static async register(req, res, next) {
@@ -30,6 +31,31 @@ class ControllerCustomer {
         },
       });
       res.status(200).json(carts);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async postCart(req, res, next) {
+    try {
+      const BookId = +req.params.bookId;
+      const CustomerId = +req.user.id;
+
+      const book = await Book.findByPk(BookId);
+      if (!book) throw { name: "bookNotFound" };
+
+      const uniqueBookValidation = await Cart.findOne({
+        where: {
+          [Op.and]: [{ BookId }, { CustomerId }],
+        },
+      });
+      if (uniqueBookValidation) throw { name: "uniqueBookValidation" };
+
+      const data = { BookId, CustomerId };
+
+      const addBook = await Cart.create(data);
+      const message = `${book.title} has been added to cart`;
+      res.status(201).json(message);
     } catch (error) {
       next(error);
     }

@@ -34,7 +34,16 @@ function errorHandler(err, req, res, next) {
       res.status(401).json({ message: "Wrong email or password" });
       break;
     case "unathorized":
-      res.status(403).json({ message: "Invalid token" });
+      res.status(401).json({ message: "Invalid token" });
+      break;
+    case "forbiddenAccess":
+      res.status(403).json({ message: "You are not authorized" });
+      break;
+    case "bookNotFound":
+      res.status(404).json({ message: "Book not found" });
+      break;
+    case "uniqueBookValidation":
+      res.status(404).json({ message: "Book has been added to cart" });
       break;
     default:
       res.status(500).json({ message: err });
