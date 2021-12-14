@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        notNull: {msg: "Username Is Required"},
+        notNull: {msg: "Username is Required"},
         notEmpty: {msg: "Message Cannot Be Empty"},
         minLength(value){
           if(value.length < 5) throw new Error('Username Should Be At Least 5 Characters')
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        notNull: {msg: "Password Is Required"},
+        notNull: {msg: "Password is Required"},
         notEmpty: {msg: "Password Cannot Be Empty"},
         minLength(value){
           if(value.length < 5) throw new Error('Password Should Be At Least 5 Characters')
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        notNull: {msg: "Email Is Required"},
+        notNull: {msg: "Email is Required"},
         notEmpty: {msg: "Email Cannot Be Empty"},
         isEmail: {msg: "Wrong Email Format"}
       }
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        notNull: {msg: "Full Name Is Required"},
+        notNull: {msg: "Full Name is Required"},
         notEmpty: {msg: "Full Name Cannot Be Empty"}
       }
     },
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        notNull: {msg: "Age Is Required"},
+        notNull: {msg: "Age is Required"},
         notEmpty: {msg: "Age Cannot Be Empty"},
         isNumeric: {msg: "Age Should Be Number"}
       }
