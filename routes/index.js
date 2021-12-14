@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.post('/register', Auth.register)
 router.post('/login', Auth.login)
+router.post('/google-signin', Auth.googleSignIn)
+
 
 router.use(authenticate)
 router.use('/topics', routerTopic)

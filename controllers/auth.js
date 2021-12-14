@@ -1,7 +1,7 @@
 const { hash, compare } = require('../helpers/bcrypt.js');
 const { signToken, verifyToken } = require('../helpers/jwt.js');
 const {User} = require('../models');
-
+const {OAuth2Client} = require('google-auth-library');
 class Auth {
 
     static async register (req, res, next) {
@@ -31,6 +31,7 @@ class Auth {
 
     static async login (req, res, next) {
         try {
+            console.log(req.body, `reqBody`)
             if (!req.body.email) {
                 console.log(`email`);
                 throw { 
@@ -53,9 +54,10 @@ class Auth {
                     email : emailLogin
                 }
             })
+            console.log(userLogin, `masuk userlogin`);
             if (userLogin) {
-                console.log(`masuk userlogin`);
                 let isValidPassword = compare(passwordLogin, userLogin.password)
+                console.log(isValidPassword)
                 if (isValidPassword) {
                     let tokenPayload = { id: userLogin.id, email: userLogin.email, role: userLogin.role}
                     let access_token = signToken(tokenPayload)
@@ -98,6 +100,56 @@ class Auth {
             
         } catch (err) {
             console.log(err);
+            next(err)
+        }
+    }
+
+    static async googleSignIn (req, res, next) {
+        try {
+            const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+            const { id_token } = req.body
+            if (!id_token) {
+                throw { name: `JsonWebTokenError`}
+            }
+
+            let secretKey = process.env.GOOGLE_CLIENT_ID
+            const ticket = await client.verifyIdToken({
+                idToken: id_token,
+                audience: secretKey,
+            });
+            const payload = ticket.getPayload();
+            const { name, email} = payload
+
+            let randomPasswordGenerator = (Math.random() + 1).toString(36).substring(0,12);
+
+            console.log(randomPasswordGenerator, "PLOKPLOK")
+            const [userLoginGoogle, isCreated] = await User.findOrCreate({
+                where: {
+                    email,
+                },
+                defaults: {
+                    name: name,
+                    email: email,
+                    password: randomPasswordGenerator,
+                    address: "Update your Address"
+                }
+            })
+            
+            let status = 200;
+            if (isCreated) {
+                status = 201;
+            }
+            let tokenPayload = { username:userLoginGoogle.id, id: userLoginGoogle.id, email: userLoginGoogle.email, role: userLoginGoogle.role}
+            // console.log(payload)
+            let access_token = signToken(tokenPayload)
+            res.status(status).json({ 
+                message: `Google User, Signed in successfully`, 
+                userId: userLoginGoogle.id, access_token: access_token,
+                username: userLoginGoogle.username,
+                photoUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            })
+            
+        } catch (err) {
             next(err)
         }
     }
