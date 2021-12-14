@@ -21,25 +21,28 @@ const route = require(`express`).Router();
 // const { customerRegister, customerLogin } = require(`../controllers/customerController`);
 // const { googleAuth } = require(`../controllers/auths`);
 const { authentication, authorization } = require("../middlewere/auth");
-const { register, login, fetchAllProducts, fetchOrderProduct, addOrderItem, checkout } = require('../controllers/userController');
+const { register, login, fetchAllProducts, fetchOrderProduct, addOrderItem, checkout, getStatusTransaction } = require('../controllers/userController');
 const { adminRegister, adminLogin } = require('../controllers/adminController');
-const { testingMidtrans } = require(`../apis/midtrans`)
+const { requestSnapToken, checkoutMid, updateStatus } = require(`../apis/midtrans`)
 const errorsLog  = require("../middlewere/errorHandler");
 
 //admin
 route.post('/cms/register', adminRegister);
 route.post('/cms/login', adminLogin);
+// route.get('/cms/biling', getAllBilling); // Advance
 
 //customer
 route.post('/register', register);
 route.post('/login', login);
 route.get('/products', fetchAllProducts);
 
+route.get('/status',[authentication, authorization], getStatusTransaction);
 route.get('/order', [authentication, authorization] , fetchOrderProduct);
 route.get('/checkout', [authentication, authorization] , checkout);
+route.put('/status/:orderId',[authentication, authorization], updateStatus);
+route.post(`/checkout/charge`,[authentication, authorization, checkoutMid],  requestSnapToken)
 route.post('/order/:productId', [ authentication, authorization], addOrderItem);
 
-route.post(`/va/charge`, testingMidtrans)
 
 
 // ===CUSTOMER======
