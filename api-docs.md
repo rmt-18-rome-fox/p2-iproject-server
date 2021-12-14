@@ -64,7 +64,7 @@ List of available endpoints:
 - `POST/login`
 - `POST/profiles`
 - `PUT/profiles`
-- `GET/user`
+- `GET/profile`
 - `GET/posts`
 - `POST/post`
 - `PUT/post/:id`
@@ -167,13 +167,30 @@ Request:
 }
 ```
 
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
 _Response (200 - OK)_
 ```json
 {
   "message": "Your profile is created",
   "data": {
-
-  }
+      "id": 1,
+      "UserId": 1,
+      "namaLengkap": "Arie Sastra Hadiprawira",
+      "imageUrl": "https://ik.imagekit.io/kkupfm0agcc/ganteng-jepang_Kfvn7RlXqd.jpg",
+      "alamat": "Jl. Watubela 2 No. RF-3A",
+      "rtRw": "-",
+      "kecamatan": "Serpong",
+      "kotaKab": "Tangerang Selatan",
+      "provinsi": "Banten",
+      "lat": "",
+      "long": ""
+    }
 }
 ```
 
@@ -181,11 +198,9 @@ _Response (400 - Bad Request)_
 
 ```json
 {
-  "message": "Email is required"
-}
-OR
-{
-  "message": "Password is required"
+  "message": [
+    "You already have a profile"
+  ]
 }
 ```
 
@@ -193,6 +208,46 @@ _Response (401 - Unauthorized)_
 
 ```json
 {
-  "message": "Invalid email/password"
+    "message": "Not Authorize !"
+}
+```
+
+## 4. GET /profile
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+    "id": 1,
+    "UserId": 1,
+    "namaLengkap": "Arie Sastra Hadiprawira",
+    "imageUrl": "https://ik.imagekit.io/kkupfm0agcc/ganteng-jepang_Kfvn7RlXqd.jpg",
+    "alamat": "Jl. Watubela 2 No. RF-3A",
+    "rtRw": "-",
+    "keluarahan": null,
+    "kecamatan": "Serpong",
+    "kotaKab": "Tangerang Selatan",
+    "provinsi": "Banten",
+    "lat": "",
+    "long": "",
+    "User": {
+        "email": "ariesastrah@gmail.com"
+    }
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
 }
 ```

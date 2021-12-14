@@ -14,5 +14,9 @@ user.post('/profiles',
   fileUpload,
   UserController.postProfile
 )
+user.get('/profile',
+  authentication,
+  UserController.getProfile
+)
 
 module.exports = user

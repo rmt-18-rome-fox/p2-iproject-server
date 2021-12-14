@@ -31,7 +31,7 @@ module.exports = {
       rtRw: {
         type: Sequelize.STRING
       },
-      keluarah: {
+      keluarahan: {
         type: Sequelize.STRING
       },
       kecamatan: {

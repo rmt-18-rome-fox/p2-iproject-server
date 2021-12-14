@@ -102,6 +102,28 @@ class UserController {
       next(error)  
     }
   }
+  static async getProfile (req, res, next) {
+    try {
+      const data = await Profile.findOne({
+        where: {
+          id: req.auth.id
+        },
+        include: {
+          model: User,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password", "id"]
+          }
+        },
+        attributes: {
+          exclude: ["createdAt", "updatedAt"]
+        }
+      })
+
+      res.status(200).json(data)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = UserController

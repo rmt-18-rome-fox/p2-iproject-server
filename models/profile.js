@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: DataTypes.STRING,
     alamat: DataTypes.TEXT,
     rtRw: DataTypes.STRING,
-    keluarah: DataTypes.STRING,
+    keluarahan: DataTypes.STRING,
     kecamatan: DataTypes.STRING,
     kotaKab: DataTypes.STRING,
     provinsi: DataTypes.STRING,
