@@ -33,4 +33,24 @@ const postNote = async (req, res, next) => {
     }
 }
 
-module.exports = { getNotes, postNote };
+const deleteNote = async (req, res, next) => {
+    try {
+        const note = await Note.findByPk(+req.params.id);
+
+        if (note) {
+            await Note.destroy({
+                where: {
+                    id: +req.params.id
+                }
+            });
+
+            res.status(200).json({message: `Note with id ${+req.params.id} has been deleted`});
+        } else {
+            throw {name: `NotFound`}
+        }
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { getNotes, postNote, deleteNote };

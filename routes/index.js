@@ -12,6 +12,7 @@ router.use(authentication);
 
 router.get('/notes', NoteController.getNotes);
 router.post('/notes', NoteController.postNote);
+router.delete('/notes/:id', NoteController.deleteNote);
 
 router.use(errorHandler);
 

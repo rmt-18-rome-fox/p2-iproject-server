@@ -18,6 +18,9 @@ const errorHandler = (err, req, res, next) => {
         case 'JsonWebTokenError':
             res.status(401).json({ message: 'Invalid token' });
             break;
+        case 'NotFound':
+            res.status(404).json({ message: 'Content not found' });
+            break;
         default:
             res.status(500).json(err);
             break;
