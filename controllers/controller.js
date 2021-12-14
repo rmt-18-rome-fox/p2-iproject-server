@@ -2,6 +2,7 @@ const bcryptCompare = require('../helpers/bcryptCompare')
 const convertPayLoad = require('../helpers/convertPayLoad')
 const jwtToken = require('../helpers/jwtToken')
 const { User, Car, Booking } = require('../models')
+const { Op } = require("sequelize")
 
 class Controller {
     static register(req, res, next) {
@@ -53,6 +54,33 @@ class Controller {
                     })
             })
             .catch(err => next(err))
+    }
+
+    static getCar(req, res, next) {
+        let priceMin = req.query.priceMin
+        let priceMax = req.query.priceMax
+        let filterByBrand = req.query.filterByBrand
+        if(!req.query.priceMin) priceMin = 0
+        console.log(Infinity)
+        if(!req.query.priceMax) priceMax = 999999999999999999
+        if(!req.query.filterByBrand) filterByBrand = ''
+        Car.findAll({
+            where: {
+                brand: {
+                    [Op.iLike]: `%${filterByBrand}%`
+                },
+                price: {
+                    [Op.and]: [
+                        { [Op.gte]: priceMin },
+                        { [Op.lte]: priceMax }
+                    ]
+                }
+            }
+        })
+            .then(data => {
+                res.status(200).send(data)
+            })
+            .catch(err => next(err)) 
     }
 }
 
