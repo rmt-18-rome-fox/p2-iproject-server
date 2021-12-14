@@ -11,14 +11,50 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Bookmark.belongsTo(models.User)
     }
   };
   Bookmark.init({
-    name_club: DataTypes.STRING,
-    fixture: DataTypes.DATE,
-    league: DataTypes.STRING,
-    venue: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    name_club: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg : "name club is required"},
+        notEmpty: { msg: "name club is required"}
+      }
+    },
+    fixture: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: { msg : "fixture is required"},
+        notEmpty: { msg: "fixture is required"}
+      }
+    },
+    league: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg : "league is required"},
+        notEmpty: { msg: "league is required"}
+      }
+    },
+    venue: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg : "venue is required"},
+        notEmpty: { msg: "venue is required"}
+      }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: { msg : "User is required"},
+        notEmpty: { msg: "User is required"}
+      }
+    },
   }, {
     sequelize,
     modelName: 'Bookmark',
