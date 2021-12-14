@@ -1,6 +1,7 @@
 const {User} = require('../models')
 const compare = require('../helpers/bcrypt')
 const {maketoken} = require('../helpers/jwt')
+const nodemailer = require("nodemailer")
 
 class UserController {
     static async register(req,res,next){
