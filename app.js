@@ -19,6 +19,8 @@ app.get('/car', Controller.getCar)
 app.post('/car', authentication, multerMiddleware, uploadFile, Controller.postCar)
 app.put('/car/:id', authentication, multerMiddleware, uploadFile, Controller.editCar)
 
+app.post('/book/:carId', Controller.postBook)
+
 app.use(errorHandler)
 
 app.listen(port, () => {
