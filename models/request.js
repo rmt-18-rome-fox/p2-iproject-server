@@ -11,16 +11,77 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Request.belongsTo(models.User)
+      Request.belongsTo(models.Job)
     }
   };
   Request.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    JobId: DataTypes.INTEGER,
-    EmployeId: DataTypes.INTEGER,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
-    status: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Name is require'
+        },
+        notNull: {
+          msg: 'Name is require'
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Description is require'
+        },
+        notNull: {
+          msg: 'Description is require'
+        }
+      }
+    },
+    JobId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Job id is require'
+        },
+        notNull: {
+          msg: 'Job id is require'
+        }
+      }
+    },
+    EmployeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Employe id is require'
+        },
+        notNull: {
+          msg: 'Employe id is require'
+        }
+      }
+    },
+    startDate: {
+      type: DataTypes.DATE
+    },
+    endDate: {
+      type: DataTypes.DATE
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Description is require'
+        },
+        notNull: {
+          msg: 'Description is require'
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Request',
