@@ -15,11 +15,45 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Note.init({
-    title: DataTypes.STRING,
-    content: DataTypes.TEXT,
-    status: DataTypes.STRING,
-    label: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Title is required' },
+        notEmpty: { msg: 'Title is required' }
+      }
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Content is required' },
+        notEmpty: { msg: 'Content is required' }
+      }
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Status is required' },
+        notEmpty: { msg: 'Status is required' }
+      }
+    },
+    label: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Label is required' },
+        notEmpty: { msg: 'Label is required' }
+      }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'User ID is required' }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Note',

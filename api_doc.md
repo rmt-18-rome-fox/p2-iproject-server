@@ -129,3 +129,99 @@ _Response (401 - Unauthorized)_
   "message": "Invalid email/password"
 }
 ```
+
+&nbsp;
+
+## 3. GET /notes
+
+Description:
+- Fetch all notes from database
+
+Request:
+
+- headers: 
+```json
+{
+  "access_token": "string"
+}
+```
+
+_Response (200 - OK)_
+```json
+[
+  {
+    "id": 5,
+    "title": "Bug 1",
+    "content": "Content bug 1",
+    "status": "To-solve",
+    "label": "Open",
+    "UserId": 1,
+    "createdAt": "2021-12-14T07:11:47.106Z",
+    "updatedAt": "2021-12-14T07:11:47.106Z"
+  },
+  {
+    "id": 6,
+    "title": "Bug 2",
+    "content": "Content bug 2",
+    "status": "To-solve",
+    "label": "Open",
+    "UserId": 1,
+    "createdAt": "2021-12-14T07:12:11.337Z",
+    "updatedAt": "2021-12-14T07:12:11.337Z"
+  },
+  ...,
+]
+```
+
+&nbsp;
+
+## 4. POST /notes
+
+Description:
+- Add new notes
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string"
+}
+```
+
+_Response (201 - Created)_
+```json
+{
+  "id": 6,
+  "title": "Bug 2",
+  "content": "Content bug 2",
+  "status": "To-solve",
+  "label": "Open",
+  "UserId": 1
+}
+```
+
+&nbsp;
+
+## Global Error
+
+_Response (401 - Unauthorized)_
+```json
+{
+  "message": "Invalid token"
+}
+```
+
+_Response (403 - Forbidden)_
+```json
+{
+  "message": "You are not authorized"
+}
+```
+
+_Response (500 - Internal Server Error)_
+```json
+{
+  "message": "Internal server error"
+}
+```
