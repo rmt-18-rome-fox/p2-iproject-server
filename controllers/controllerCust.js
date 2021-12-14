@@ -37,7 +37,7 @@ const postLogin = async (req, res, next) => {
     const payload = { id: response.id, email: response.email, role: response.role };
     const access_token = signToken(payload);
 
-    res.status(200).json({ access_token });
+    res.status(200).json({ access_token, email: response.email, role: response.role, id: response.id });
   } catch (err) {
     next(err);
   }
