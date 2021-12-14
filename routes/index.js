@@ -22,11 +22,16 @@ const route = require(`express`).Router();
 // const { googleAuth } = require(`../controllers/auths`);
 // const { authentication, authorization, slideUrl } = require("../middleware/middleware");
 const { register, login, fetchAllProducts } = require('../controllers/userController');
+const { adminRegister, adminLogin } = require('../controllers/adminController');
 const errorsLog  = require("../middlewere/errorHandler");
-
+//customer
 route.post('/register', register);
 route.post('/login', login);
 route.get('/products', fetchAllProducts);
+
+//admin
+route.post('/cms/register', adminRegister);
+route.post('/cms/login', adminLogin);
 
 // ===CUSTOMER======
 

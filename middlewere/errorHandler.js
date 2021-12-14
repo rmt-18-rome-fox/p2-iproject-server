@@ -12,7 +12,8 @@ const errorLog = (err, req, res, next) => {
     } else if (err.name === `JsonWebTokenError`) {
          code = 401
          message = message = err.errors[0].message
-    } else if (err.name === `USER_NOT_FOUND`){
+    } else if ( err.name === `USER_NOT_FOUND`||
+                err.name === `ADMIN_NOT_FOUND`) {
         code = 401
         message = "Invalid email/password"
     }
