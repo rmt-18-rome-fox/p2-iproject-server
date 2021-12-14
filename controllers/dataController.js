@@ -20,7 +20,7 @@ class DataController {
             let juzsNumber = +req.params.juzsNumber
             let allAyah = await axios({
                 method: 'GET',
-                url: `${API_URL}/verses/by_juz/1?words=false&translations=131&audio=1&fields=text_indopak`
+                url: `${API_URL}/verses/by_juz/${juzsNumber}?words=false&translations=131&audio=1&fields=text_indopak`
             })
             // console.log(allAyah)
             res.status(200).json(allAyah.data)
