@@ -1,4 +1,4 @@
-
+const nodemailer = require("nodemailer");
 const axios = require(`axios`)
 const { OrderProduct, Product, Transaction } = require(`../models/index`)
 const { Op } = require("sequelize");
@@ -96,6 +96,37 @@ let requestSnapToken = async (req, res, next) => {
             status: `pending`,
             ammount: parameter.transaction_details.gross_amount
         })
+
+        let transporter = nodemailer.createTransport({
+            service:  'gmail', 
+            auth: {
+                user: 'ezchariotz@gmail.com', 
+                pass: `${process.env.CEEEEEEEEBBBBBB}`, 
+            },
+        });
+
+        let notif = {
+            from: 'ezchariotz@gmail.com', // sender address
+            to: req.user.email, // list of receivers
+            subject: "You just Order from: MyLovlyPetShop.web.app", // Subject line
+            text: ` Hi, Thank you for ordered our stuff!
+                    This is your order:
+                    Get your stuff here: ${result.redirect_url}
+
+                    Best Regards,
+                    https://MyLovlyPetShop.web.app
+            `,
+            // html: "<a href=`https://MyLovlyPetShop.web.app`>MyLovlyPetShop.web.app</a>",
+                    
+        }
+
+            transporter.sendMail(notif, (err, data) => {
+                if (err) {
+                    console.log(`Email not send`);  
+                }else {
+                    console.log(`Email has been sent`);
+                }
+            });
         
         res.status(200).json({
             result
