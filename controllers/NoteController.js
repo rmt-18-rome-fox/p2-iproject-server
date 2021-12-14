@@ -55,6 +55,9 @@ const deleteNote = async (req, res, next) => {
 
 const putNote = async (req, res, next) => {
     try {
+        const note = await Note.findByPk(+req.params.id);
+        if (!note) throw { name: 'NotFound' };
+
         await Note.update(
         {
             title: req.body.title,
@@ -72,4 +75,25 @@ const putNote = async (req, res, next) => {
     }
 }
 
-module.exports = { getNotes, postNote, deleteNote, putNote };
+const patchNote = async (req, res, next) => {
+    try {
+        const note = await Note.findByPk(+req.params.id);
+        if (!note) throw { name: 'NotFound' };
+
+        await Note.update(
+        {
+            status: req.body.status
+        },
+        {
+            where: {
+                id: +req.params.id
+            }
+        })
+
+        res.status(200).json(`Note's status has been successfully updated!`);
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { getNotes, postNote, deleteNote, putNote, patchNote };

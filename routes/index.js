@@ -14,6 +14,7 @@ router.get('/notes', NoteController.getNotes);
 router.post('/notes', NoteController.postNote);
 router.delete('/notes/:id', NoteController.deleteNote);
 router.put('/notes/:id', NoteController.putNote);
+router.patch('/notes/:id', NoteController.patchNote);
 
 router.use(errorHandler);
 

@@ -203,7 +203,7 @@ _Response (201 - Created)_
 
 &nbsp;
 
-## 4. DELETE /notes/:id
+## 5. DELETE /notes/:id
 
 Description:
 - Delete a note
@@ -221,6 +221,95 @@ _Response (200 - OK)_
 ```json
 {
   "message": "Note with id (note id) has been deleted"
+}
+```
+
+_Response (404 - Not Found)_
+```json
+{
+  "message": "Content not found"
+}
+```
+
+&nbsp;
+
+## 6. PUT /notes/:id
+
+Description:
+- Update a note
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string"
+}
+```
+
+- params:
+```json
+{
+  "id": "integer"
+}
+```
+
+- body:
+```json
+{
+  "title": "string",
+  "content": "text"
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Note has been successfully updated!"
+}
+```
+
+_Response (404 - Not Found)_
+```json
+{
+  "message": "Content not found"
+}
+```
+
+&nbsp;
+
+## 6. PATCH /notes/:id
+
+Description:
+- Update a note's status
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string"
+}
+```
+
+- params:
+```json
+{
+  "id": "integer"
+}
+```
+
+- body:
+```json
+{
+  "status": "string"
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Note's status has been successfully updated!"
 }
 ```
 
