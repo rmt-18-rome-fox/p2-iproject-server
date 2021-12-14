@@ -33,7 +33,8 @@ class Controller {
     static postCar(req, res, next) {
         const payload = convertPayLoad(req.headers.access_token)
         const userId = payload.id
-        const { name, brand, year, price, imageUrl } = req.body
+        const imageUrl = req.url
+        const { name, brand, year, price } = req.body
         Car.create({ name, brand, year, price, imageUrl, userId })
             .then(data => {
                 res.status(201).send(data)
@@ -45,7 +46,8 @@ class Controller {
         const payload = convertPayLoad(req.headers.access_token)
         const userId = payload.id
         const id = req.params.id
-        const { name, brand, year, price, imageUrl } = req.body
+        const imageUrl = req.url
+        const { name, brand, year, price } = req.body
         Car.update({ name, brand, year, price, imageUrl, userId }, { where: { id } })
             .then(data => {
                 Car.findOne({ where: { id } })
