@@ -20,15 +20,10 @@ class DataController {
             let juzsNumber = +req.params.juzsNumber
             let allAyah = await axios({
                 method: 'GET',
-                url: `${API_URL}/quran/verses/indopak?juz_number=${juzsNumber}`
-            })
-
-            let translation = await axios({
-                method: 'GET',
-                url: `${API_URL}/quran/translations/131?juz_number=${juzsNumber}`
+                url: `${API_URL}/verses/by_juz/1?words=false&translations=131&audio=1&fields=text_indopak`
             })
             // console.log(allAyah)
-            res.status(200).json({ayah: allAyah.data, translation: translation.data})
+            res.status(200).json(allAyah.data)
         } catch (err) {
             // console.log(err)
             next(err)
@@ -42,6 +37,21 @@ class DataController {
                 url: `${API_URL}/chapters`
             })
             res.status(200).json(allSurah.data)
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async getChapterById (req, res, next) {
+        try {
+            let id = req.params.chapterNumber
+
+            let surah = await axios({
+                method: 'GET',
+                url: `${API_URL}/verses/by_chapter/${id}?words=false&translations=131&audio=1&fields=text_indopak`
+            })
+            res.status(200).json(surah.data)
+
         } catch (err) {
             next(err)
         }
