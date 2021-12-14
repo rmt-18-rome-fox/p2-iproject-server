@@ -161,8 +161,9 @@ let checkout = async (req, res, next) => {
         } else {
 
             let orderDerail = { 
+                order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
                 totalPrice: 0,
-                product: []
+                product: [],
              }
 
             response.forEach(element => {

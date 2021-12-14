@@ -23,6 +23,7 @@ const route = require(`express`).Router();
 const { authentication, authorization } = require("../middlewere/auth");
 const { register, login, fetchAllProducts, fetchOrderProduct, addOrderItem, checkout } = require('../controllers/userController');
 const { adminRegister, adminLogin } = require('../controllers/adminController');
+const { testingMidtrans } = require(`../apis/midtrans`)
 const errorsLog  = require("../middlewere/errorHandler");
 
 //admin
@@ -37,6 +38,8 @@ route.get('/products', fetchAllProducts);
 route.get('/order', [authentication, authorization] , fetchOrderProduct);
 route.get('/checkout', [authentication, authorization] , checkout);
 route.post('/order/:productId', [ authentication, authorization], addOrderItem);
+
+route.post(`/va/charge`, testingMidtrans)
 
 
 // ===CUSTOMER======
