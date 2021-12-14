@@ -17,6 +17,7 @@ const authentication = async (req, res, next) => {
     req.user = {
       id: user.id,
       email: user.email,
+      role: user.role,
     };
 
     next();
@@ -25,28 +26,31 @@ const authentication = async (req, res, next) => {
   }
 };
 
-const authorization = async (req, res, next) => {
-  //   try {
-  //     const userId = req.user.id;
-  //     const id = req.params.heroId;
-  //     console.log(userId, id);
-  //     // console.log(userId, id);
-  //     const findHero = await Hero.findByPk(id);
-  //     if (!findHero) {
-  //       throw { name: 'heroNotFound' };
-  //     }
-  //     const findFavourite = await Favourite.findOne({ where: { heroId: id } });
-  //     // console.log(findFavourite);
-  //     if (!findFavourite) {
-  //       throw { name: 'heroNotFound' };
-  //     }
-  //     if (findFavourite.userId !== userId) {
-  //       throw { name: 'forbidden' };
-  //     }
-  //     next();
-  //   } catch (err) {
-  //     next(err);
-  //   }
+const authorizationAdminOnly = async (req, res, next) => {
+  try {
+    const { access_token } = req.headers;
+    const payload = verifyToken(access_token);
+    console.log(payload);
+
+    const user = await User.findOne({
+      where: {
+        email: payload.email,
+      },
+    });
+
+    req.user = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    };
+
+    if (req.user.role !== 'admin') {
+      throw { name: 'forbidden' };
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
 };
 
-module.exports = { authentication, authorization };
+module.exports = { authentication, authorizationAdminOnly };

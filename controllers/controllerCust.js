@@ -34,7 +34,7 @@ const postLogin = async (req, res, next) => {
       throw { name: 'wrongEmailPass' };
     }
 
-    const payload = { id: response.id, email: response.email };
+    const payload = { id: response.id, email: response.email, role: response.role };
     const access_token = signToken(payload);
 
     res.status(200).json({ access_token });

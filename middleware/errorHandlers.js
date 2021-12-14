@@ -14,8 +14,8 @@ const errorHandlers = (err, req, res, next) => {
     res.status(401).json({ message: 'Invalid email/password' });
   } else if (err.name === 'userNotFound' || err.name === 'JsonWebTokenError') {
     res.status(401).json({ message: 'Invalid token' });
-  } else if (err.name === 'heroNotFound') {
-    res.status(404).json({ message: 'Hero not found' });
+  } else if (err.name === 'notFound') {
+    res.status(404).json({ message: 'Error not found' });
   } else if (err.name === 'forbidden') {
     res.status(403).json({ message: 'You are not authorized' });
   } else {
