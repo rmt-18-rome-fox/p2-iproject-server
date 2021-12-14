@@ -23,6 +23,9 @@ const errorHandler = (err, req, res, next) => {
         case 'NotFound':
             res.status(404).json({ message: 'Content not found' });
             break;
+        case 'NotFound':
+            res.status(400).json({ message: 'You are not authorized' });
+            break;
         case 'MaxWIP':
             res.status(400).json({ message: 'You currently have too much work!' });
             break;

@@ -47,19 +47,13 @@ const getNoteById = async (req, res, next) => {
 
 const deleteNote = async (req, res, next) => {
     try {
-        const note = await Note.findByPk(+req.params.id);
+        await Note.destroy({
+            where: {
+                id: +req.params.id
+            }
+        });
 
-        if (note) {
-            await Note.destroy({
-                where: {
-                    id: +req.params.id
-                }
-            });
-
-            res.status(200).json({message: `Note with id ${+req.params.id} has been deleted`});
-        } else {
-            throw {name: `NotFound`}
-        }
+        res.status(200).json({message: `Note with id ${+req.params.id} has been deleted`});
     } catch (err) {
         next(err);
     }
@@ -67,9 +61,6 @@ const deleteNote = async (req, res, next) => {
 
 const putNote = async (req, res, next) => {
     try {
-        const note = await Note.findByPk(+req.params.id);
-        if (!note) throw { name: 'NotFound' };
-
         await Note.update(
         {
             title: req.body.title,
@@ -89,8 +80,6 @@ const putNote = async (req, res, next) => {
 
 const patchNote = async (req, res, next) => {
     try {
-        const note = await Note.findByPk(+req.params.id);
-        if (!note) throw { name: 'NotFound' };
         let noteCounter = 0;
 
         const notes = await Note.findAll({
