@@ -28,6 +28,7 @@ const errorsLog  = require("../middlewere/errorHandler");
 route.post('/register', register);
 route.post('/login', login);
 route.get('/products', fetchAllProducts);
+// route.get('/order', fetchOrderProduct);
 
 //admin
 route.post('/cms/register', adminRegister);
