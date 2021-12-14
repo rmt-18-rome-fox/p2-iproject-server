@@ -1,4 +1,4 @@
-const { User,Hero } = require('../models')
+const { User,Hero,SuperHero } = require('../models')
 const bcrypt = require('bcrypt')
 const {signToken} = require('../helpers/jwt')
 
@@ -72,5 +72,45 @@ const addHero = async(req,res,next) => {
     }
 }
 
+const getHero = async (req,res,next) => {
+    try {
+        const result = await Hero.findAll({
+        })
 
-module.exports = {register,login,addHero}
+        res.status(200).json(result)
+        
+    } catch (error) {
+        next(err)
+    }
+}
+
+const getHeroId = async (req,res,next) => {
+    try {
+        const { id } = req.params
+        const result = await Hero.findByPk(id)
+    if (!result) {
+        throw { name: "notFound"}
+    }
+
+        res.status(200).json(result)
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+const getSuperHero = async (req,res,next) => {
+    try {
+        const result = await SuperHero.findAll({
+        })
+
+        res.status(200).json(result)
+        
+    } catch (error) {
+        next(err)
+    }
+}
+
+
+module.exports = {register,login,addHero,getHero,getHeroId,getSuperHero}
