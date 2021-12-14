@@ -2,7 +2,7 @@ const API_URL = 'https://api.quran.com/api/v4'
 const axios = require ('axios')
 
 class DataController {
-    static async getAllJuzz (rew, res, next) {
+    static async getAllJuzz (req, res, next) {
         try {
             let url = `${API_URL}/juzs`
             let allJuzz = await axios({
@@ -52,6 +52,18 @@ class DataController {
             })
             res.status(200).json(surah.data)
 
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async getAudioList (req, res, next) {
+        try {
+            let audioListVersion = await axios({
+                method: "GET",
+                url: `${API_URL}/resources/recitations`
+            })
+            res.status(200).json(audioListVersion.data)
         } catch (err) {
             next(err)
         }
