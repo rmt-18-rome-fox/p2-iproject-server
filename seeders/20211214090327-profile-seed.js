@@ -19,6 +19,7 @@ module.exports = {
        imageUrl: 'https://cdn-cms.pgimgs.com/static/2019/05/Bentuk-Rumah-Minimalis-1.jpg',
        address: 'ini alamat arsitek 1',
        UserId: 1,
+       price: 100000,
        createdAt: new Date(),
        updatedAt: new Date()
      },
@@ -29,6 +30,7 @@ module.exports = {
       imageUrl: 'https://cdn-cms.pgimgs.com/static/2019/05/Bentuk-Rumah-Minimalis-1.jpg',
       address: 'ini alamat arsitek 1',
       UserId: 2,
+      price: 200000,
       createdAt: new Date(),
       updatedAt: new Date()
     }

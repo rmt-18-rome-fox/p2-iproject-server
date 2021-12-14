@@ -14,8 +14,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   PortofoliosTag.init({
-    TagId: DataTypes.INTEGER,
-    PortofolioId: DataTypes.INTEGER
+    TagId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'TagId is required'},
+        notEmpty: {msg: 'TagId is required'}
+      }
+    },
+    PortofolioId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'PortofolioId is required'},
+        notEmpty: {msg: 'PortofolioId is required'}
+      }
+    }
   }, {
     sequelize,
     modelName: 'PortofoliosTag',

@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        notNull: {msg: 'Tag name is required'},
+        notEmpty: {msg: 'Tag name is required'}
       }
     }
   }, {

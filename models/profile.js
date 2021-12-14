@@ -20,12 +20,13 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     imageUrl: DataTypes.STRING,
     address: DataTypes.STRING,
+    price: DataTypes.INTEGER,
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        notNull: {msg: 'UserId is required'},
+        notEmpty: {msg: 'UserId is required'}
       }
     }
   }, {
