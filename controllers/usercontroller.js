@@ -1,4 +1,3 @@
-require('dotenv').config()
 const {User} = require('../models')
 const compare = require('../helpers/bcrypt')
 const {maketoken} = require('../helpers/jwt')
@@ -22,8 +21,11 @@ class UserController {
     static async login(req,res,next){ 
         try {
             const {email,password} = req.body
-            if (!email || !password) {
-                throw {name : `required`}
+            if (!email) {
+                throw {name : `email`}
+            }
+            if (!password) {
+                throw {name : `password`}
             }
             const user = await User.findOne({where : {email}})
             if (!user) {

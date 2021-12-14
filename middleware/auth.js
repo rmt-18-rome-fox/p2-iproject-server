@@ -1,9 +1,10 @@
-const {changetopayload} = require('../helper/jwt')
-const {User, Post} = require('../models')
+const {changetopayload} = require('../helpers/jwt')
+const {User} = require('../models')
 
 const Authentikasi = async (req,res,next)=>{
     try {
-        const token = req.headers.acces_token
+        const token = req.headers.access_token
+        console.log(token, `AAAAAAAAAAAAA`)
         if (!token) {
             throw { name : 'JsonWebTokenError'}
         }
@@ -28,7 +29,7 @@ const Authentikasi = async (req,res,next)=>{
 
         next()
     } catch (err) {
-
+        console.log(err)
         next(err)
     }
 
