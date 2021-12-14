@@ -87,7 +87,7 @@ OR
 }
 OR
 {
-  "message": "Password's min. length is 8 characters'"
+  "message": "Password's min. length is 8 characters"
 }
 ```
 

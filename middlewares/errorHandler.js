@@ -15,6 +15,9 @@ const errorHandler = (err, req, res, next) => {
         case 'SequelizeValidationError':
             res.status(400).json({ message: err.errors[0].message });
             break;
+        case 'JsonWebTokenError':
+            res.status(401).json({ message: 'Invalid token' });
+            break;
         default:
             res.status(500).json(err);
             break;
