@@ -10,6 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.post('/register', Controller.register)
+app.post('/login', Controller.login)
 
 app.use(errorHandler)
 
