@@ -15,6 +15,15 @@ const errorHandlers = async (err, req, res, next) => {
     case "SequelizeUniqueConstraintError":
       res.status(400).json({message: err.errors[0].message})
       break;
+    case "Unauthorized Middleware":
+      res.status(401).json({message: "Invalid Token"})
+      break;
+    case "Forbidden Access":
+      res.status(403).json({message: "You Are Not Authorized"})
+      break;
+    case "WatchList Not Found":
+      res.status(404).json({message: err.name})
+      break;
     default:
       res.status(500).json(err)
       break;

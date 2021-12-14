@@ -15,12 +15,28 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   WatchList.init({
+    priority: {
+      allowNull:false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {msg: "Priority is Required"},
+        notEmpty: {msg: "Priority Cannot Be Empty"},
+      }
+    },
+    status: {
+      allowNull:false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {msg: "Status is Required"},
+        notEmpty: {msg: "Status Cannot Be Empty"},
+      }
+    },
     UserId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       validate: {
         notNull: {msg: "User Id is Required"},
-        notEmpty: {msg: "Cannot Be Empty"},
+        notEmpty: {msg: "User Id Cannot Be Empty"},
       }
     },
     JikanAnimeId: {
@@ -28,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       validate: {
         notNull: {msg: "Jikan Anime Id is Required"},
-        notEmpty: {msg: "Cannot Be Empty"},
+        notEmpty: {msg: "Jikan Anime Id Cannot Be Empty"},
       }
     }
   }, {
