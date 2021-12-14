@@ -16,12 +16,17 @@ module.exports = (sequelize, DataTypes) => {
       UserTopic.belongsTo(models.Topic, {
         foreignKey: `TopicId`
       })
-      UserTopic.belongsTo(models.Reply, {
-        foreignKey: `UserTopicId`
-      })
+      // UserTopic.belongsTo(models.Reply, {
+      //   foreignKey: `UserTopicId`
+      // })
     }
   };
   UserTopic.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true // Automatically gets converted to SERIAL for postgres
+    },
     UserId: DataTypes.INTEGER,
     TopicId: DataTypes.INTEGER
   }, {
