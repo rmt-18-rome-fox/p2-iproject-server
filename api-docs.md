@@ -20,7 +20,8 @@ _User_
 _Profiles_
 ```
 - UserId : integer, required​
-- namaLengkap : varchar
+- namaLengkap : varchar, required,
+- imageUrl: varchar,
 - alamat : text
 - rtRw : varhcar
 - kelurahan : varchar
@@ -62,6 +63,7 @@ List of available endpoints:
 - `POST/Register` 
 - `POST/login`
 - `POST/profiles`
+- `PUT/profiles`
 - `GET/user`
 - `GET/posts`
 - `POST/post`
@@ -123,6 +125,55 @@ _Response (200 - OK)_
 ```json
 {
   "access_token": "string"
+}
+```
+
+_Response (400 - Bad Request)_
+
+```json
+{
+  "message": "Email is required"
+}
+OR
+{
+  "message": "Password is required"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Invalid email/password"
+}
+```
+
+## 3. POST /profiles
+
+Request:
+
+- body:
+```json
+{
+  "namaLengkap": string,
+  "alamat": text ,
+  "rtRw" : string,
+  "kelurahan": string,
+  "kecamatan": string,
+  "kotaKab": string,
+  "provinsi" : string,
+  "lat": integer,
+  "long": integer
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Your profile is created",
+  "data": {
+
+  }
 }
 ```
 

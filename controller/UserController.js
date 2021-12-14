@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Profile } = require('../models')
 const { comparePassword } = require('../helper/bcryipt')
 const { createToken } = require('../helper/jwt')
 
@@ -24,8 +24,8 @@ class UserController {
     const { email, password } = req.body
 
     try {
-      if ( !email ) throw { name: "INVALID"}
-      if ( !password ) throw { name: "INVALID"}
+      if ( !email ) throw { name: "INVALID_EMAIL"}
+      if ( !password ) throw { name: "INVALID_PASSWORD"}
 
       const data = await User.findOne({
         where: {
@@ -48,6 +48,58 @@ class UserController {
       })
     } catch (error) {
       next(error)
+    }
+  }
+  static async postProfile (req, res, next) {
+    const {
+      namaLengkap,
+      alamat,
+      rtRw,
+      kelurahan,
+      kecamatan,
+      kotaKab,
+      provinsi,
+      lat,
+      long
+    } = req.body
+    const { id } = req.auth
+    
+    try {
+      console.log(req.dataUpload.url);
+      const profile = await Profile.create({
+        UserId: id,
+        namaLengkap,
+        alamat,
+        rtRw,
+        kelurahan,
+        kecamatan,
+        kotaKab,
+        provinsi,
+        lat,
+        long,
+        imageUrl: req.dataUpload.url
+      })
+    
+      res.status(201).json({
+        message: "Your profile is created",
+        data: {
+          id: profile.id,
+          UserId: profile.UserId,
+          namaLengkap: profile.namaLengkap,
+          imageUrl: profile.imageUrl,
+          alamat: profile.alamat,
+          rtRw: profile.rtRw,
+          kelurahan: profile.kelurahan,
+          kecamatan: profile.kecamatan,
+          kotaKab: profile.kotaKab,
+          provinsi: profile.provinsi,
+          lat: profile.lat,
+          long: profile.long,
+        }
+      })
+      
+    } catch (error) {
+      next(error)  
     }
   }
 }

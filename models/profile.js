@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: {
+        msg: "You already have a profile"
+      },
       validate: {
         notEmpty: {
           msg: "Please Follow with User ID"
@@ -28,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     namaLengkap: DataTypes.STRING,
+    imageUrl: DataTypes.STRING,
     alamat: DataTypes.TEXT,
     rtRw: DataTypes.STRING,
     keluarah: DataTypes.STRING,

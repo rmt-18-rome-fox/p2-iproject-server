@@ -11,6 +11,7 @@ module.exports = {
       UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        unique: true,
         references: {
           model: "Users",
           key: "id"
@@ -19,6 +20,9 @@ module.exports = {
         onDelete: "CASCADE"
       },
       namaLengkap: {
+        type: Sequelize.STRING
+      },
+      imageUrl: {
         type: Sequelize.STRING
       },
       alamat: {
