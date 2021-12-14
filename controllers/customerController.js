@@ -1,6 +1,7 @@
 const { User, Category, Product, Favorite} = require('../models')
 const bcrypt = require('bcryptjs')
 const { OAuth2Client } = require('google-auth-library')
+const FacebookStrategy = require('passport-facebook').Strategy
 const { createToken } = require('../helpers/jwt')
 const {Op} = require("sequelize")
 
@@ -103,6 +104,64 @@ class customerController {
             }
 
             res.status(200).json({ token: createToken(payloadUser), dataUser })
+
+        } catch (err) {
+            // console.log(err);
+            next(err)
+        }
+    }
+
+    static async authFacebook(req, res, next) {
+        try {
+            // const { idToken } = req.body
+            // const client = new OAuth2Client(process.env.CLIENT_ID)
+
+            // const ticket = await client.verifyIdToken({
+            //     idToken,
+            //     audience: process.env.CLIENT_ID,
+            // });
+
+            // const payload = ticket.getPayload();
+            passport.use(new FacebookStrategy({
+                clientID: process.env.CLIENT_ID_FB,
+                clientSecret: process.env.CLIENT_SECRET_FB,
+                callbackURL: "http://localhost:3000/auth/facebook/secrets"
+              },
+              function(accessToken, refreshToken, profile, cb) {
+                User.findOrCreate({ username: profile.id }, function (err, user) {
+                  return cb(err, user);
+                });
+              }
+            ));
+
+            console.log(passport);
+            // let [user, created] = await User.findOrCreate({
+            //     where: {
+            //         email  : payload.email
+            //     },
+            //     defaults : {
+            //         username: payload.name,
+            //         email  : payload.email,
+            //         password : "LoginGoogle",
+            //         role : 'Customer',
+            //         phoneNumber : 'Login from google',
+            //         address : 'Login from google'
+            //     }
+            // })
+
+            // const payloadUser = {
+            //     id: user.id,
+            //     username: user.username,
+            //     email: user.email
+            // }
+
+            // const dataUser = {
+            //     id : user.id,
+            //     email : user.email,
+            //     role: user.role
+            // }
+
+            // res.status(200).json({ token: createToken(payloadUser), dataUser })
 
         } catch (err) {
             // console.log(err);

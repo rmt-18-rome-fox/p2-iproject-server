@@ -1,4 +1,6 @@
-const { Product, Category, User } = require('../models')
+const { Product, Category, User, Favorite} = require('../models')
+const format = require('../helpers/currency')
+const nodemailer = require("nodemailer");
 
 class productController {
     static async showProduct(req, res, next) {
@@ -75,46 +77,78 @@ class productController {
         }
     }
 
-    static async updateStatus(req, res, next) {
+    static async checkout(req, res, next) {
         try {
-            let id = req.params.id
-            let { status } = req.body
+            // console.log('MASUK');
+            let UserId = req.user.id
+            let email = req.user.email
+            let username = req.user.username
 
-            const currentProduct = await Product.findByPk(id)
-            let currentStatus = currentProduct.status
+            const response = await Favorite.findAll({
+                where: {
+                    UserId
+                },
+                include : Product
+            })
 
-            if (req.user.role === 'Admin') {
-                if (status !== currentStatus) {
-                    const response = await Product.update({
-                        status
-                    }, {
-                        where: {
-                            id
-                        }
-                    })
+            let detailPrice = await response.map(product => {
+                return product.Product.price++
+            })
 
-                    const findProduct = await Product.findOne({
-                        where: {
-                            id
-                        }
-                    })
-        
-                    const createHistory = await History.create({
-                        ProductId: findProduct.id,
-                        title : findProduct.title,
-                        description: `Product with tilte ${findProduct.title} status with ID : ${findProduct.id} has been edited by ${req.user.email}`,
-                        updatedBy: req.user.email
-                    })
+            let detailName = await response.map(product => {
+                return product.Product.name
+            })
 
-                    res.status(200).json(`Product status has been changed from ${currentStatus} to ${status}`)
-                } else {
-                    throw { name: "sameStatus" }
+            const reducer = (previousValue, currentValue) => previousValue + currentValue
+
+            let totalPrice = detailPrice.reduce(reducer)
+
+            // MIDTRANS
+
+            // console.log(response);
+            // let checkout = await response.forEach(product => {
+            //     Product.decrement(
+            //         {
+            //             stock: 1
+            //         },
+            //         {
+            //             where: {
+            //                 id: product.ProductId
+            //             }
+            //         })
+            // })
+
+            let transporter = nodemailer.createTransport({
+                service:  'gmail', 
+                auth: {
+                  user: 'tokomovieh8@gmail.com', 
+                  pass: 'ToKoMovieH8!', 
+                },
+              });
+              let notif = {
+                from: 'tokomovieh8@gmail.com', // sender address
+                to: email, // list of receivers
+                subject: "Succesfull Buy  ✔", // Subject line
+                text: `Hello ${username}, Thank you for buy our stuff!
+This is your invoice
+You have bought these stuff :
+    • ${detailName.join('\n    • ')}
+With total cost ${format(totalPrice)}
+`
+              }
+     
+            transporter.sendMail(notif, (err, data) => {
+                if (err) {
+                    console.log(`Email not send`);  
+                }else {
+                    console.log(`Email has been sent`);
                 }
-
-            } else {
-                throw { name: 'forbidden' }
-            }
-        } catch (err) {
+            });
+ 
+            // res.status(200).json(`You have to pay : ${format(totalPrice)}`)
+            res.status(200).json('Thank you for buy our stuff!')
+            } catch (err) {
+            console.log(err);
             next(err)
         }
 
