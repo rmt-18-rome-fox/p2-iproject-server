@@ -18,8 +18,7 @@ class UserController {
             res.status(201).json(payload)
             
         } catch (err) {
-            // console.log(err)
-            res.status(500).json({message: "Internal server error"})
+            next(err)
         }
     }
 
@@ -53,11 +52,7 @@ class UserController {
             }
     
         } catch (err) {
-            // console.log(err)
-            if(err.name === "invalid email or password"){
-                res.status(401).json({message: "Invalid email/password"})
-            }
-            res.status(500).json({message: "Internal server error"})
+            next(err)
         }
     }
 }
