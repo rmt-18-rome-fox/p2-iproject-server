@@ -1,0 +1,15 @@
+const express = require('express')
+const app = express()
+const port = 3000
+const userController = require("./controller/userController")
+const bookController = require("./controller/bookController")
+const middleware = require("./middleware/middleware")
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+
+app.post("/register", userController.userRegister)
+app.post("/login", userController.userLogin)
+app.use(middleware.authentication)
+app.get("/books", bookController)
+app.get("/bookmarks", bookController)
+app.post("/bookmarks/:bookId", bookController)
