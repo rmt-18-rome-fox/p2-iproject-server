@@ -27,9 +27,19 @@ const errorLog = (err, req, res, next) => {
                     err.name === `NO_PRODUCT_TO_ADD`) {
          code = 404
          message = "Product not found"
+    } else if ( err.name === `ERROR_MIDTRANS`){
+         code = 400
+         message = "Midtrans Errror"
+    } else if ( err.name === `TRANSACTION_NOT_FOUND` ){
+         code = 400
+         message = "There Is no Transaction with those Id"
+    } else if ( err.name === `PLEASE_PAY_FIRST`){
+         code = 400
+         message = "you just close the tab, please checkout again"
     }
 
-//     console.log(err)
+    console.log(err)
+
     res.status(code).json({message})
 
 }

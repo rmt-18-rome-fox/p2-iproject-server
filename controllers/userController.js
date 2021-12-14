@@ -1,4 +1,4 @@
-const { User, Product, OrderProduct } = require(`../models/index`)
+const { User, Product, OrderProduct, Transaction } = require(`../models/index`)
 const { getToken } = require(`../helpers/jwt`)
 const { compareHash } = require(`../helpers/bycrpt`);
 const { Op } = require("sequelize");
@@ -62,6 +62,7 @@ let fetchAllProducts = async (req, res, next) => {
 
 let fetchOrderProduct = async (req, res, next) => {
     try {
+
         const response = await OrderProduct.findAll({
             where: {
                 UserId: req.auth.id
@@ -160,6 +161,8 @@ let checkout = async (req, res, next) => {
             res.status(200).json({ msg: `there is no orders yet`})
         } else {
 
+            console.log(req.user.snap)
+
             let orderDerail = { 
                 order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
                 totalPrice: 0,
@@ -178,11 +181,38 @@ let checkout = async (req, res, next) => {
     }
 }
 
+let getStatusTransaction = async ( req, res, next) => {
+    
+    try {
+
+        const findAllhistoryLog = await Transaction.findAll({
+            where: {
+                UserId: req.auth.id
+            },
+            order: [
+                ['id', 'DESC']
+            ],
+            attributes: {
+                exclude: [ "updatedAt", "UserId" ]
+            }
+        })
+
+        res.status(200).json({
+            findAllhistoryLog
+        })
+        
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
+
 module.exports = {
     register,
     login,
     fetchAllProducts,
     fetchOrderProduct,
     addOrderItem,
-    checkout
+    checkout,
+    getStatusTransaction
 }

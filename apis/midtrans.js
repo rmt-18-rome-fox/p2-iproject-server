@@ -1,115 +1,187 @@
 
 const axios = require(`axios`)
-// const midtransClient = require('midtrans-client');
-// Create Snap API instance
+const { OrderProduct, Product, Transaction } = require(`../models/index`)
+const { Op } = require("sequelize");
 
-
-// let coreApi = new midtransClient.CoreApi({
-//     isProduction : false,
-//     serverKey : process.env.MID_SERVER_KEY,
-//     clientKey : process.env.MID_CLIENT_KEY
-// });
-
-const SANDBOX_BASE_URL = `https://app.sandbox.midtrans.com/snap/v1/transactions`
+const SANDBOX_BASE_URL = "https://app.sandbox.midtrans.com"
 const PRODUCTION_BASE_URL = `https://api.midtrans.com/v2`
 
-// let snap = new midtransClient.Snap({
-//     isProduction : false,
-//     serverKey : process.env.MID_SERVER_KEY,
-//     clientKey : process.env.MID_CLIENT_KEY
-// });
+let checkoutMid = async (req, res, next) => {
 
-
- 
-// snap.createTransaction(parameter)
-//     .then((transaction)=>{
-//         // transaction token
-//         let transactionToken = transaction.token;
-//         console.log('transactionToken:',transactionToken);
-//     })
-//     .catch((err) => console.log(err))
-
-
-
-let testingMidtrans = async (req, res, next) => {
     try {
 
-        let AUTH_STRING = Buffer.from("SB-Mid-server-3qGo9ieIwlQHXNn7ezFDGBvZ:").toString('base64')
+        const response = await OrderProduct.findAll({
+            where: {
+                [Op.and]: [
+                    { UserId: req.auth.id }, 
+                    { status: `pending` }
+                ], 
+            },
+            attributes: {
+                exclude: ['createdAt', `updatedAt`]
+            },    
+            include: {
+                model: Product,
+                attributes: {
+                    exclude: ['createdAt', `updatedAt`]
+                },
+            }, 
+        })
 
-        console.log(Buffer.from("SB-Mid-server-3qGo9ieIwlQHXNn7ezFDGBvZ:").toString('base64'));
+        if (response.length < 1) {
+            res.status(200).json({ msg: `there is no orders yet`})
+        } else {
 
-        console.log(AUTH_STRING,` ======================================================`)
+            let orderDetail = { 
+                order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
+                totalPrice: 0,
+                product: [],
+             }
 
-        // console.log.log(AUTH_STRING)
+            response.forEach(element => {
+                orderDetail.totalPrice += element.Product.price
+                orderDetail.product.push(element.Product)
+            });
+
+            req.user.checkout = orderDetail
+            next()
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
+let requestSnapToken = async (req, res, next) => {
+
+    try {
+        
+        let AUTH_STRING = Buffer.from(`${process.env.MID_SERVER_KEY}:`).toString('base64')
 
         const headers = {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization : `Basic ${AUTH_STRING}`,
         }
-
-        // let parameter = {
-        //     "transaction_details": {
-        //         "order_id": "YOUR-ORDERID-123456",
-        //         "gross_amount": 10000
-        //     },
-        //     "credit_card":{
-        //         "secure" : true
-        //     },
-        //     "customer_details": {
-        //         "first_name": "budi",
-        //         "last_name": "pratama",
-        //         "email": "ari@lala",
-        //         "phone": "08111222333"
-        //     }
-        // };
         
         let parameter = {
             "transaction_details": {
-              "order_id": "ORDER-101",
-              "gross_amount": 10000
+              "order_id": req.user.checkout.order_id,
+            //   "order_id": req.user.checkout.order_id,
+              "gross_amount": req.user.checkout.totalPrice
             }
           }
 
         const response = await axios.post( 
-            SANDBOX_BASE_URL, 
+            `${SANDBOX_BASE_URL}/snap/v1/transactions`, 
             parameter, 
             {
                 headers: headers
             }
         )
 
-        console.log(response.data)
-
         const result = response.data
+        
+        if (!result) throw { name: "ERROR_MIDTRANS" }
+
+        const input = {
+            order_id: parameter.transaction_details.order_id,
+            UserId: req.auth.id,
+            status: `pending`,
+            ammount: parameter.transaction_details.gross_amount
+        }
+
+        const HistoryLog = await Transaction.create({
+            order_id: parameter.transaction_details.order_id,
+            UserId: req.auth.id,
+            status: `pending`,
+            ammount: parameter.transaction_details.gross_amount
+        })
+        
+        res.status(200).json({
+            result
+        })
+        
+    } catch (error) {
+        console.log(error)
+        error.name = `ERROR_MIDTRANS`
+        next(error)
+    }
+}
+
+let updateStatus = async (req, res, next) => {
+    try {
+
+        const { orderId } = req.params
+
+        if (!orderId) throw { name: "TRANSACTION_NOT_FOUND" }
+
+        const findTransaction = await Transaction.findOne({
+            where: {
+                order_id: orderId
+            }
+        })
+
+        if (!findTransaction) throw { name: "TRANSACTION_NOT_FOUND" }
+
+        let AUTH_STRING = Buffer.from(`${process.env.MID_SERVER_KEY}:`).toString('base64')
+
+        const headers = {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization : `Basic ${AUTH_STRING}`,
+        }        
+
+        const response = await axios.get( 
+            `https://api.sandbox.midtrans.com/v2/${orderId}/status`,  
+            {
+                headers: headers
+            }
+        )
+
+        const status = response.data
+        let newStatus;
+
+        if (status.status_code === 404) {
+            newStatus = `failed`
+        }
+
+        if (status.transaction_status === `expire` || 
+            status.transaction_status === `cancel` ||
+            status.transaction_status === `deny`) {
+            newStatus = `failed`
+        } else if ( status.transaction_status === `settlement` ||
+                    status.transaction_status === `capture`) {
+            newStatus = `on Shipping`
+        }
+
+        if (!newStatus) throw { name: "PLEASE_PAY_FIRST" }
+
+        const findOneOrderId = await Transaction.update(
+            {
+                status: newStatus
+            },
+            {
+            where: {
+                order_id: orderId
+            },
+            returning: true
+        })
+
+        const result = findOneOrderId[1]
 
         res.status(200).json({
             result
         })
         
     } catch (error) {
-        console.log(error.response.data,` ini errrorna`)
+        console.log(error)
         next(error)
     }
 }
 
-
-
-
-
-
-// class Config {
-//     static serverKey = process.env.MID_SERVER_KEY
-//     static isProduction = false
-//     static is3ds = false
-//     static isSanitized = false
-
-//     static getBaseUrl(){
-//         return Config.isProduction ? PRODUCTION_BASE_URL : SANDBOX_BASE_URL
-//     }
-// }
-
 module.exports = {
-    testingMidtrans
+    requestSnapToken,
+    checkoutMid,
+    updateStatus
 }
 
