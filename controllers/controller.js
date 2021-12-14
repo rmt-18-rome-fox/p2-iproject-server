@@ -1,4 +1,5 @@
 const bcryptCompare = require('../helpers/bcryptCompare')
+const convertPayLoad = require('../helpers/convertPayLoad')
 const jwtToken = require('../helpers/jwtToken')
 const { User, Car, Booking } = require('../models')
 
@@ -29,15 +30,20 @@ class Controller {
     }
 
     static postCar(req, res, next) {
-        console.log('asdfasdf')
-        // const { email, password } = req.body
-        // User.findOne({ email: req.body.email })
-        //     .then(data => {
-        //         const isValid = bcryptCompare(req.body.password, data.password)
-        //         if(!isValid) throw {message: 'Invalid Password'}
-        //         // res.status(201).json({ id: data.id, email: data.email })
-        //     })
-        //     .catch(err => next(err))
+        const payload = convertPayLoad(req.headers.access_token)
+        const { name, brand, year, price, imageUrl } = req.body
+        Car.create({ 
+            name: name,
+            brand: brand,
+            year: year,
+            price: price,
+            imageUrl: imageUrl,
+            userId: payload.id
+         })
+            .then(data => {
+                res.status(201).send(data)
+            })
+            .catch(err => next(err))
     }
 }
 
