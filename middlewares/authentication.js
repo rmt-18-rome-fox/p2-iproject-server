@@ -20,11 +20,7 @@ const authentication = async (req, res, next) => {
 
         next()
     } catch (err) {
-        if (err.name == 'USER_UNAUTHORIZED') {
-            res.status(401).json({message: "Invalid Token"})
-        } else {
-            res.status(500).json({message: "Internal Server Error"})
-        }
+        next(err)
     }
 
 }

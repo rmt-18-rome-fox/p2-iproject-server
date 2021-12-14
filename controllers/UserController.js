@@ -1,6 +1,7 @@
-const { User } = require('../models')
+const { User, Profile } = require('../models')
 const { comparePassword } = require('../helpers/bcrypt')
-const { createToken } =require('../helpers/jwt') 
+const { createToken } =require('../helpers/jwt'); 
+const res = require('express/lib/response');
 
 const login = async (req, res, next) => {
     try {
@@ -22,12 +23,7 @@ const login = async (req, res, next) => {
         let access_token = createToken(payload)
         res.status(200).json({access_token})
     } catch (err) {
-        if (err.name == 'unauthorized') {
-            res.status(401).json('invalid email/password')
-        } else {
-            // console.log(err)
-            res.status(500).json({message: "Internal Server Error"})
-        }
+        next(err)
     }
     
 
@@ -49,16 +45,31 @@ const register = async (req, res, next) => {
             res.status(201).json(output)
         }
     } catch (err) {
-        if (err.name == 'ROLE_INVALID') {
-            res.status(400).json({message: "Role is Invalid"})
-        } else {
-            res.status(500).json({message: "Internal Server Error"})
-        }
+        next(err)
     }
+}
 
+const fetchFeaturedArchitect = (req, res, next) => {
+    User.findAll({where: {
+        role: 'Architect',
+        limit: 5,
+        attributes: ['id', 'role'],
+        include: {
+            model: Profile,
+            key: 'id',
+            attributes: ['name', 'description', 'imageUrl']
+        }
+    }})
+    .then(data => {
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        next(err)
+    })
 }
 
 module.exports = {
     login,
-    register
+    register,
+    fetchFeaturedArchitect
 }
