@@ -7,7 +7,7 @@ const rajaOngkirHeaders = {
   },
 };
 
-class ControllerInformation {
+class ControllerApis {
   static async cities(req, res, next) {
     try {
       const url = `${rajaOngkirEndpoint}/city`;
@@ -44,4 +44,4 @@ class ControllerInformation {
   }
 }
 
-module.exports = ControllerInformation;
+module.exports = ControllerApis;
