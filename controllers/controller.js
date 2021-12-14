@@ -1,4 +1,5 @@
 const bcryptCompare = require('../helpers/bcryptCompare')
+const jwtToken = require('../helpers/jwtToken')
 const { User, Car, Booking } = require('../models')
 
 class Controller {
@@ -10,14 +11,21 @@ class Controller {
     }
 
     static login(req, res, next) {
-        const { email, password } = req.body
-        User.findOne({ email: req.body.email })
+        const email = req.body.email
+        User.findOne({ where: { email } })
             .then(data => {
-                const isValid = bcryptCompare(req.body.password, data.password)
-                if(!isValid) throw {message: 'Invalid Password'}
-                // res.status(201).json({ id: data.id, email: data.email })
+                if (!data) throw { message: "Email tidak valid" }
+                let passValid = bcryptCompare(req.body.password, data.password)
+                if (passValid) {
+                    const payLoad = {
+                        id: data.id,
+                        email: data.email,
+                        role: data.role
+                    }
+                    const access_token = jwtToken(payLoad)
+                    res.status(200).json({ access_token })
+                } else { message: "Password tidak valid" }
             })
-            .catch(err => next(err))
     }
 
     static postCar(req, res, next) {
