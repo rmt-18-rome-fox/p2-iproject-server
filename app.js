@@ -11,9 +11,12 @@ app.post("/register", userController.userRegister)
 app.post("/login", userController.userLogin)
 // app.use(middleware.authentication)
 app.get("/books", bookController.allBooks)
+app.get("/books/:bookId", bookController.bookDetail)
 app.get("/bookmarks", bookController.allBookmarks)
 app.post("/bookmarks/:bookId", bookController.addBookmark)
+// app.use(middleware.authorization)
+app.delete("/bookmarks/:bookId", bookController.deleteBookmark)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-  })
+})
