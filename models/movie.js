@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       actors: DataTypes.STRING,
       plot: DataTypes.STRING,
       poster: DataTypes.STRING,
+      imdbUrl: DataTypes.STRING,
     },
     {
       sequelize,
