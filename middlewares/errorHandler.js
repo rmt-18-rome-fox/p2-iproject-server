@@ -16,8 +16,13 @@ const ErrorHandler = (err, req, res, next) => {
             break;
         }
 
+        case 'JsonWebTokenError': {
+            res.status(401).json({message: "Invalid Token"})
+            break;
+        }
         default: {
-            res.status(500).json({message: "Internal Server Error"})
+            res.status(500).json(err)
+            // res.status(500).json({message: "Internal Server Error"})
             break;
         }
            
