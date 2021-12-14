@@ -13,6 +13,8 @@ class Controller {
     }
 
     static login(req, res, next) {
+        if(!req.body.email || req.body.email === null) throw {message: 'Email must be inputed'}
+        if(!req.body.password || req.body.password === null) throw {message: 'Password must be inputed'}
         const email = req.body.email
         User.findOne({ where: { email } })
             .then(data => {
@@ -62,10 +64,10 @@ class Controller {
         let priceMin = req.query.priceMin
         let priceMax = req.query.priceMax
         let filterByBrand = req.query.filterByBrand
-        if(!req.query.priceMin) priceMin = 0
+        if (!req.query.priceMin) priceMin = 0
         console.log(Infinity)
-        if(!req.query.priceMax) priceMax = 999999999999999999
-        if(!req.query.filterByBrand) filterByBrand = ''
+        if (!req.query.priceMax) priceMax = 999999999999999999
+        if (!req.query.filterByBrand) filterByBrand = ''
         Car.findAll({
             where: {
                 brand: {
@@ -82,32 +84,36 @@ class Controller {
             .then(data => {
                 res.status(200).send(data)
             })
-            .catch(err => next(err)) 
-    }
-
-    static postBook(req,res,next) {
-        const payload = convertPayLoad(req.headers.access_token)
-        console.log(getDateWithoutTime(req.body.dateStart))
-        Booking.create({
-            dateStart: req.body.dateStart,
-            dateEnd: req.body.dateEnd,
-            userId: payload.id,
-            carId: req.params.carId 
-        })
-            .then(data => res.status(201).send(data))
             .catch(err => next(err))
     }
 
-    static getBook(req,res,next) {
+    static async postBook(req, res, next) {
+        try {
+            const payload = convertPayLoad(req.headers.access_token)
+            const priceCar = await Car.findOne({ where: { id: req.params.carId } })
+            const dataEnd = new Date(req.body.dateEnd)
+            const dateStart = new Date(req.body.dateStart)
+            const price = priceCar.price * (dataEnd - dateStart)
+            const data = await Booking.create({
+                price: price,
+                status: 'Payed',
+                dateStart: req.body.dateStart,
+                dateEnd: req.body.dateEnd,
+                userId: payload.id,
+                carId: req.params.carId
+            })
+            res.status(201).send(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static getBook(req, res, next) {
         const payload = convertPayLoad(req.headers.access_token)
-        Booking.findAll({ where: {userId: payload.id}, include: {model: Car, key:'userId'}})
+        Booking.findAll({ where: { userId: payload.id }, include: { model: Car, key: 'userId' } })
             .then(data => res.status(200).send(data))
             .catch(err => next(err))
     }
-}
-
-function getDateWithoutTime(date) {
-    return require('moment')(date).format('YYYY-MM-DD');
 }
 
 module.exports = { Controller }

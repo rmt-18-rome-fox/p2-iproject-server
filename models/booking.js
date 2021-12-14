@@ -15,38 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Booking.init({
-    dateStart: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true
-      }
-    },
-    dateEnd: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true
-      }
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true
-      }
-    },
-    carId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true
-      }
-    }
+    price: DataTypes.INTEGER,
+    status: DataTypes.STRING,
+    dateStart: DataTypes.DATE,
+    dateEnd: DataTypes.DATE,
+    userId: DataTypes.INTEGER,
+    carId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Booking',
