@@ -1,10 +1,4 @@
 const errorHandlers = (err, req, res, next) => {
-  //401-error login user not found atau password not match
-  //401-error authentication
-  //403-forbidden error di authorization
-  //404-not found
-  //400-error validation on create/update
-  //500-internal server error
   console.log(err); //check error here gaes
   if (err.message === `notFound`) {
     res.status(404).json({ message: `data not found` });
@@ -14,12 +8,12 @@ const errorHandlers = (err, req, res, next) => {
     res.status(401).json({message: err.message});
   } else if (err.name === `badRequest`) {
     res.status(400).json({ message: `validation error` });
-  } else if (err.message === "Already in your wishlist") {
-    //if product already in customer wishlist
-    res.status(400).json({ message: `Product Already in your wishlist` });
-  } else if (err.message === "Product not found") {
-    //if product doesnot exist
-    res.status(404).json({ message: `Product does not exist in database` });
+  } else if (err.message === "Already Booked") {
+    //if Movie already in customer bookings
+    res.status(400).json({ message: `Already Booked` });
+  } else if (err.message === "Movie not found") {
+    //if Movie doesnot exist
+    res.status(404).json({ message: `Movie not found` });
   } else if (err.message === "You must be a customer to access this wishlist") {
     //if admin or staff try to access wishlist
     res
