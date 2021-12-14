@@ -20,6 +20,7 @@ app.post('/car', authentication, multerMiddleware, uploadFile, Controller.postCa
 app.put('/car/:id', authentication, multerMiddleware, uploadFile, Controller.editCar)
 
 app.post('/book/:carId', Controller.postBook)
+app.get('/book', Controller.getBook)
 
 app.use(errorHandler)
 

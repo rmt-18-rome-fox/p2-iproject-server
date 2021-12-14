@@ -97,6 +97,13 @@ class Controller {
             .then(data => res.status(201).send(data))
             .catch(err => next(err))
     }
+
+    static getBook(req,res,next) {
+        const payload = convertPayLoad(req.headers.access_token)
+        Booking.findAll({ where: {userId: payload.id}, include: {model: Car, key:'userId'}})
+            .then(data => res.status(200).send(data))
+            .catch(err => next(err))
+    }
 }
 
 function getDateWithoutTime(date) {
