@@ -7,11 +7,13 @@ List of available endpoints:
 - `POST /admins/register`
 - `POST /admins/login`
 - `POST /users/register`
-- `POST /users/register`
+- `POST /users/login`
 - `POST /articles`
 - `GET /articles`
 - `PUT /articles/:id`
 - `DELETE /articles/:id`
+- `POST /articles/:id/comments`
+- `DELETE /articles/:id/comments/:commentId`
 
 &nbsp;
 
@@ -331,6 +333,100 @@ _Response (404 - Not Found)_
 ```json
 {
   "message": "Article not found"
+}
+```
+
+&nbsp;
+
+## 8. POST /articles/:id/comments
+
+Description:
+- Add new comment
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string"
+}
+```
+
+- params:
+```json
+{
+  "id": "integer"
+}
+```
+
+- body:
+```json
+{
+  "content": "string",
+}
+```
+
+_Response (201 - Created)_
+```json
+{
+    "id": 2,
+    "content": "komentar dari article kedua",
+    "ArticleId": 5,
+    "UserId": 2,
+    "updatedAt": "2021-12-14T19:54:36.313Z",
+    "createdAt": "2021-12-14T19:54:36.313Z"
+}
+```
+
+_Response (404 - Not Found)_
+```json
+{
+  "message": "Article not found"
+}
+```
+
+&nbsp;
+
+## 9. DELETE /articles/:id/comments
+
+Description:
+- Delete comment
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": "string"
+}
+```
+
+- params:
+```json
+{
+  "id": "integer",
+  "commentId": "integer"
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+    "message": "comment with id 2 deleted"
+}
+```
+
+_Response (404 - Not Found)_
+```json
+{
+  "message": "Article not found"
+}
+```
+
+_Response (404 - Not Found)_
+```json
+{
+  "message": "Comment not found"
 }
 ```
 

@@ -23,6 +23,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "notFound") {
     statusCode = 404
     message = "Article not found"
+  } else if (err.name === "noComment") {
+    statusCode = 404
+    message = "Comment not found"
   }
 
   res.status(statusCode).json({ message });
