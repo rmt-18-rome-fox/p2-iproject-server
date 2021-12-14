@@ -10,7 +10,8 @@ const {authentication} = require('../middlewares/middelware')
 router.use('/users', user);
 router.use('/fans', fans);
 
-router.use('/standing', ballController.getStandings)
+router.get('/standing', ballController.getStandings)
+router.get('/club-info', ballController.getClubs)
 
 router.use(authentication);
 

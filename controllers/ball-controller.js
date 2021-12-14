@@ -18,6 +18,26 @@ class Controller {
                 next(err);
             }
         }
+
+        static async getClubs(req, res, next) {
+            try {
+                let {id} = req.query
+
+                const clubInfo = await footballAxios({
+                    method: 'GET',
+                    url: `/teams?id=${id}`,
+                    headers: {
+                    'x-rapidapi-host': 'v3.football.api-sports.io',
+                    'x-rapidapi-key': process.env.FOOTBALL_KEY
+                    }
+                })
+                
+                res.status(200).json(clubInfo.data.response)
+            } catch (err) {
+                console.log(err);
+                next(err);
+            }
+        }
 }
 
 module.exports = Controller
