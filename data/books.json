@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "Si Putih",
+    "author": "Tere Liye",
+    "genre": "Fantasi",
+    "publishedDate": "2021",
+    "price": 85000,
+    "SellerId": 2,
+    "imageUrl": "https://cdn.gramedia.com/uploads/items/Si_Putih_cov.jpg"
+  }
+]
