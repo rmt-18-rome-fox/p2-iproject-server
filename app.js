@@ -15,7 +15,7 @@ app.use(express.urlencoded({
 }))
 
 
-
+app.use('/', index)
 
 
 
