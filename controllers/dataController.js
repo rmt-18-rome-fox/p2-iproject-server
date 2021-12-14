@@ -14,6 +14,26 @@ class DataController {
             next(err)
         }
     }
+
+    static async getAyahByJuzs (req, res, next) {
+        try {
+            let juzsNumber = +req.params.juzsNumber
+            let allAyah = await axios({
+                method: 'GET',
+                url: `${API_URL}/quran/verses/indopak?juz_number=${juzsNumber}`
+            })
+
+            let translation = await axios({
+                method: 'GET',
+                url: `${API_URL}/quran/translations/131?juz_number=${juzsNumber}`
+            })
+            // console.log(allAyah)
+            res.status(200).json({ayah: allAyah.data, translation: translation.data})
+        } catch (err) {
+            // console.log(err)
+            next(err)
+        }
+    }
 }
 
 module.exports = DataController
