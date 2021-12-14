@@ -3,6 +3,7 @@ const route = express.Router();
 const controllerCust = require('../controllers/controllerCust');
 const controllerCoffee = require('../controllers/controllerCoffee');
 const controllerAdmin = require('../controllers/controllerAdmin');
+const controllerMidtrans = require('../controllers/controllerMidtrans');
 const controllerOrderDetail = require('../controllers/controllerOrderDetail');
 const errorHandlers = require('../middleware/errorHandlers');
 const { authentication, authorizationAdminOnly } = require('../middleware/auth');
@@ -19,6 +20,9 @@ route.post('/admin/coffeepowder', [authentication, authorizationAdminOnly], cont
 route.delete('/admin/coffeepowder/:id', [authentication, authorizationAdminOnly], controllerAdmin.deleteCoffeePowder);
 route.put('/admin/coffeepowder/:id', [authentication, authorizationAdminOnly], controllerAdmin.updateCoffeePowder);
 route.get('/admin/coffeepowder/:id', [authentication], controllerCoffee.getOneCoffeePowder);
+
+route.post('/paycharge/:orderid', authentication, controllerMidtrans.postMidtrans);
+route.get('/checkstatuspayment/:orderid', authentication, controllerMidtrans.checkStatusPayment);
 
 route.use(errorHandlers);
 
