@@ -77,15 +77,27 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      cityName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "City Name field must not be empty",
+          },
+          notEmpty: {
+            msg: "City Name field must not be empty",
+          },
+        },
+      },
       CityId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Role field must not be empty",
+            msg: "City ID field must not be empty",
           },
           notEmpty: {
-            msg: "Role field must not be empty",
+            msg: "City ID field must not be empty",
           },
         },
       },

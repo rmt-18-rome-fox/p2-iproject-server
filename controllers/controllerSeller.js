@@ -3,15 +3,16 @@ const { User, Book } = require("../models");
 class ControllerSeller {
   static async register(req, res, next) {
     try {
-      const { name, email, password, CityId } = req.body;
+      const { name, email, password, CityId, cityName } = req.body;
 
       if (!name) throw { name: "emptyName" };
       if (!email) throw { name: "emptyEmail" };
       if (!password) throw { name: "emptyPassword" };
       if (!CityId) throw { name: "emptyCity" };
+      if (!cityName) throw { name: "emptyCity" };
 
       const role = "seller";
-      const data = { name, email, password, CityId, role };
+      const data = { name, email, password, CityId, role, cityName };
 
       const user = await User.create(data);
 
@@ -23,7 +24,6 @@ class ControllerSeller {
 
   static async book(req, res, next) {
     try {
-      console.log("masokk");
       const { title, author, genre, publishedYear, price, imageUrl } = req.body;
 
       if (!title) throw { name: "emptyTitle" };
