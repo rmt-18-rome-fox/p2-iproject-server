@@ -11,6 +11,7 @@ router.use(authentication)
 
 router.get('/juzz', DataController.getAllJuzz)
 router.get('/juzz/:juzsNumber', DataController.getAyahByJuzs)
+router.get('/chapters', DataController.getAllChapter)
 
 router.use(errorHandler)
 
