@@ -20,6 +20,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "unauthorized") {
     statusCode = 403
     message = "You are not authorized"
+  } else if (err.name === "notFound") {
+    statusCode = 404
+    message = "Article not found"
   }
 
   res.status(statusCode).json({ message });
