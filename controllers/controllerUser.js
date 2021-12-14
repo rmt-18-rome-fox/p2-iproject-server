@@ -46,7 +46,12 @@ class ControllerUser {
     try {
       const bookId = +req.params.bookId;
 
-      const book = await Book.findByPk(bookId);
+      const book = await Book.findByPk(bookId, {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+        include: [{ model: User, attributes: ["name", "CityId"] }],
+      });
       if (!book) throw { name: "bookNotFound" };
 
       res.status(200).json(book);
