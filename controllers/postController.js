@@ -1,6 +1,6 @@
 const unsplash = require("../APIs/unsplash");
 const axios = require("axios");
-const { Post } = require("../models");
+const { Post, User } = require("../models");
 const { toJSON, parse, stringify } = require("flatted");
 
 class PostController {
@@ -16,6 +16,27 @@ class PostController {
       });
     } catch (err) {
       console.log(err);
+      next(err);
+    }
+  }
+
+  static async addPost(req, res, next) {
+    try {
+      //   console.log(req.imageUrl);
+      const UserId = req.user.id;
+      const imageUrl = req.imageUrl;
+      const { title, description } = req.body;
+      const newPost = { title, description, imageUrl, UserId };
+
+      const findUser = await User.findByPk(UserId);
+      if (!findUser) {
+        throw { name: "Not Found", message: "User not found" };
+      }
+      const post = await Post.create(newPost);
+      //   console.log(post);
+      res.status(201).json(post);
+    } catch (err) {
+      //   console.log(err);
       next(err);
     }
   }
