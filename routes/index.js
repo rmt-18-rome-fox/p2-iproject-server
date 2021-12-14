@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const { errorHandler } = require("../middlewares/errorHandler");
 const apis = require("./apis");
 const customers = require("./customers");
 const sellers = require("./sellers");
 const users = require("./users");
+const { errorHandler } = require("../middlewares/errorHandler");
 
 router.get("/", (req, res) => res.send("8ooks API Running"));
 
