@@ -24,6 +24,7 @@ const { authentication, authorization } = require("../middlewere/auth");
 const { register, login, fetchAllProducts, fetchOrderProduct, addOrderItem, checkout, getStatusTransaction } = require('../controllers/userController');
 const { adminRegister, adminLogin } = require('../controllers/adminController');
 const { requestSnapToken, checkoutMid, updateStatus } = require(`../apis/midtrans`)
+const { googleAuth } = require(`../apis/googleAuth`)
 const errorsLog  = require("../middlewere/errorHandler");
 
 //admin
@@ -35,6 +36,7 @@ route.post('/cms/login', adminLogin);
 route.post('/register', register);
 route.post('/login', login);
 route.get('/products', fetchAllProducts);
+route.post(`/googleVer`, googleAuth);
 
 route.get('/status',[authentication, authorization], getStatusTransaction);
 route.get('/order', [authentication, authorization] , fetchOrderProduct);

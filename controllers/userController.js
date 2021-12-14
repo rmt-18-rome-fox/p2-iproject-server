@@ -32,9 +32,7 @@ let login = async (req, res, next) => {
 
         if (!verfyPass) throw { name: `USER_NOT_FOUND` }
 
-        const payload = {
-            id: findUser.id
-        }
+        const payload = { id: findUser.id }
 
         const access_token = getToken(payload)
 
