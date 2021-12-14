@@ -30,9 +30,11 @@ const errorHandler = (error, req, res, next) => {
         res.status(401).json({ message: `Invalid Access Token`})      
     } else if (error.name == `Forbidden`) {
         res.status(403).json({ message: `Forbidden Access. You are not authorized`})
-    } else if (error.name == `MulterError`) {
-        res.status(413).json({ message: `File Size Limits is 255 KB` , })
-    } else if (error.name == `Request Entity Too Large`) {
+    } 
+    // else if (error.name == `MulterError`) {
+    //     res.status(413).json({ message: `File Size Limits is 255 KB` , })
+    // } 
+    else if (error.name == `Request Entity Too Large`) {
         res.status(413).json({ message: `File Size Limits` , })
     } else if (error.name == `Unsopported File Type`) {
         res.status(415).json({ message: `File type does not supported` })

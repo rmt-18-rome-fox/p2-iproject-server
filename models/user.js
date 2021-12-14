@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.belongsToMany(models.Topic, {
         through: `UserTopic`
+        // foreignKey: `UserId`
+        // targetKey: `id`
       })
+      // User.hasMany(models.UserTopic, {
+      //   // through: `UserTopic`,
+      //   foreignKey: `UserId`
+      // })
     }
   };
   User.init({
