@@ -1,0 +1,76 @@
+nama project: My company Web
+Description: mengelola pekerjan/ project2 yang diterima perusahaan dan di berikan ke karyawan, dibuat untuk mempermudah melihat progres project dan mempermudah melakukan contrrol
+
+
+tabel ada 3
+- User (
+    name
+    posisition >>> manager >>>> employe
+    email
+    no tlpn
+)
+- Jobs (
+    title
+    employeId >>> yang mngerjakan
+    Description
+    Dificulty >> easy >>> medium >>> hard
+    Deadline
+    authorID
+    status >>> pending >>> Onprogres >>> finish
+    progres >>> start 0% >> 25% >> 50% >> 75% >> 100%
+    Link: github?
+    File----? mybe 3rd party
+)
+
+- Request (
+    name Request
+    Description
+    jobId
+    employeId
+    start date
+    end date
+    status >>  pending req >>> accept >>> reject
+)
+
+
+### 3rd party
+node mailer, where create job or request
+file sharing, nextcloud 1st candidat
+socketIo klo bisa
+
+
+
+
+
+### posisition manager 
+>> dapat create job dan menentukan karyawan yang akan mnegerjakan
+>> dapat mngubah semua data job, ex deadline 
+endpoint (
+
+    post User
+
+    get jobs >>> maybe filter by status
+    post jobs
+    put jobs
+    
+    get request 
+    put request
+
+)
+
+
+
+### posisition karyawan
+>> menerima job yang diberikan
+>> dapat mngubah status dan progres saja
+>> untuk mengubah deadline harus mngajukan request ke manager/ yang membuat job
+>> 
+endpoint (
+    get my Jobs
+    put my jobs
+
+    get my req
+    post my req
+    delete status pending req
+
+)
