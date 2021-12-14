@@ -1,6 +1,5 @@
 'use strict';
 
-const faker = require('faker');
 let fakerImage = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
 const { hash } = require('../helpers/bcrypt.js');
 module.exports = {
