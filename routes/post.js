@@ -1,16 +1,13 @@
 const router = require('express').Router();
-const {authentication, authorization} = require('../middlewares/middelware');
+const {authorization} = require('../middlewares/middelware');
 const Controller = require('../controllers/post-controller');
 const imageKit = require('../middlewares/imagekit');
 const upload = require('../middlewares/multer');
 
 router.get('/', Controller.showPosts)
 
-router.use(authentication)
-
 router.post('/', upload.single('imgUrl'), imageKit, Controller.addPost)
 
-// router.use(authorization)
 
 router.put('/:id', authorization, upload.single('imgUrl'), imageKit, Controller.putPost)
 router.delete('/:id', authorization, Controller.deletePost)
