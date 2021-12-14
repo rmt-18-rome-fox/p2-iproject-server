@@ -9,6 +9,7 @@ const authentication = async (req, res, next) => {
   if (!userData) throw { name: "unatorized" };
 
   console.log(userData);
+  next();
 };
 
 module.exports = { authentication };
