@@ -4,7 +4,6 @@ const {User} = require('../models')
 const Authentikasi = async (req,res,next)=>{
     try {
         const token = req.headers.access_token
-        console.log(token, `AAAAAAAAAAAAA`)
         if (!token) {
             throw { name : 'JsonWebTokenError'}
         }
