@@ -14,15 +14,78 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Game.init({
-    title: DataTypes.STRING,
-    thumbnail: DataTypes.STRING,
-    short_description: DataTypes.STRING,
-    game_url: DataTypes.STRING,
-    genre: DataTypes.STRING,
-    platform: DataTypes.STRING,
-    publisher: DataTypes.STRING,
-    developer: DataTypes.STRING,
-    release_date: DataTypes.DATE
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Title Is Required!`},
+        notNull:   {msg : `Title Is Required!`},
+      }
+    },
+    thumbnail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Thumbnail Pic Is Required!`},
+        notNull:   {msg : `Thumbnail Pic Is Required!`},
+      }
+    },
+    short_description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Description Is Required!`},
+        notNull:   {msg : `Description Is Required!`},
+      }
+    },
+    game_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Game Url Is Required!`},
+        notNull:   {msg : `Game Url Is Required!`},
+      }
+    },
+    genre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Genre Is Required!`},
+        notNull:   {msg : `Genre Is Required!`},
+      }
+    },
+    platform: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Game Platform Is Required!`},
+        notNull:   {msg : `Game Platform Is Required!`},
+      }
+    },
+    publisher: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Game Publisher Is Required!`},
+        notNull:   {msg : `Game Publisher Is Required!`},
+      }
+    },
+    developer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Game Developer Is Required!`},
+        notNull:   {msg : `Game DeveloperIs Required!`},
+      }
+    },
+    release_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      validate:{
+        notEmpty : {msg : `Game Release Date Is Required!`},
+        notNull:   {msg : `Game Release Date Is Required!`},
+      }
+    }
   }, {
     sequelize,
     modelName: 'Game',
