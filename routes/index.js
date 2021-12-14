@@ -8,6 +8,7 @@ router.post('/register', Controller.register)
 router.post('/login',Controller.login)
 
 router.post('/customer/register', CustomerController.registerCustomer)
+router.post('/customer/login', CustomerController.loginCustomer)
 
 
 
