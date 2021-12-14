@@ -17,31 +17,32 @@ _User_
 - password : string, required
 ```
 
-_Posts_
-```
-- UserId : integer, required
-- description : text
-- imageUrl : varchar
-- tag : varchar
-- status : string
-```
-
 _Profiles_
 ```
 - UserId : integer, required​
 - namaLengkap : varchar
 - alamat : text
-- rt/rw : varhcar
+- rtRw : varhcar
 - kelurahan : varchar
 - kecamatan : varchar
-- kota/kab : varchar
+- kotaKab : varchar
 - provinsi : varchar
 - lat : varchar
 - long : varchar
 ```
 
+_Posts_
+```
+- UserId : integer, required
+- description : text, required
+- imageUrl : varchar
+- tag : varchar
+- status : string
+```
+
 _Organization_
 ```
+- UserId: integer, required
 - name : varchar, required​
 - description : text, required​
 - isPaid : boolean, required​

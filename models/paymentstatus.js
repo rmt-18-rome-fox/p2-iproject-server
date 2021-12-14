@@ -11,11 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      PaymentStatus.belongsTo(models.User)
+      PaymentStatus.belongsTo(models.Organization)
     }
   };
   PaymentStatus.init({
-    UserId: DataTypes.INTEGER,
-    OrganizationId: DataTypes.INTEGER,
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please Follow with User ID"
+        },
+        notEmpty: {
+          msg: "Please Follow with User ID"
+        }
+      }
+    },
+    OrganizationId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please Follow with Organization ID"
+        },
+        notEmpty: {
+          msg: "Please Follow with Organization ID"
+        }
+      }
+    },
     status: DataTypes.STRING
   }, {
     sequelize,

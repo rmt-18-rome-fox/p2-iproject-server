@@ -11,11 +11,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Post.belongsTo(models.User, { foreignKey: "UserId" })
     }
   };
   Post.init({
-    UserId: DataTypes.INTEGER,
-    description: DataTypes.TEXT,
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please Follow with User ID"
+        },
+        notEmpty: {
+          msg: "Please Follow with User ID"
+        }
+      }
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Minimal masukkan deskripsi untuk post"
+        },
+        notEmpty: {
+          msg: "Minimal masukkan deskripsi untuk post"
+        }
+      }
+    },
     imageUrl: DataTypes.STRING,
     tag: DataTypes.STRING,
     status: DataTypes.STRING

@@ -9,7 +9,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       UserId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       namaLengkap: {
         type: Sequelize.STRING
@@ -17,7 +24,7 @@ module.exports = {
       alamat: {
         type: Sequelize.TEXT
       },
-      rt / rw: {
+      rtRw: {
         type: Sequelize.STRING
       },
       keluarah: {
@@ -26,7 +33,7 @@ module.exports = {
       kecamatan: {
         type: Sequelize.STRING
       },
-      kota / kab: {
+      kotaKab: {
         type: Sequelize.STRING
       },
       provinsi: {
