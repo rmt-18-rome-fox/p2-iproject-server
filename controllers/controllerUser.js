@@ -28,6 +28,7 @@ class ControllerUser {
         name: user.name,
         cityId: user.CityId,
         cityName: user.cityName,
+        role: user.role,
       };
 
       res.status(200).json({ access_token, userData });

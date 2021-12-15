@@ -99,8 +99,14 @@ class ControllerCustomer {
       const BookId = +req.query.bookId;
       const UserId = +req.user.id;
       const status = "Pending";
+      const { amount } = req.body;
 
-      const transaction = await Transaction.create({ BookId, UserId, status });
+      const transaction = await Transaction.create({
+        BookId,
+        UserId,
+        status,
+        amount,
+      });
       res.status(201).json(transaction);
     } catch (error) {
       next(error);
@@ -116,6 +122,37 @@ class ControllerCustomer {
       const patchStatus = await transaction.update({ status: "Success" });
       const message = `Transaction success`;
       res.status(200).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteCartByQuery(req, res, next) {
+    try {
+      const CustomerId = +req.user.id;
+      const BookId = +req.query.bookId;
+
+      const user = await User.findByPk(CustomerId);
+      if (!user) throw { name: "userNotFound" };
+
+      const book = await Book.findByPk(BookId);
+      if (!book) throw { name: "bookNotFound" };
+
+      const cart = await Cart.findOne({
+        where: {
+          [Op.and]: { BookId, CustomerId },
+        },
+      });
+
+      let message = "";
+      if (cart) {
+        const destroyCart = await cart.destroy();
+        message = "Cart has deleted";
+        res.status(200).json(message);
+      } else {
+        message = "Book is not in the cart";
+        res.status(200).json(message);
+      }
     } catch (error) {
       next(error);
     }

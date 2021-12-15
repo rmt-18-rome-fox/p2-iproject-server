@@ -11,6 +11,7 @@ router.use(authentication);
 router.use(authorizationCustomerOnly);
 
 router.get("/carts", ControllerCustomer.carts);
+router.delete("/carts", ControllerCustomer.deleteCartByQuery);
 router.delete("/carts/:id", ControllerCustomer.deleteCart);
 router.post("/carts/:bookId", ControllerCustomer.postCart);
 router.get("/transactions", ControllerCustomer.transactions);
