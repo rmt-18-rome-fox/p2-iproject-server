@@ -3,10 +3,10 @@ const { Article, Comment } = require("../models/index");
 const createArticle = async (req, res, next) => {
   try {
     const AdminId = req.user.id;
-    const { content, title } = req.body;
-    const imageUrl = req.additionalData;
+    const { content, title, articleUrl, imageUrl } = req.body;
+    // const imageUrl = req.additionalData;
 
-    const newArticle = await Article.create({ content, AdminId, imageUrl, title });
+    const newArticle = await Article.create({ content, AdminId, imageUrl, articleUrl, title });
 
     res.status(201).json(newArticle);
   } catch (err) {
@@ -113,11 +113,27 @@ const deleteComment = async (req, res, next) => {
     }
 }
 
+const getArticleDetail = async (req, res, next) => {
+    try {
+        const articleId = req.params.id
+        const response = await Article.findByPk(articleId)
+        if (!response) {
+            throw {name : "notFound"}
+        }
+
+        res.status(200).json(response)
+    } catch (err) {
+        next(err)
+    }
+    
+}
+
 module.exports = {
   createArticle,
   getArticles,
   editArticle,
   addComment,
   deleteArticle,
-  deleteComment
+  deleteComment,
+  getArticleDetail
 };

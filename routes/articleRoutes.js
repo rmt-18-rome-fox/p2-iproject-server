@@ -9,7 +9,9 @@ router.get("/articles", articleController.getArticles)
 
 router.use(userAuthentication)
 
-router.post("/articles", adminAuthorization, instanceMulter.single('imageUrl'), imageKitUpload, articleController.createArticle)
+// router.post("/articles", adminAuthorization, instanceMulter.single('imageUrl'), imageKitUpload, articleController.createArticle)
+router.post("/articles", adminAuthorization, articleController.createArticle)
+router.get("/articles/:id", articleController.getArticleDetail)
 router.put("/articles/:id", adminAuthorization, instanceMulter.single('imageUrl'), imageKitUpload, articleController.editArticle)
 router.delete("/articles/:id", adminAuthorization, articleController.deleteArticle)
 router.post("/articles/:id/comments", articleController.addComment)

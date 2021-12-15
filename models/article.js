@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     imageUrl: DataTypes.STRING,
+    articleUrl: DataTypes.STRING,
     AdminId: {
       type: DataTypes.INTEGER,
       allowNull: false,
