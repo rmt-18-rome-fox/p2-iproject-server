@@ -34,10 +34,39 @@ function errorHandler(err, req, res, next) {
       res.status(401).json({ message: "Wrong email or password" });
       break;
     case "unathorized":
-      res.status(403).json({ message: "Invalid token" });
+      res.status(401).json({ message: "Invalid token" });
+      break;
+    case "forbiddenAccess":
+      res.status(403).json({ message: "You are not authorized" });
+      break;
+    case "bookNotFound":
+      res.status(404).json({ message: "Book not found" });
+      break;
+    case "uniqueBookValidation":
+      res.status(404).json({ message: "Book has been added to cart" });
+      break;
+    case "emptyTitle":
+      res.status(400).json({ message: "Title field must not be empty" });
+      break;
+    case "emptyAuthor":
+      res.status(400).json({ message: "Author field must not be empty" });
+      break;
+    case "emptyGenre":
+      res.status(400).json({ message: "Genre field must not be empty" });
+      break;
+    case "emptyPrice":
+      res.status(400).json({ message: "Price field must not be empty" });
+      break;
+    case "emptyImageUrl":
+      res.status(400).json({ message: "Image Url field must not be empty" });
+      break;
+    case "emptyPublishedYear":
+      res
+        .status(400)
+        .json({ message: "Published Year field must not be empty" });
       break;
     default:
-      res.status(500).json({ message: err });
+      res.status(500).json({ message: err.message });
       break;
   }
 }

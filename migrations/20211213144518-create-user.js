@@ -25,6 +25,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      cityName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       CityId: {
         type: Sequelize.INTEGER,
         allowNull: false,
