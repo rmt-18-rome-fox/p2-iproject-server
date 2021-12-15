@@ -8,6 +8,7 @@ const  {Authentikasi} = require('../middleware/auth')
 //for user
 route.post('/register',UserController.register)
 route.post('/login', UserController.login)
+route.post('/googleAuth', UserController.googleRegister)
 
 route.use(Authentikasi)
 //forgame

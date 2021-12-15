@@ -18,9 +18,14 @@ const errorHandler = (err,req,res,next)=>{
             errMessage = "Error Post Not Found"
             break;
 
-        case "required":
+        case "email":
             code = 400
-            errMessage = "Please insert email and password"
+            errMessage = "Please Insert Email"
+            break;
+
+        case "password":
+            code = 400
+            errMessage = "Please Insert Password"
             break;
 
         case "wrong":

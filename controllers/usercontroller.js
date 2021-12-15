@@ -2,6 +2,7 @@ const {User} = require('../models')
 const compare = require('../helpers/bcrypt')
 const {maketoken} = require('../helpers/jwt')
 const nodemailer = require("nodemailer")
+// const {OAuth2Client} = require('google-auth-library');
 
 class UserController {
     static async register(req,res,next){
@@ -75,6 +76,59 @@ class UserController {
             console.log(err)
             next(err)
         }
+    }
+
+    static async googleRegister(req,res,next){
+        console.log(req.body)
+       
+        try {
+           const {idToken} = req.body
+       
+           const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
+           const ticket = await client.verifyIdToken({
+               idToken,
+               audience : process.env.GOOGLE_CLIENT
+           })
+         
+           const payload = ticket.getPayload();
+           
+           const userid = payload['sub'];
+           const random = Math.random().toString(36).substr(2, 5);
+           const username = payload.name.replace(' ','_')
+           const payloaduser = 
+           {
+               username,
+               email:payload.email,
+               password : random,
+               role: "customer",
+               phoneNumber:"0888888888",
+               address:"Jakarta"
+           }
+       
+            const [user,created] = await User.findOrCreate({
+                where :{
+                    email : payload.email
+                },
+                defaults : payloaduser
+            })
+         
+                const newUser = {
+                   id : user.id,
+                   username: user.username,
+                   email: user.email,
+                   role :user.role
+                 }
+
+               const acces_token = maketoken(newUser,secretkey)
+               res.status(201).json({acces_token,newUser})
+          
+
+            
+        } catch (err) {
+           
+            next(err)
+        }
+      
     }
 
 }

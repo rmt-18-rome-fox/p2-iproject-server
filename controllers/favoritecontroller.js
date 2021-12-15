@@ -43,11 +43,6 @@ class FavoriteController{
                 from: process.env.Email,
                 to: `${email}`,
                 subject: 'Thank You!',
-            //     text: `
-            //   Dear ${email},
-            //     You Just Favorite One of Our Game List with Title: ${mailer.Game.title},
-            //     You Can Check Their Web on  ${mailer.Game.game_url}
-            //     `,
                 html: `<b>  Dear ${email} <br>
                 You Just Favorite One of Our Game List with Title: ${mailer.Game.title} <br>
                 You Can Check Their Web on  ${mailer.Game.game_url} <br>
@@ -55,7 +50,6 @@ class FavoriteController{
                 </b>`
               }
               
-              console.log(mailOp, `AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`)
               transporter.sendMail(mailOp, (err, data)=>{
                 if (err){
                     console.log(err)
@@ -67,7 +61,6 @@ class FavoriteController{
                
                res.status(201).json(favGame)
         } catch (err) {
-            console.log(err , `AAAAAAAAAAAAAAAAAAAAA`)
            next(err)
         }
     }

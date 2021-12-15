@@ -50,7 +50,7 @@ class GameController{
             const obj ={
                 TotalPage : Math.ceil(games.count / 5),
                 CurrentPage : req.query.page,
-                TotalPost : games.count,
+                TotalGames : games.count,
                 Posts : games.rows
             }
             if (obj.CurrentPage === undefined) {
