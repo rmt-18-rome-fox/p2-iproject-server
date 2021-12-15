@@ -3,7 +3,6 @@ const DetectLanguage = require('detectlanguage');
 const detectlanguage = new DetectLanguage(detectLangAPI);
 let langList = []
 
-// console.log(procs
 detectlanguage.languages()
 .then(function(result) {
     langList = result
