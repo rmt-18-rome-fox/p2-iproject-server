@@ -1,8 +1,8 @@
 const detectLangAPI = process.env.DETECTLANGAPI
 const DetectLanguage = require('detectlanguage');
 const detectlanguage = new DetectLanguage(detectLangAPI);
-let langList = []
 
+let langList = []
 detectlanguage.languages()
 .then(function(result) {
     langList = result
@@ -21,7 +21,7 @@ const detectLang = async (req, res, next) => {
 
         res.status(200).json(findLang)
     }catch(err){
-
+        res.status(500).json({msg: "Something went down"})
     }
 }
 
