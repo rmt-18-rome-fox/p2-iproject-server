@@ -9,6 +9,11 @@ const {createServer} = require('http');
 const {Server} = require('socket.io');
 const httpServer = createServer(app);
 
+app.use(cors());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use(router)
+
 const io = new Server(httpServer, {
   cors: {
     origin: '*',
@@ -25,19 +30,13 @@ io.on('connection', (socket) => {
 
   socket.on('user', (value) => {
     userData.push({
-      username: value,
+      username: value.username,
       status: 'Online'
     })
-    socket.emit('customEventServer', 'server exchange');
     console.log(userData);
   })
 
 })
-
-app.use(cors());
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(router)
 
 app.use(errHandler)
 
