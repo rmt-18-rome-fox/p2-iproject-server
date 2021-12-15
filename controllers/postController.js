@@ -93,5 +93,20 @@ class PostController {
       next(err);
     }
   }
+  static async deletePost(req, res, next) {
+    try {
+      const postId = req.params.postId;
+
+      const findPost = await Post.findByPk(postId);
+      if (!findPost) {
+        throw { name: "Not Found", message: "Post not found" };
+      }
+      await findPost.destroy();
+      res.status(200).json({ message: `Post id ${findPost.id} has been deleted` });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
 }
 module.exports = PostController;
