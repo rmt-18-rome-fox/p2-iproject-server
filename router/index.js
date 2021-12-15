@@ -1,8 +1,11 @@
 const router = require('express').Router()
 const user = require('./UserRouter')
-const post = require('./PostRouter')
+const posts = require('./PostRouter')
+const authentication = require('../middleware/authentication')
 
 router.use('/', user)
-router.use('/posts', post)
+
+router.use(authentication)
+router.use('/posts', posts)
 
 module.exports = router

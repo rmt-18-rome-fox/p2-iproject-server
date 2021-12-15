@@ -43,6 +43,11 @@ module.exports = (sequelize, DataTypes) => {
     tag: DataTypes.STRING,
     status: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate (instance, options) {
+        instance.status = 'active'
+      }
+    },
     sequelize,
     modelName: 'Post',
   });

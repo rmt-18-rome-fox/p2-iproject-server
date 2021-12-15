@@ -64,13 +64,13 @@ List of available endpoints:
 - `POST/login`
 - `POST/profiles`
 - `GET/profile`
-
 - `GET/posts`
-- `PUT/profile/:id`
 - `POST/post`
+
 - `PUT/post/:id`
 - `POST/organization`
 - `PUT/organization`
+- `PUT/profile/:id`
 - `POST/payment-status`
 
 ## 1. POST /register
@@ -243,6 +243,79 @@ _Response (200 - OK)_
     "User": {
         "email": "ariesastrah@gmail.com"
     }
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+
+## 5. GET /posts
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+
+## 6. POST /posts/post
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+- body:
+```json
+{
+  "description": string,
+  "imageUrl": file ,
+  "tag" : string,
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Success post",
+  "post": {
+      "id": 2,
+      "description": "post pertama saya",
+      "tag": null,
+      "imageUrl": "https://ik.imagekit.io/kkupfm0agcc/ganteng-jepang_UK881RQglZ.jpg",
+      "UserId": 1,
+      "updatedAt": "2021-12-15T01:20:13.502Z",
+      "createdAt": "2021-12-15T01:20:13.502Z",
+      "status": "active"
+  }
 }
 ```
 

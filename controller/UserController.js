@@ -65,7 +65,6 @@ class UserController {
     const { id } = req.auth
     
     try {
-      console.log(req.dataUpload.url);
       const profile = await Profile.create({
         UserId: id,
         namaLengkap,

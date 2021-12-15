@@ -1,10 +1,26 @@
-const post = require('express').Router()
+const posts = require('express').Router()
 const authentication = require('../middleware/authentication')
 const PostController = require('../controller/PostController')
+const { instanceMulter } = require('../middleware/multer')
+const { fileUpload } = require('../middleware/fileUpload')
+const { postAuthorization } = require('../middleware/authorization')
 
-post.get('/', authentication, PostController.getPosts)
-post.post('/post', authentication, PostController.post)
-post.put('/:id', authentication, PostController.putPost)
-post.delete('/delete/:id', authentication, PostController.deletePost)
+posts.get('/', PostController.getPosts)
 
-module.exports = post
+posts.post(
+  '/post',
+  instanceMulter.single('postImage'),
+  fileUpload,
+  PostController.post
+)
+
+posts.put('/post/:id',
+  postAuthorization,
+  instanceMulter.single('postImage'),
+  fileUpload,
+  PostController.putPost
+)
+
+posts.delete('/delete/:id', PostController.deletePost)
+
+module.exports = posts
