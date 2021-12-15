@@ -50,6 +50,27 @@ class CommentController {
       console.log(err);
     }
   }
+  static async deleteComment(req, res, next) {
+    try {
+      const PostId = req.params.postId;
+      const commentId = req.params.commentId;
+
+      const findPost = await Post.findByPk(PostId);
+      if (!findPost) {
+        throw { name: "Not Found", message: "Post not found" };
+      }
+      const findComment = await Comment.findByPk(commentId);
+      //   console.log(findComment);
+      if (!findComment) {
+        throw { name: "Not Found", message: "Comment not found" };
+      }
+      await findComment.destroy();
+      res.status(200).json({ message: `Comment id ${findComment.id} has been deleted` });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
 }
 
 module.exports = CommentController;
