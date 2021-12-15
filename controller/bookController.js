@@ -80,8 +80,8 @@ const deleteBookmark = async (req, res, next) =>{
                 bookId: id
             }
         })
-        console.log("masuk function", book.data);
-        res.status(201).json(book)
+
+        res.status(200).json(book.data)
     }catch(err){
 
     }
