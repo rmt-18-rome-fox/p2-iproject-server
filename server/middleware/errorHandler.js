@@ -16,9 +16,12 @@ const errorHandler = (err, req, res, next) => {
     res.status(401).json({message : 'user not found'})
   } else if (err.name === "favourite_not_found") {
     res.status(401).json({message : 'Favourite not found'})
+  } else if (err.name === "upgradeAccount") {
+    res.status(401).json({message : 'You must upgrade your account'})
   } else {
     res.status(500).json({message:'Internal server error'})
   }
+  console.log(err);
 }
 
 module.exports = errorHandler

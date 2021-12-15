@@ -35,10 +35,11 @@ module.exports = class UserAccount {
       }
       const payload = {
         id: response.id,
-        email: response.email
+        email: response.email,
+        status: response.status
       }
       const access_token = signPayload(payload)
-      res.status(200).json({access_token})
+      res.status(200).json({access_token,status: response.status})
     } catch (err) {
       next (err)
     }

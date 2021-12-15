@@ -2,18 +2,25 @@ const {Favourite} = require("../models")
 const {apiKey, spoon} = process.env
 const axios = require ('axios')
 
-
-
 module.exports = class FavouriteFood {
 
   static showFavourite = async (req,res,next) =>{
     try {
       const UserId = req.user.id
-      const result = await Favourite.findAll( 
+      const response = await Favourite.findAll( 
         { 
           where : {UserId},
         }
       )
+      const recipeIds = response.map(el => el.dataValues.RecipeId)
+      const find = await axios ({
+        method: "get",
+        url: spoon + `/recipes/informationBulk?ids=${recipeIds}&apiKey=${apiKey}`,
+      })
+      const result = []
+      find.data.forEach (el => {
+        result.push ({id: el.id, title: el.title, image: el.image, dishTypes: el.dishTypes, cuisines: el.cuisines})
+      })
       res.status(200).json(result)
     }
     catch (err) {
@@ -39,17 +46,17 @@ module.exports = class FavouriteFood {
       res.status(200).json(result)
 
     } catch(err) {
+      console.log(err);
       next(err)
     }
   }
 
-  static editNote = async (req,res,next) => {
+  static deleteFavourite = async (req,res,next) => {
     try {
-      const {notes} = req.body
-      const {RecipeId} = req.params
+      const id = req.params.id
       const UserId = req.user.id
-      const input = {notes}
-      const result = await Favourite.update(input, {where : UserId, RecipeId})
+      const RecipeId = +id
+      const result = await Favourite.delete({where : UserId, RecipeId})
       res.status(200).json(result)
     } catch (err) {
       next(err)

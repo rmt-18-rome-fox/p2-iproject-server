@@ -15,7 +15,7 @@ const authentication = async (req,res,next) => {
     req.user = payload
     next()
   } catch (err) {
-    next()
+    next(err)
   }
 }
 
