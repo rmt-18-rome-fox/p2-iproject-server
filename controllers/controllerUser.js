@@ -10,7 +10,7 @@ const register = async(req, res, next) => {
     const {password, email, fullName} = req.body
     console.log({password, email, fullName});
     const user = await User.create({email, password, fullName})
-    res.status(201).json(user)
+    res.status(201).json({email, fullName})
   } catch (err) {
     next(err)
   }

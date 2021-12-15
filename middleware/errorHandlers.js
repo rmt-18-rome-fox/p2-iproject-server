@@ -24,6 +24,9 @@ const errorHandlers = async (err, req, res, next) => {
     case "WatchList Not Found":
       res.status(404).json({message: err.name})
       break;
+    case "This Anime Has Been Added To Your WatchList":
+      res.status(400).json({message: err.name})
+      break;
     default:
       res.status(500).json(err)
       break;
