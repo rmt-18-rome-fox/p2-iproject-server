@@ -1,4 +1,5 @@
-const footballAxios = require('../apis/footballAPI')
+const footballAxios = require('../apis/footballAPI');
+const newsAxios = require('../apis/newsApi');
 
 class Controller {
         static async getStandings(req, res, next) {
@@ -12,9 +13,8 @@ class Controller {
                     }
                 })
                 
-                res.status(200).json(standingTable.data)
+                res.status(200).json(standingTable.data.response[0].league.standings[0])
             } catch (err) {
-                console.log(err);
                 next(err);
             }
         }
@@ -33,6 +33,20 @@ class Controller {
                 })
                 
                 res.status(200).json(clubInfo.data.response)
+            } catch (err) {
+                next(err);
+            }
+        }
+        
+        static async getNews(req, res, next) {
+            try {
+                const key = process.env.NEWS_ACCESS_KEY
+                const news = await newsAxios({
+                    method: 'GET',
+                    url: `/news?access_key=${key}&categories=sports&languages=en&sources=espn&limit=15`
+                })
+
+                res.status(200).json(news.data)
             } catch (err) {
                 console.log(err);
                 next(err);

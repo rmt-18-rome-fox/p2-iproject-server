@@ -14,7 +14,7 @@ router.post('/login', Controller.login)
 router.use(authentication);
 
 router.get('/standing', ballController.getStandings)
-router.get('/club-info', ballController.getClubs)
+router.get('/news', ballController.getNews)
 router.use('/post', post);
 router.use('/likes', like)
 
