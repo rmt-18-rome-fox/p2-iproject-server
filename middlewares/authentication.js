@@ -9,7 +9,7 @@ const authentication = async (req, res, next) => {
         
         const payloadConversion = jwt.verify(access_token, secretKey);
         if (!payloadConversion) throw { name: 'JsonWebTokenError' };
-
+        console.log(payloadConversion, '<<<< DI AUTH');
         const user = await User.findByPk(payloadConversion.id);
         if (!user) throw { name: 'JsonWebTokenError' };
 
