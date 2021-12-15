@@ -103,19 +103,6 @@ let requestSnapToken = async (req, res, next) => {
             ammount: parameter.transaction_details.gross_amount
         }
 
-        // const HistoryLog = await Transaction.create({
-        //     order_id: parameter.transaction_details.order_id,
-        //     UserId: req.auth.id,
-        //     status: `pending`,
-        //     ammount: parameter.transaction_details.gross_amount
-        // })
-
-        // const removeAllItems = await OrderProduct.destroy({
-        //     where: {
-        //         UserId: req.auth.id,
-        //     }
-        // })
-
         let transporter = nodemailer.createTransport({
             service:  'gmail', 
             auth: {
