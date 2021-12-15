@@ -7,7 +7,7 @@ let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "phase2.newshub@gmail.com",
-    pass: 'phase2-12345',
+    pass: `${process.env.NODEMAILER_KEY}`,
   },
   tls: {
     rejectUnauthorized: false
