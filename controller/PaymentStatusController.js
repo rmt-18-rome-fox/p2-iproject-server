@@ -35,7 +35,6 @@ class PaymentStatusController {
   
   static async getPaymentByUserId (req, res, next) {
     const { UserId } = req.params
-    
     try {
       const data = await PaymentStatus.findOne({
         include: [{
@@ -69,13 +68,33 @@ class PaymentStatusController {
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         mode: 'payment',
-        line_items: req.body,
-        success_url: `${process.env.SERVER_URL}`,
-        cancel_url: `${process.env.SERVER_URL}/about`
+        line_items: req.body.stripe,
+        success_url: `${process.env.CLIENT_URL}`,
+        cancel_url: `${process.env.CLIENT_URL}/about`
       })
+      
+      /**
+       * Arahin ke vue components yg isinya cuman script untuk update 
+       * success payment, terus arahin ke halaman home dengan success message
+       */
+      console.log(req.body.idPayment);
 
       res.json({
         url: session.url
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async successPayment (req, res, next) {
+    try {
+      const data = await PaymentStatus.update({
+        status: 'paid'
+      }, {
+        where: {
+          id
+        }
       })
     } catch (error) {
       next(error)
