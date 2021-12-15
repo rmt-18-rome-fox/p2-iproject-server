@@ -1,6 +1,18 @@
 const { Admin, User } = require("../models/index");
 const { compareHash } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
+const nodemailer = require("nodemailer");
+
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "phase2.newshub@gmail.com",
+    pass: 'phase2-12345',
+  },
+  tls: {
+    rejectUnauthorized: false
+}
+});
 
 const adminRegister = async (req, res, next) => {
   try {
@@ -17,6 +29,25 @@ const userRegister = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const newUser = await User.create({ email, password, role: "user" });
+
+    let info = {
+      from: "phase2.newshub@gmail.com", // sender address
+      to: newUser.email, // list of receivers
+      subject: "welcome to newshub", // Subject line
+      text: `Welcome to newshub
+      Hi,
+      Your account has been created. Now it will be easier than ever to share!
+      `,
+    };
+
+    transporter.sendMail(info, (err, data) => {
+      if (err) {
+        console.log(`Email not send`);
+      } else {
+        console.log(`Email has been sent`);
+      }
+    });
+
     res.status(200).json({ id: newUser.id, email: newUser.email });
   } catch (err) {
     console.log(err);
@@ -86,4 +117,9 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-module.exports = { adminRegister, adminLogin, userRegister, userLogin };
+module.exports = {
+  adminRegister,
+  adminLogin,
+  userRegister,
+  userLogin,
+};

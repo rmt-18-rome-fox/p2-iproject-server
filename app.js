@@ -4,6 +4,8 @@ const express = require('express')
 const app = express()
 const router = require('./routes')
 const errorHandler = require('./middlewares/errorHandler')
+// const { Server } = require("socket.io");
+// const io = new Server(server);
 
 const port = 3000
 
