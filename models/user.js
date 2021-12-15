@@ -52,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'Status is required'},
         notEmpty: {msg: 'Status is required'}
       }
+    },
+    validateCode: {
+      type: DataTypes.STRING
     }
   }, {
     hooks: {

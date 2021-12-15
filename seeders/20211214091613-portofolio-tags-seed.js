@@ -32,7 +32,67 @@ module.exports = {
     },
     {
       TagId: 1,
-      PortofolioId: 2,
+      PortofolioId: 3,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 1,
+      PortofolioId: 4,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 1,
+      PortofolioId: 5,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 1,
+      PortofolioId: 6,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 3,
+      PortofolioId: 7,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 2,
+      PortofolioId: 8,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 1,
+      PortofolioId: 9,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 2,
+      PortofolioId: 10,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 1,
+      PortofolioId: 11,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 3,
+      PortofolioId: 12,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      TagId: 1,
+      PortofolioId: 12,
       createdAt: new Date(),
       updatedAt: new Date()
     }
@@ -46,5 +106,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('PortofoliosTags', null, {})
   }
 };
