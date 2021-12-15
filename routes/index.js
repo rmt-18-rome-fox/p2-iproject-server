@@ -3,6 +3,7 @@ const errorHandler = require('../middleware/errorHandler')
 const UserController = require('../controllers/usercontroller');
 const GameController = require('../controllers/gamecontroller')
 const FavoriteGameController = require('../controllers/favoritecontroller')
+const NewsController = require('../controllers/newscontroller')
 const  {Authentikasi} = require('../middleware/auth')
 
 //for user
@@ -19,6 +20,9 @@ route.get('/games/:id', GameController.showOneGame)
 //for favoritegame
 route.post('/favoritegames/:id', FavoriteGameController.addFavorite)
 route.get('/favoritegames', FavoriteGameController.showFavorite)
+
+//for game News
+route.get('/news', NewsController.randomNews)
 
 route.use(errorHandler)
 module.exports = route
