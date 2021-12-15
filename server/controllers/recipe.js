@@ -6,18 +6,51 @@ module.exports = class RecipeController {
   
   static showRecipe = async (req,res,next) => {
     try {
-      const {searchTerm} = req.query ? req.query: null;
-      const number = req.query.number ? req.query.number : 10;
-      if(isNaN(number) || number>50) number = null;
-      const type = req.query.type ? ("&type=" + (req.query.type).toLowerCase()) :""
-      const cuisine = req.query.cuisine ? ("&cuisine="+(req.query.cuisine).toLowerCase()) :""
-      const author = req.query.author ? ("&author=" + (req.query.author).toLowerCase()) : ""
-      if (searchTerm && number) {
+      const {searchTerm = "", number=3}= req.query 
+      if ((searchTerm ) && number) {
         const showRecipe = await axios ({
-          url: spoon+`/recipes/complexSearch?query=${searchTerm}&number=${number}${types}${cuisines}${author}&apiKey=${apiKey}`,
+          url: spoon+`/recipes/complexSearch?query=${searchTerm}&apiKey=${apiKey}`,
           method: "get",
         })
-        const data = showRecipe.data.recipes[0]
+        res.status(200).json(showRecipe.data.results)
+      } else {
+        const showRecipe = await axios ({
+          method: "get",
+          url: spoon+`/recipes/random?number=2&apiKey=${apiKey}`
+        })
+        const menu = showRecipe.data.recipes
+        const menus =[]
+        menu.forEach ( el => {
+          menus.push({id: el.id, title: el.title, image: el.image, dishTypes: el.dishTypes, cuisines: el.cuisines})
+        })
+        res.status(200).json(menus)
+      }
+    } catch (err) {
+      console.log(err);
+      next(err)
+    }
+  }
+
+  static showDetail = async (req,res,next) =>{
+    try {
+      const id = req.params.id
+      const find = await axios ({
+        method: "get",
+        url: spoon + `/recipes/${id}/information?apiKey=${apiKey}`,
+      })
+      const data= find.data
+      console.log(data);
+      if (!data) {
+        next ({name : "Food_not_found"})
+      }
+      const steps =  []
+        const ingredients = []
+        data.extendedIngredients.forEach(el => {
+          ingredients.push(el.original)
+        })
+        data.analyzedInstructions[0].steps.forEach(el => {
+          steps.push(el.step)
+        })
         res.status(200).json({
           id: data.id,
           title: data.title,
@@ -27,17 +60,12 @@ module.exports = class RecipeController {
           summary: data.summary,
           cuisines: data.cuisines,
           dishTypes: data.dishTypes,
-          analyzedInstructions: data.analyzedInstructions[0].steps,
+          ingredients,
+          steps,
         })
-      } else {
-        const showRecipe = await axios ({
-          method: "get",
-          url: spoon+`/recipes/random?number=1&apiKey=${apiKey}`
-        })
-        const data = showRecipe.data.recipes[0]
-        res.status(200).json(data)
-      }
-    } catch (err) {
+      // res.status(200).json(find)
+    } catch(err) {
+      console.log(err);
       next(err)
     }
   }
