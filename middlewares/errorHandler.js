@@ -67,6 +67,8 @@ function errorHandler(err, req, res, next) {
       break;
     case "cartNotFound":
       res.status(404).json({ message: "Cart not found" });
+    case "transactionNotFound":
+      res.status(404).json({ message: "Transaction not found" });
       break;
     default:
       res.status(500).json({ message: err.message });

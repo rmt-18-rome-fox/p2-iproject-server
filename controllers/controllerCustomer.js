@@ -98,10 +98,24 @@ class ControllerCustomer {
     try {
       const BookId = +req.query.bookId;
       const UserId = +req.user.id;
-      const status = "pending";
+      const status = "Pending";
 
       const transaction = await Transaction.create({ BookId, UserId, status });
       res.status(201).json(transaction);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async patchTransaction(req, res, next) {
+    try {
+      const id = +req.params.id;
+
+      const transaction = await Transaction.findByPk(id);
+      if (!transaction) throw { name: "transactionNotFound" };
+      const patchStatus = await transaction.update({ status: "Success" });
+      const message = `Transaction success`;
+      res.status(200).json(message);
     } catch (error) {
       next(error);
     }
