@@ -44,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'Role is required'},
         notEmpty: {msg: 'Role is required'}
       }
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'Status is required'},
+        notEmpty: {msg: 'Status is required'}
+      }
     }
   }, {
     hooks: {

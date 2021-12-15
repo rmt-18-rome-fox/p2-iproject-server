@@ -84,15 +84,15 @@ class CustomerController {
 
             const price = findArchitect.price
 
-            Consultation.create({
-                scheduleDate,
-                scheduleHour,
-                ArchitectId,
-                CustomerId,
-                notes,
-                price,
-                status: 'active' // status ada active dan inactive (inactive artinya udah beres)
-            })
+            // Consultation.create({
+            //     startDate, 
+            //     endDate,
+            //     ArchitectId,
+            //     CustomerId,
+            //     notes,
+            //     price,
+            //     status: 'active' // status ada active dan inactive (inactive artinya udah beres)
+            // })
         } catch (err) {
             next(err)
         }

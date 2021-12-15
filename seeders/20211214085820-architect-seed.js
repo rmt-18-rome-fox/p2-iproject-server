@@ -16,6 +16,7 @@ module.exports = {
        email: 'architect1@mail.com',
        password: 'architect1',
        role: 'architect',
+       status: true,
        createdAt: new Date(),
        updatedAt: new Date()
      },
@@ -23,6 +24,7 @@ module.exports = {
       email: 'architect2@mail.com',
       password: 'architect2',
       role: 'architect',
+      status: true,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -30,6 +32,7 @@ module.exports = {
       email: 'customer1@mail.com',
       password: 'customer1',
       role: 'customer',
+      status: true,
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -37,6 +40,7 @@ module.exports = {
       email: 'customer2@mail.com',
       password: 'customer2',
       role: 'customer',
+      status: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }
