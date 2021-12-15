@@ -61,7 +61,9 @@ const updateCoffeePowder = async (req, res, next) => {
     } else {
       throw { name: 'notFound' };
     }
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = { postCoffeePowder, deleteCoffeePowder, updateCoffeePowder };
