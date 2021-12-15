@@ -35,6 +35,7 @@ class PostController {
     const {
       description, 
       tag, 
+      status
     } = req.body
     const { id } = req.params
 
@@ -42,7 +43,8 @@ class PostController {
       const updatePost = await Post.update({
         description, 
         tag, 
-        imageUrl: req.dataUpload.url
+        imageUrl: req.dataUpload.url,
+        status
       },
       {
         where: {
