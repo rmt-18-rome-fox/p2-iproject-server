@@ -20,7 +20,8 @@ const io = new Server(httpServer, {
   }
 });
 
-let userData = []
+let userData = [];
+let messageData = [];
 io.on('connection', (socket) => {
   console.log('User connected', socket.id);
 
@@ -33,7 +34,15 @@ io.on('connection', (socket) => {
       username: value.username,
       status: 'Online'
     })
-    console.log(userData);
+    socket.emit('userStatus', userData);
+  })
+
+  socket.on('sendingChatMsg', (value) => {
+    messageData.push({
+      username: value.username,
+      message: value.message
+    })
+    io.emit('gotMessage', messageData)
   })
 
 })

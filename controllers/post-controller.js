@@ -6,7 +6,8 @@ class Controller {
             const showPost = await Post.findAll({
                 include: {
                     all: true
-                }
+                },
+                order: [['createdAt', 'DESC']]
             });
             res.status(200).json(showPost);
         } catch (err) {

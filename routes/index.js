@@ -2,12 +2,14 @@ const router = require('express').Router();
 const user = require('./user');
 const fans = require('./fans');
 const post = require('./post');
-const like = require('./like')
-const ballController = require('../controllers/ball-controller')
-const {authentication} = require('../middlewares/middelware')
+const like = require('./like');
+const Controller = require('../controllers/user-controller');
+const ballController = require('../controllers/ball-controller');
+const {authentication} = require('../middlewares/middelware');
 
 router.use('/users', user);
 router.use('/fans', fans);
+router.post('/login', Controller.login)
 
 router.use(authentication);
 
