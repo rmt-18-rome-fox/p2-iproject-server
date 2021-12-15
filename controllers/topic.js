@@ -1,4 +1,4 @@
-const { User, Topic, UserTopic } = require('../models');
+const { User, Topic, Reply } = require('../models');
 
 class TopicController {
     static async postTopic (req, res, next) {
@@ -32,17 +32,17 @@ class TopicController {
     static async getTopic (req, res, next) {
         try {
             const result = await Topic.findAll ({
-                // include: [
-                //     {
-                //         model: UserTopic,
-                //     },
-                //     {
-                //         model: User,
-                //         attributes: {
-                //             exclude: ["password", "createdAt", "updatedAt"]
-                //         }
-                //     },
-                // ],
+                include: [
+                    {
+                        model: Reply,
+                    },
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["password", "createdAt", "updatedAt"]
+                        }
+                    },
+                ],
             })
             console.log(result, `result getTopic field`)
             res.status(200).json(result)
