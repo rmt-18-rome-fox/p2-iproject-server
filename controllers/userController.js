@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { sign } = require("../helpers/jwt");
 const { compare } = require("../helpers/bcryptjs");
+const sendEmail = require("../helpers/nodemailer");
 
 class UserController {
   static async register(req, res, next) {
@@ -16,6 +17,7 @@ class UserController {
         throw { name: "Bad Request", message: "Password is required" };
       }
       const user = await User.create(newUser);
+      await sendEmail(email);
       //   console.log(user);
       res.status(201).json({
         id: user.id,
