@@ -15,7 +15,11 @@ const userRegister = async (req, res, next) =>{
 
         res.status(201).json(newUser)
     }catch(err){
-
+        if(err.name == "BAD_REQUEST"){
+            res.status(400).json({msg: "Bad request"})
+        }else{
+            res.status(500).json({msg: "Something went down"})
+        }
     }
 }
 
@@ -23,6 +27,7 @@ const userLogin = async (req, res, next) =>{
     try{
         const {email, password} = req.body
         if(!email || !password) throw {name: "BAD_REQUEST"}
+        
         const userLogin = await User.findOne({
             where:{
                 email: email
@@ -46,7 +51,13 @@ const userLogin = async (req, res, next) =>{
 
         res.status(200).json({access_token})
     }catch(err){
-
+        if(err.name == "UNAUTHORIZED"){
+            res.status(401).json({msg: "You are unauthorized"})
+        }else if(err.name == "BAD_REQUEST"){
+            res.status(400).json({msg: "Bad request"})
+        } else{
+            res.status(500).json({msg: "Something went down"})
+        }
     }
 }
 

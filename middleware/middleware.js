@@ -24,7 +24,11 @@ const authentication = async (req, res, next) =>{
 
         next()
     }catch(err){
-
+        if(err.name == "USER_NOT_FOUND"){
+            res.status(401).json({msg: "User not found"})
+        }else{
+            res.status(500).json({msg: "Something went down"})
+        }
     }
 }
 
@@ -39,7 +43,7 @@ const authorization = async (req, res, next) =>{
         })
 
         if (!bookmark) {
-            throw {name:"BOOKMARK_NOT_FOUND"}
+            throw {name:"BOOKMARKS_NOT_FOUND"}
         }
         
         if (bookmark.userId == req.user.id) {
@@ -48,7 +52,13 @@ const authorization = async (req, res, next) =>{
             throw { name: "UNAUTHORIZED"}
         }
     }catch(err){
-
+        if(err.name == "BOOKMARKS_NOT_FOUND"){
+            res.status(404).json({msg: "Bookmarks not found"})
+        }else if(err.name == "UNAUTHORIZED"){
+            res.status(401).json({msg: "You are unauthorized"})
+        }else{
+            res.status(500).json({msg: "Something went down"})
+        }
     }
 }
 
