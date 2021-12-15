@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Hero.belongsTo(models.User,{foreignKey: "UserId"})
     }
   };
   Hero.init({
@@ -46,6 +47,15 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {msg :"date is required"},
       }
     },
+    description:{
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate:{
+        notNull: {msg :"description is required"},
+        notEmpty: {msg :"description is required"},
+      }
+    },
+    UserId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Hero',
