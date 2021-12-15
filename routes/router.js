@@ -2,8 +2,8 @@ const router = require("express").Router();
 const UserController = require("../controllers/UserController");
 const CharController = require("../controllers/CharController");
 
-router.post("/register");
-router.post("/login");
+router.post("/register", UserController.register);
+router.post("/login", UserController.login);
 
 //api calling purpose
 router.get("/classes");
