@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate (instance, options) {
-        instance.status = 'active'
+        instance.status = instance.status ? instance.status : 'active'
       }
     },
     sequelize,
