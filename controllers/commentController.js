@@ -1,4 +1,4 @@
-const { Comment } = require("../models");
+const { Comment, Post, User } = require("../models");
 
 class CommentController {
   static async addComment(req, res, next) {
@@ -25,21 +25,30 @@ class CommentController {
     try {
       const UserId = req.user.id;
       const PostId = req.params.postId;
-      const commentId = req.body.commentId;
-      // const comment = req.body.comment;
-      console.log(commentId);
-      if (!PostId) {
+      const commentId = req.params.commentId;
+      const comment = req.body.comment;
+      const updateParams = { comment, UserId, PostId };
+      //   console.log(commentId);
+      const findPost = await Post.findByPk(PostId);
+      if (!findPost) {
         throw { name: "Not Found", message: "Post not found" };
       }
-      // const updateComment = await Comment.update({
-      //   comment,
-      //   UserId,
-      //   PostId,
-      // });
-      const comment = await Comment.findByPk(commentId);
-      console.log(comment);
-      // res.status(200).json(updateComment);
-    } catch (err) {}
+      const findComment = await Comment.findByPk(commentId);
+      //   console.log(findComment);
+      if (!findComment) {
+        throw { name: "Not Found", message: "Comment not found" };
+      }
+      const updateComment = await Comment.update(updateParams, {
+        where: {
+          id: commentId,
+        },
+        returning: true,
+      });
+
+      res.status(200).json(updateComment);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
