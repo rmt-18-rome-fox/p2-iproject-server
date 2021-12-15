@@ -1,6 +1,7 @@
 const { User, Product, OrderProduct, Transaction } = require(`../models/index`)
 const { getToken } = require(`../helpers/jwt`)
 const { compareHash } = require(`../helpers/bycrpt`);
+const { format } = require(`../helpers/formatCurrency`);
 const { Op } = require("sequelize");
 
 
@@ -45,10 +46,14 @@ let login = async (req, res, next) => {
 let fetchAllProducts = async (req, res, next) => {
     try {
     
-        const response = await Product.findAll({
+        let response = await Product.findAll({
             attributes: {
                 exclude: ['createdAt', `updatedAt`]
             },    
+        })
+
+        response.forEach( e => {
+            e.price = format(e.price)
         })
 
         res.status(200).json({response})
@@ -61,7 +66,7 @@ let fetchAllProducts = async (req, res, next) => {
 let fetchOrderProduct = async (req, res, next) => {
     try {
 
-        const response = await OrderProduct.findAll({
+        let response = await OrderProduct.findAll({
             where: {
                 UserId: req.auth.id
             },
@@ -77,10 +82,12 @@ let fetchOrderProduct = async (req, res, next) => {
         })
 
         if (response.length < 1) {
-
             const dataFetch = req.user.dog
             res.status(200).json({ msg: `there is no orders yet`, data: dataFetch})
         } else {
+            response.forEach( e => {
+                e.Product.price = format(e.Product.price)
+            })
             res.status(200).json({response})
         }
     } catch (error) {
@@ -119,8 +126,6 @@ let addOrderItem = async (req, res, next) => {
         })
 
         if (response.length < 1) {
-
-            console.log(`masuk kah?`)
             
             const addItem = await OrderProduct.create(
                 {
@@ -162,7 +167,6 @@ let checkout = async (req, res, next) => {
             res.status(200).json({ msg: `there is no orders yet`})
         } else {
 
-            console.log(req.user.snap)
 
             let orderDerail = { 
                 order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
@@ -174,6 +178,11 @@ let checkout = async (req, res, next) => {
                 orderDerail.totalPrice += element.Product.price
                 orderDerail.product.push(element.Product)
             });
+
+            orderDerail.totalPrice = format(orderDerail.totalPrice)
+            orderDerail.product.forEach(e => {
+                e.price = format(e.price)
+            })
 
             res.status(200).json({orderDerail})
         }
@@ -196,6 +205,10 @@ let getStatusTransaction = async ( req, res, next) => {
             attributes: {
                 exclude: [ "updatedAt", "UserId" ]
             }
+        })
+
+        findAllhistoryLog.forEach( e => {
+            e.ammount = format(e.ammount)
         })
 
         res.status(200).json({
