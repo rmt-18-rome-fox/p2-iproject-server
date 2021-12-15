@@ -46,6 +46,11 @@ const ErrorHandler = (err, req, res, next) => {
             break;
         }
 
+        case 'ARCHITECT_UNAUTHORIZED': {
+            res.status(403).json({message: "Architect Unauthorized"})
+            break;
+        }
+        
         case 'ARCHITECT_NOT_FOUND': {
             res.status(404).json({message: "Architect not Found"})
             break;

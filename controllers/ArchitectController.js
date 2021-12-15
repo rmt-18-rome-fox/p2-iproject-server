@@ -1,6 +1,18 @@
 const { User, Profile, Portofolio, PortofoliosTag, Tag } = require('../models')
 
 class ArchitectController {
+    static getArchitectPortofolio(req, res, next) {
+        Portofolio.findAll({where: {
+            UserId: req.user.id
+        }})
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
     static async addPortofolio(req, res, next) {
         try {
             const { title, description, imageUrl, TagId } = req.body
@@ -92,7 +104,6 @@ class ArchitectController {
     }
 
     static getArchitectProfile(req, res, next) {
-        console.log('hehe')
         Profile.findOne({
             where: {
                 id: req.user.id
@@ -122,6 +133,19 @@ class ArchitectController {
             .catch(err => {
                 next(err)
             })
+    }
+
+    static deletePortofolio(req, res, next) {
+        const { portofolioId } = req.params
+        Portofolio.destroy({where: {
+            id: portofolioId
+        }})
+        .then(data => {
+            res.status(200).json({message: 'Portofolio Deleted'})
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 }
 

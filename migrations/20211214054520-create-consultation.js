@@ -1,19 +1,19 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Consulations', {
+    await queryInterface.createTable('Consultations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      scheduleDate: {
+      startDate: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      session: {
-        type: Sequelize.INTEGER,
+      endDate: {
+        type: Sequelize.DATE,
         allowNull: false
       },
       ArchitectId: {
@@ -40,8 +40,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      status: {
-        type: Sequelize.STRING,
+      isPayed: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       createdAt: {
@@ -55,6 +55,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Consulations');
+    await queryInterface.dropTable('Consultations');
   }
 };

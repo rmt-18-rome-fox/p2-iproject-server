@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
         let access_token = createToken(payload)
         console.log('hehe')
         console.log(access_token, '<<<<<<<<<<<< ini access token')
-        res.status(200).json({access_token})
+        res.status(200).json({access_token, role: payload.role})
     } catch (err) {
         next(err)
     }

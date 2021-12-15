@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Consultation.init({
-    scheduleDate: {
+    startDate: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'Schedule Date is required'}
       }
     },
-    session: {
+    endDate: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -64,8 +64,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'Price is required'}
       }
     },
-    status: {
-      type: DataTypes.STRING,
+    isPayed: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       validate: {
         notEmpty: {msg: 'Status is required'},
