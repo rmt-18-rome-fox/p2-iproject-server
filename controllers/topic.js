@@ -35,7 +35,6 @@ class TopicController {
                 include: [
                     {
                         model: Reply,
-                        
                         include: [
                             {
                                 model: User,
