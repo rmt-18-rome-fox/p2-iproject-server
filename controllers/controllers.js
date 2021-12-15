@@ -1,6 +1,7 @@
 const { User,Hero,SuperHero } = require('../models')
 const bcrypt = require('bcrypt')
 const {signToken} = require('../helpers/jwt')
+const axios = require('axios')
 
 const register = async(req,res,next) => {
     try {
@@ -86,13 +87,25 @@ const getHero = async (req,res,next) => {
 
 const getHeroId = async (req,res,next) => {
     try {
+        
+        const superhero_token = "10209503281895479"
         const { id } = req.params
         const result = await Hero.findByPk(id)
     if (!result) {
         throw { name: "notFound"}
     }
-
-        res.status(200).json(result)
+    console.log(result, ">>>>>>>>>>>>>>>>>>>>>>>>>>> ini result")
+      const result2 = await axios({
+        method:"get",
+        url:`https://superheroapi.com/api/${superhero_token}/search/${result.name}`,
+        })
+        // console.log(result2, '>>>>>>>>>>>>>>>>>>>>>>>>>> ini reult 2')
+        // console.log(result2.data, '>>>>>>>>>>>>>>>>>>>>>>>>>> ini reult 2 name')
+        const result3 = {
+            result: result,
+            result2: result2.data
+        }
+        res.status(200).json(result3)
         
     } catch (err) {
         next(err)
