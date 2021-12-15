@@ -1,4 +1,4 @@
-const { User, Cart, Book } = require("../models");
+const { User, Cart, Book, Transaction } = require("../models");
 const { Op } = require("sequelize");
 
 class ControllerCustomer {
@@ -61,6 +61,47 @@ class ControllerCustomer {
       const addBook = await Cart.create(data);
       const message = `${book.title} has been added to cart`;
       res.status(201).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteCart(req, res, next) {
+    try {
+      const id = +req.params.id;
+      const cart = await Cart.findOne({ where: { id }, include: "Book" });
+      if (!cart) throw { name: "cartNotFound" };
+
+      const message = `${cart.Book.title} has been deleted from cart`;
+      const deleteCart = await cart.destroy();
+      res.status(200).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async transactions(req, res, next) {
+    try {
+      const UserId = +req.user.id;
+      const transactions = await Transaction.findAll({
+        where: { UserId },
+        include: "Book",
+      });
+
+      res.status(200).json(transactions);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async postTransaction(req, res, next) {
+    try {
+      const BookId = +req.query.bookId;
+      const UserId = +req.user.id;
+      const status = "pending";
+
+      const transaction = await Transaction.create({ BookId, UserId, status });
+      res.status(201).json(transaction);
     } catch (error) {
       next(error);
     }
