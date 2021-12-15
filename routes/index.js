@@ -24,6 +24,7 @@ route.patch('/orderdetailminus/:orderid', authentication, controllerOrderDetail.
 route.post('/admin/coffeepowder', [authentication, authorizationAdminOnly], controllerAdmin.postCoffeePowder);
 route.delete('/admin/coffeepowder/:id', [authentication, authorizationAdminOnly], controllerAdmin.deleteCoffeePowder);
 route.put('/admin/coffeepowder/:id', [authentication, authorizationAdminOnly], controllerAdmin.updateCoffeePowder);
+route.patch('/admin/coffeepowder/:id', [authentication, authorizationAdminOnly], controllerAdmin.patchIsDeleteCoffeePowder);
 route.get('/admin/coffeepowder/:id', [authentication], controllerCoffee.getOneCoffeePowder);
 
 route.post('/paycharge', [authentication], controllerMidtrans.postMidtrans);
