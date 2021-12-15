@@ -5,6 +5,8 @@ const {
 } = require("../middlewares/authorizationUser");
 
 router.get("/cities", ControllerApis.cities);
-router.post("/shipping", authorizationCustomerOnly, ControllerApis.shipping);
+router.post("/shipping", ControllerApis.shipping);
+router.post("/xendit/ovo", ControllerApis.createPayment);
+router.post("/xendit/callback", ControllerApis.xenditCallback);
 
 module.exports = router;
