@@ -4,7 +4,7 @@ const { hashPassword, comparePassword } = require('../helpers/bcrypt');
 
 const getCoffeePowder = async (req, res, next) => {
   try {
-    const result = await CoffeePowder.findAll();
+    const result = await CoffeePowder.findAll({ order: [['id', 'ASC']] });
     res.status(200).json(result);
   } catch (err) {
     next(err);
