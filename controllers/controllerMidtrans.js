@@ -1,6 +1,7 @@
 const { User, CoffeePowder, OrderDetail } = require('../models');
 const { signToken, verifyToken } = require('../helpers/jwt');
 const { hashPassword, comparePassword } = require('../helpers/bcrypt');
+const { Op } = require('sequelize');
 // import axios from 'axios';
 const axios = require('axios');
 
@@ -23,7 +24,13 @@ const postMidtrans = async (req, res, next) => {
     }
 
     const findOneOrderDetail = await OrderDetail.findOne({
-      where: { UserId: UserId, orderStatus: 'pending' },
+      where: {
+        UserId: UserId,
+        orderStatus: 'pending',
+        orderId: {
+          [Op.ne]: null,
+        },
+      },
       include: { model: CoffeePowder },
     });
 
@@ -83,16 +90,16 @@ const postMidtrans = async (req, res, next) => {
     };
     // console.log(tampungStatus);
 
-    console.log(responseStatus2.data);
+    console.log(tampungStatus2.data);
     // console.log(tampungStatus);
 
     // res.status(200).json(tampungStatus);
 
     res.status(200).json({ result });
   } catch (err) {
-    console.log(err.response);
+    console.log(err.response.data);
     console.log('EROR ON MIDTRANS');
-    next(err);
+    // next(err);
   }
 };
 
@@ -112,6 +119,7 @@ const checkStatusPayment = async (req, res, next) => {
     const findOneOrderDetail = await OrderDetail.findOne({
       where: { UserId: UserId, orderStatus: 'pending' },
       include: { model: CoffeePowder },
+      raw: true,
     });
 
     if (!findOneOrderDetail) {
@@ -119,6 +127,9 @@ const checkStatusPayment = async (req, res, next) => {
     }
 
     let cartOrderId = 'COFFPOW-ORDER-' + findOneOrderDetail.orderId;
+
+    console.log(findOneOrderDetail, '<<<<<<<<<<<<<< INI FIND ONE ORDER DETAIL');
+    console.log(cartOrderId, '<<<<<<<<<<<<<<<<< INI ORDER ID');
 
     const response = await axios({
       url: `${apiSandboxBaseUrl}/v2/${cartOrderId}/status`,
@@ -140,12 +151,12 @@ const checkStatusPayment = async (req, res, next) => {
     console.log(response.data);
 
     if (tampungStatus.transaction_status == 'capture') {
-      await OrderDetail.update({ orderStatus: 'complete' }, { where: { orderStatus: 'pending' } });
+      await OrderDetail.update({ orderStatus: 'complete' }, { where: { orderStatus: 'pending', UserId } });
     }
 
     res.status(200).json(tampungStatus);
   } catch (err) {
-    console.log(err.response);
+    console.log(err.response.data);
     next(err);
   }
 };

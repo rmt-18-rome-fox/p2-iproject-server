@@ -9,7 +9,18 @@ email: admin1@mail.com
 passsword: password
 ```
 
-Silahkan lakukan login sebagai admin jika ingin melakukan CRUD
+Silahkan lakukan login sebagai admin jika ingin melakukan CRUD.
+
+&nbsp;
+
+### Card Payment :
+
+```
+Card Number = 4811 1111 1111 1114
+CVV = 123
+```
+
+Silahkan masukan input ini saat ingin membayarkan product di API Midtrans agar transaksi berhasil.
 
 &nbsp;
 

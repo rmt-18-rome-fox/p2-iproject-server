@@ -35,7 +35,7 @@ const postOrderDetail = async (req, res, next) => {
     }
 
     const findOrderDetailPending = await OrderDetail.findAll({
-      where: { orderStatus: 'pending' },
+      where: { orderStatus: 'pending', UserId },
       raw: true,
     });
     // console.log(findOrderDetailPending);
@@ -76,12 +76,12 @@ const postOrderDetail = async (req, res, next) => {
         res.status(201).json(result);
       } else if (counts[CoffeeId]) {
         let tampungQuantity = await OrderDetail.findAll({
-          where: { orderStatus: 'pending', CoffeeId },
+          where: { orderStatus: 'pending', CoffeeId, UserId },
           raw: true,
         });
         console.log(tampungQuantity[0].quantity, 'INI TAMPUNG QUANTITY <<<<<<<<<<<<<<<<');
         tampungQuantity[0].quantity += 1;
-        const result = await OrderDetail.update({ quantity: tampungQuantity[0].quantity }, { where: { CoffeeId, orderStatus: 'pending' } });
+        const result = await OrderDetail.update({ quantity: tampungQuantity[0].quantity }, { where: { UserId, CoffeeId, orderStatus: 'pending' } });
         console.log('DI CART UDAH ID COFFEE INI ' + CoffeeId + ' =============================================');
         res.status(201).json({ message: 'Berhasil patch quantity' });
       }
@@ -118,15 +118,16 @@ const getOrderDetailVer2 = async (req, res, next) => {
 const patchOrderDetailPlus = async (req, res, next) => {
   try {
     const orderDetailId = req.params.orderid;
+    const UserId = req.user.id;
 
     let tampungQuantity = await OrderDetail.findAll({
-      where: { orderStatus: 'pending', id: orderDetailId },
+      where: { orderStatus: 'pending', id: orderDetailId, UserId },
       raw: true,
     });
-    console.log(tampungQuantity[0].quantity, 'INI TAMPUNG QUANTITY <<<<<<<<<<<<<<<<');
+    console.log(tampungQuantity[0].quantity, 'INI TAMPUNG QUANTITY PLUS <<<<<<<<<<<<<<<<');
     tampungQuantity[0].quantity += 1;
     console.log(tampungQuantity[0].quantity, 'UPDATED');
-    const result = await OrderDetail.update({ quantity: tampungQuantity[0].quantity }, { where: { id: orderDetailId, orderStatus: 'pending' } });
+    const result = await OrderDetail.update({ quantity: tampungQuantity[0].quantity }, { where: { id: orderDetailId, UserId, orderStatus: 'pending' } });
     res.status(200).json({ message: 'Success Patch ++ Quantity' });
   } catch (err) {
     next(err);
@@ -136,18 +137,19 @@ const patchOrderDetailPlus = async (req, res, next) => {
 const patchOrderDetailMinus = async (req, res, next) => {
   try {
     const orderDetailId = req.params.orderid;
+    const UserId = req.user.id;
 
     let tampungQuantity = await OrderDetail.findAll({
-      where: { orderStatus: 'pending', id: orderDetailId },
+      where: { orderStatus: 'pending', id: orderDetailId, UserId },
       raw: true,
     });
-    console.log(tampungQuantity[0].quantity, 'INI TAMPUNG QUANTITY <<<<<<<<<<<<<<<<');
+    console.log(tampungQuantity[0].quantity, 'INI TAMPUNG QUANTITY MINUS <<<<<<<<<<<<<<<<');
     tampungQuantity[0].quantity -= 1;
     if (tampungQuantity[0].quantity < 0) {
       tampungQuantity[0].quantity = 0;
     }
     console.log(tampungQuantity[0].quantity, 'UPDATED');
-    const result = await OrderDetail.update({ quantity: tampungQuantity[0].quantity }, { where: { id: orderDetailId, orderStatus: 'pending' } });
+    const result = await OrderDetail.update({ quantity: tampungQuantity[0].quantity }, { where: { id: orderDetailId, UserId, orderStatus: 'pending' } });
     res.status(200).json({ message: 'Success Patch -- Quantity' });
   } catch (err) {
     next(err);
