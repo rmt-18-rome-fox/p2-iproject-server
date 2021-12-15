@@ -11,5 +11,6 @@ router.get("/:postId", postController.getPostsById);
 router.put("/:postId", upload.single("imageUrl"), postCloudinary, postController.editPost);
 router.post("/:postId/comments", CommentController.addComment);
 router.put("/:postId/comments/:commentId", authorizationComment, CommentController.editComment);
+router.delete("/:postId/comments/:commentId", authorizationComment, CommentController.deleteComment);
 
 module.exports = router;
