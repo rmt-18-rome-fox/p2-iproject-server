@@ -89,21 +89,35 @@ const getHeroId = async (req,res,next) => {
     try {
         
         const superhero_token = "10209503281895479"
-        const { id } = req.params
+        const api_key = "26cd861a8cdd42114b639f44f4c835c0"
+        const id  = +req.params.id
         const result = await Hero.findByPk(id)
     if (!result) {
         throw { name: "notFound"}
     }
-    console.log(result, ">>>>>>>>>>>>>>>>>>>>>>>>>>> ini result")
+   
       const result2 = await axios({
         method:"get",
         url:`https://superheroapi.com/api/${superhero_token}/search/${result.name}`,
         })
-        const result3 = {
+
+        const result3 = await axios({
+            method:"get",
+            url:`https://api.openweathermap.org/data/2.5/weather?q=${result.location}&appid=${api_key}`,
+            })
+
+
+
+
+        const result4 = {
             result: result,
-            result2: result2.data
+            result2: result2.data.results,
+            result3: result3.data
         }
-        res.status(200).json(result3)
+
+        console.log(result4, ">>>>>>>>>>>>>>>>>>>>>>>>>>> ini result")
+        
+        res.status(200).json(result4)
         
     } catch (err) {
         next(err)
