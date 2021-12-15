@@ -34,8 +34,8 @@ const errorLog = (err, req, res, next) => {
          code = 400
          message = "There Is no Transaction with those Id"
     } else if ( err.name === `PLEASE_PAY_FIRST`){
-         code = 400
-         message = "you just close the tab, please checkout again"
+         code = 404
+         message = "If payment using bank transfer wait for 24 hours, or if you havent Checkout yet please checkout"
     }
 
     res.status(code).json({message})

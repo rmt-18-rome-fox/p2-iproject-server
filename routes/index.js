@@ -42,7 +42,7 @@ route.post(`/googleVer`, googleAuth);
 route.get('/status',[authentication, authorization], getStatusTransaction);
 route.get('/order', [authentication, authorization, fetchDog] , fetchOrderProduct);
 route.get('/checkout', [authentication, authorization] , checkout);
-route.put('/status/:orderId',[authentication, authorization], updateStatus);
+route.patch('/status/:orderId',[authentication, authorization], updateStatus);
 route.post(`/checkout/charge`,[authentication, authorization, checkoutMid],  requestSnapToken)
 route.post('/order/:productId', [ authentication, authorization], addOrderItem);
 

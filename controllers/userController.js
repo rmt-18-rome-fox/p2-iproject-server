@@ -37,7 +37,7 @@ let login = async (req, res, next) => {
 
         const access_token = getToken(payload)
 
-        res.status(201).json({access_token});
+        res.status(200).json({access_token});
     } catch (error) {
         next(error);
     }
@@ -134,7 +134,7 @@ let addOrderItem = async (req, res, next) => {
                     status: `pending`
                 }
             )
-            res.status(200).json({ msg: `Added ${findProduct.name}` })
+            res.status(201).json({ msg: `Added ${findProduct.name}` })
         } else {
             res.status(200).json({ msg: `Checkout first before you could order again` })
         }
@@ -209,7 +209,7 @@ let checkout = async (req, res, next) => {
                     e.price = format(e.price)
                 })
                 console.log(`ini masuk create`)
-                res.status(200).json({orderDerail})
+                res.status(201).json({orderDerail})
             }
 
         }
