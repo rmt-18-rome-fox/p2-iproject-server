@@ -9,7 +9,7 @@ class UserController {
       const createUser = await User.create({ email, password });
       res.status(201).json({ id: createUser.id, email: createUser.email });
     } catch (err) {
-      console.log(err);
+      next(err);
     }
   }
   static async login(req, res, next) {
