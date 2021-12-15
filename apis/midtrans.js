@@ -182,6 +182,8 @@ let updateStatus = async (req, res, next) => {
             newStatus = `failed`
         }
 
+        console.log(status)
+
         if (status.transaction_status === `expire` || 
             status.transaction_status === `cancel` ||
             status.transaction_status === `deny`) {
@@ -189,6 +191,8 @@ let updateStatus = async (req, res, next) => {
         } else if ( status.transaction_status === `settlement` ||
                     status.transaction_status === `capture`) {
             newStatus = `on Shipping`
+        } else if ( status.transaction_status === `pending`){
+            newStatus = `pending`
         }
 
         if (!newStatus) throw { name: "PLEASE_PAY_FIRST" }
