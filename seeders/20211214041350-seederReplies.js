@@ -8,7 +8,16 @@ module.exports = {
         "post": " mountain is an elevated portion of the Earth's crust,",
         "like": 0,
         "imageUrl": "",
-        "UserId": 1,
+        "UserId": 2,
+        "TopicId": 1,
+        "createdAt": new Date(),
+        "updatedAt": new Date()
+      },
+      {
+        "post": " mountain is an elevated portion of the Earth's crust,",
+        "like": 0,
+        "imageUrl": "",
+        "UserId": 3,
         "TopicId": 1,
         "createdAt": new Date(),
         "updatedAt": new Date()

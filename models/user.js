@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsToMany(models.Topic, {
-        through: `UserTopic`
+        through: `Reply`
         // foreignKey: `UserId`
         // targetKey: `id`
       })
