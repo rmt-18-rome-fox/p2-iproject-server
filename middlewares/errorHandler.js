@@ -32,8 +32,11 @@ const errorHandler = (err, req, res, next) => {
         case 'UniqueTitle':
             res.status(400).json({ message: 'You already have this note before!' });
             break;
+        case 'githubNoCode':
+            res.status(400).json({ message: 'Github sign-in error' });
+            break;
         default:
-            res.status(500).json(err);
+            res.status(500).json({ message: 'Internal server error' });
             break;
     }
 }

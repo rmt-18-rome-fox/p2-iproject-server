@@ -89,23 +89,22 @@ const putNote = async (req, res, next) => {
 
 const patchNote = async (req, res, next) => {
     try {
-        let noteCounter = 0;
+        // let noteCounter = 0;
+        // const notes = await Note.findAll({
+        //     where: {
+        //         UserId: req.user.id
+        //     }
+        // })
 
-        const notes = await Note.findAll({
-            where: {
-                UserId: req.user.id
-            }
-        })
+        // notes.forEach(note => {
+        //     if (note.status === 'inProgress') {
+        //         noteCounter++;
 
-        notes.forEach(note => {
-            if (note.status === 'Work in progress') {
-                noteCounter++;
-
-                if (noteCounter >= 3) {
-                    throw { name: 'MaxWIP' }
-                }
-            }
-        })
+        //         if (noteCounter > 3) {
+        //             throw { name: 'MaxWIP' }
+        //         }
+        //     }
+        // })
 
         await Note.update(
         {
@@ -116,7 +115,6 @@ const patchNote = async (req, res, next) => {
                 id: +req.params.id
             }
         })
-
         res.status(200).json(`Note's status has been successfully updated!`);
     } catch (err) {
         next(err);
