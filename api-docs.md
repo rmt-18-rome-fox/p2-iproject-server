@@ -66,8 +66,9 @@ List of available endpoints:
 - `GET/profile`
 - `GET/posts`
 - `POST/post`
-
 - `PUT/post/:id`
+- `DELETE/post/:id`
+
 - `POST/organization`
 - `PUT/organization`
 - `PUT/profile/:id`
@@ -324,5 +325,61 @@ _Response (401 - Unauthorized)_
 ```json
 {
     "message": "Not Authorize !"
+}
+```
+
+## 6. PUT /posts/post/:id
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+- body:
+```json
+{
+  "description": string,
+  "imageUrl": file ,
+  "tag" : string,
+  "status" string
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Success update post id 3",
+  "data": [
+      {
+          "id": 3,
+          "UserId": 1,
+          "description": "post pertama saya",
+          "imageUrl": "https://ik.imagekit.io/kkupfm0agcc/ganteng-jepang_zAsKFja2V.jpg",
+          "tag": null,
+          "status": "deactive",
+          "createdAt": "2021-12-15T01:48:32.337Z",
+          "updatedAt": "2021-12-15T01:53:29.393Z"
+      }
+  ]
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
 }
 ```

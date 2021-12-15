@@ -6,13 +6,20 @@ const postAuthorization = async (req, res, next) => {
   const { id } = req.params
 
   try {
-    const cekPostOwner = await Post.findOne({
+    const cekPost = await Post.findOne({
       where: {
-        id,
-        UserId
+        id
       }
     }) 
-    if ( !cekPostOwner ) throw { name: "FORBIDDEN" }
+    if ( !cekPost ) throw { name: "NOT_FOUND" }
+
+    const cekOwner = await Post.findOne({
+      where: {
+        id, 
+        UserId
+      }
+    })
+    if ( !cekOwner ) throw { name: "FORBIDDEN" }
 
     next()
   } catch (error) {

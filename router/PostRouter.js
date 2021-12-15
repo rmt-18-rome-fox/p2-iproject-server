@@ -21,6 +21,9 @@ posts.put('/post/:id',
   PostController.putPost
 )
 
-posts.delete('/delete/:id', PostController.deletePost)
+posts.delete('/delete/:id', 
+  postAuthorization,
+  PostController.deletePost
+)
 
 module.exports = posts

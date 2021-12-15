@@ -63,8 +63,19 @@ class PostController {
     }
   }
   static async deletePost (req, res, next) {
+    const { id } = req.params
+    
     try {
+      await Post.findOne({
+        where: {
+          id,
+          UserId: req.auth.id
+        }
+      })
       
+      res.status(200).json({
+        message: `Post data with id ${id} has deleted !`
+      })
     } catch (error) {
       next(error)
     }
