@@ -37,6 +37,9 @@ router.post('/public/login',
 router.post('/public/authGoogle', 
     customerController.authGoogle)
 
+router.post('/public/auth/facebook',
+    customerController.authFacebook)
+
 router.get('/public/products', 
     customerController.custProductList )
 
@@ -54,10 +57,20 @@ router.get('/public/favorite',
 router.post('/public/favorite/:id', 
     customerController.addFav)
 //NTAR INI BUAT UBAH STOCK TAPI DI PUBLIC
-router.patch(
-    '/public/checkout/:id',
-    middleware.authorization, 
-    productController.updateStatus)
+router.put(
+    '/public/checkout',
+    productController.checkout)
+
+router.post('/charge', async (req, res, next) => {
+    try {
+        // https://app.sandbox.midtrans.com/snap/v1/transactions
+       
+        
+    } catch (err) {
+        console.log(err.response.data);
+        // next(err)
+    }
+})
 
 
 //FOR ADMIN

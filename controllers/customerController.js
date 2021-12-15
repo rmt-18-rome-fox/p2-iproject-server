@@ -1,6 +1,8 @@
 const { User, Category, Product, Favorite} = require('../models')
 const bcrypt = require('bcryptjs')
 const { OAuth2Client } = require('google-auth-library')
+const FacebookStrategy = require('passport-facebook').Strategy
+const passport = require('passport')
 const { createToken } = require('../helpers/jwt')
 const {Op} = require("sequelize")
 
@@ -9,7 +11,7 @@ class customerController {
         try {
             const { username, email, password, phoneNumber, address } = req.body
             const response = await User.create({ 
-                username, email, password, role: 'Customer', phoneNumber, address 
+                username, email, password, role: 'Customer', phoneNumber : '081313123', address : 'Solololo'
             })
             res.status(201).json({
                 id: response.id,
@@ -110,14 +112,58 @@ class customerController {
         }
     }
 
+    static async authFacebook(req, res, next) {
+        try {
+            passport.use(new FacebookStrategy({
+                clientID: process.env.CLIENT_ID_FB,
+                clientSecret: process.env.CLIENT_SECRET_FB,
+                callbackURL: "http://localhost:3000/auth/facebook/secrets",
+                profileFilds : ['id', 'displayName', 'name', 'email']
+              },
+              function(token, refreshToken, profile, done) {
+            
+                let [user, created] = User.findOrCreate({ 
+                    where : {
+                        'id' : profile.id 
+                    }, 
+                 defaults : {
+                    username: profile.emails[0].value,
+                    email  : profile.emails[0].value,
+                    password : "loginfacebook",
+                    role : 'Customer',
+                    phoneNumber : 'Login from facebook',
+                    address : 'Login from facebook'
+                }
+            })
+            const payloadUser = {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }
+
+            const dataUser = {
+                id : user.id,
+                email : user.email,
+                role: user.role
+            }
+
+            res.status(200).json({ token: createToken(payloadUser), dataUser })
+           
+    }))
+        } catch (err) {
+            // console.log(err);
+            next(err)
+        }
+    }
+
     static async custProductList(req, res, next) {
         try {
             
             let where = {
-                status : 'Active'
+                UserId : 1
             }
 
-            let {rating, title, page} = req.query
+            let {rating, name, page} = req.query
             if(!page) page = 1
             page = (page-1) * 8
 
@@ -125,9 +171,9 @@ class customerController {
                 where.rating = rating
             }
 
-            if(title) {
-                where.title = {
-                    [Op.iLike] : `%${req.query.title}%`
+            if(name) {
+                where.name = {
+                    [Op.iLike] : `%${req.query.name}%`
                 }   
             }
 
@@ -193,7 +239,11 @@ class customerController {
                 where: {
                     UserId : req.user.id
                 },
-                include : Product
+                include : [
+                    {
+                        model : Product
+                    }
+                ]
             })
             res.status(200).json(response)
         } catch (err) {
