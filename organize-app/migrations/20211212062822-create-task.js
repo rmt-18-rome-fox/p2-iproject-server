@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      imgUrl: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       CategoryId: {
         type: Sequelize.INTEGER,
         references: {
