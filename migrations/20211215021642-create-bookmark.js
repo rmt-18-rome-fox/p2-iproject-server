@@ -15,6 +15,9 @@ module.exports = {
           key: "id"
         }
       },
+      bookId: {
+        type: Sequelize.INTEGER
+      },
       title: {
         type: Sequelize.STRING
       },

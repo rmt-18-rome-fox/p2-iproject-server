@@ -30,21 +30,20 @@ const authentication = async (req, res, next) =>{
 
 const authorization = async (req, res, next) =>{
     try{
-        const id = req.params.bookId
+        const id = +req.params.bookId
         const book = await axios.get(`${apiUrl}/books/${id}`)
-        console.log("masuk", book.data);
         
         const bookmark = await Bookmark.findOne({
             where:{
                 userId: req.user.id,
-                title: book.data.title
+                bookId: id
             }
         })
         if (!bookmark) {
             throw {name:"BOOKMARK_NOT_FOUND"}
-         } 
-
-        if (book.UserId == req.user.id) {
+        } 
+        console.log("dapet", bookmark);
+        if (bookmark.userId == req.user.id) {
             next()
         }else {
             throw { name: "UNAUTHORIZED"}
