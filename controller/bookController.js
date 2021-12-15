@@ -7,11 +7,12 @@ const allBooks = async (req, res, next) =>{
         const {page} = req.query
         if(page){
             const books = await axios.get(`${apiUrl}/books?page${page}`)
-            
-            res.status(200).json(books.data)
+
+            res.status(200).json(books.data.results)
         }else{
             const books = await axios.get(`${apiUrl}/books`)
-            res.status(200).json(books.data)
+            
+            res.status(200).json(books.data.results)
         }
     }catch(err){
 
@@ -20,10 +21,9 @@ const allBooks = async (req, res, next) =>{
 
 const bookDetail = async (req, res, next) =>{
     try{
-        console.log("masuk");
         const id = req.params.bookId
         const bookDetail = await axios.get(`${apiUrl}/books/${id}`)
-        console.log(bookDetail);
+        
         res.status(200).json(bookDetail.data)
     }catch(err){
         
@@ -51,7 +51,7 @@ const addBookmark = async (req, res, next) =>{
         const userId = req.user.id
         const id = +req.params.bookId
         const book = await axios.get(`${apiUrl}/books/${id}`)
-
+        console.log("server masuk");
         const newBookmark = await Bookmark.create({
             userId: userId,
             bookId: id,
