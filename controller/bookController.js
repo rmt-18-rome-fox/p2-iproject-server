@@ -20,9 +20,10 @@ const allBooks = async (req, res, next) =>{
 
 const bookDetail = async (req, res, next) =>{
     try{
+        console.log("masuk");
         const id = req.params.bookId
         const bookDetail = await axios.get(`${apiUrl}/books/${id}`)
-
+        console.log(bookDetail);
         res.status(200).json(bookDetail.data)
     }catch(err){
         
@@ -48,14 +49,15 @@ const allBookmarks = async (req, res, next) =>{
 const addBookmark = async (req, res, next) =>{
     try{
         const userId = req.user.id
+        const id = req.params.bookId
+        const book = await axios.get(`${apiUrl}/books/${id}`)
 
-        const {title, authors, imageUrl, subjects} = req.body
         const newBookmark = await Bookmark.create({
             userId: userId,
-            title: title,
-            authors: authors,
-            imageUrl: imageUrl,
-            subjects: subjects
+            title: book.data.title,
+            authors: book.data.authors[0].name,
+            imageUrl: book.data.formats['image/jpeg'],
+            subjects: book.data.subjects[0]
         })
 
         res.status(201).json(newBookmark)
@@ -66,6 +68,7 @@ const addBookmark = async (req, res, next) =>{
 
 const deleteBookmark = async (req, res, next) =>{
     try{
+        console.log("masuk");
         const userId = req.user.id
         const id = req.params.bookId
 

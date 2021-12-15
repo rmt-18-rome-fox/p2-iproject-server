@@ -1,18 +1,19 @@
 const {User, Bookmark} = require("../models/index")
 const axios = require("axios")
+const jwt = require("jsonwebtoken")
 const apiUrl = "https://gutendex.com"
 
 const authentication = async (req, res, next) =>{
     try{
-        const payload = convertPayload(access_token)
+        const {access_token} = req.headers
+        const payload = jwt.verify(access_token, "sangatsangatrahasia")
         
         const user = await User.findOne({
             where:{
                 id: payload.id,
-                email: payload.email
+                name: payload.name
             }
         })
-
         if(!user) throw {name: "USER_NOT_FOUND"}
 
         req.user = {
@@ -30,16 +31,15 @@ const authentication = async (req, res, next) =>{
 const authorization = async (req, res, next) =>{
     try{
         const id = req.params.bookId
-
         const book = await axios.get(`${apiUrl}/books/${id}`)
-
+        console.log("masuk", book.data);
+        
         const bookmark = await Bookmark.findOne({
             where:{
                 userId: req.user.id,
                 title: book.data.title
             }
         })
-
         if (!bookmark) {
             throw {name:"BOOKMARK_NOT_FOUND"}
          } 
