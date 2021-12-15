@@ -5,6 +5,7 @@ const { User } = require(`../models/index`)
 const authentication = async (req, res, next) => {
     try {
         const { access_token } = req.headers
+
         if(!access_token) throw { name: "NO_TOKEN" }
 
         const payload = verifyToken(access_token)
@@ -12,6 +13,8 @@ const authentication = async (req, res, next) => {
         if(!payload || payload.length < 1) throw { name: "INVALID_TOKEN" }
 
         const findUser = await User.findByPk(payload.id)
+
+        if(!findUser) throw { name: "NO_TOKEN" }
 
         req.user = {  email: findUser.email }
 

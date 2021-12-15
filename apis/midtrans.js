@@ -195,8 +195,6 @@ let updateStatus = async (req, res, next) => {
             newStatus = `failed`
         }
 
-        console.log(status)
-
         if (status.transaction_status === `expire` || 
             status.transaction_status === `cancel` ||
             status.transaction_status === `deny`) {
