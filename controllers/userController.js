@@ -77,11 +77,14 @@ let fetchOrderProduct = async (req, res, next) => {
         })
 
         if (response.length < 1) {
-            res.status(200).json({ msg: `there is no orders yet`})
+
+            const dataFetch = req.user.dog
+            res.status(200).json({ msg: `there is no orders yet`, data: dataFetch})
         } else {
             res.status(200).json({response})
         }
     } catch (error) {
+        console.log(error)
         next(error)
     }
 }
