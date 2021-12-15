@@ -18,7 +18,7 @@ function postCloudinary(req, res, next) {
     },
     function (error, result) {
       // console.log(result);
-      //   console.log(error);
+      // console.log(error);
       req.imageUrl = result.url;
       next();
     }
