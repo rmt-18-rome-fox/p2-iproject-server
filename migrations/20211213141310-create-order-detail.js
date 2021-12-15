@@ -38,7 +38,7 @@ module.exports = {
       },
       orderId: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
