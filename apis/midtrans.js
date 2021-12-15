@@ -9,8 +9,7 @@ const PRODUCTION_BASE_URL = `https://api.midtrans.com/v2`
 let checkoutMid = async (req, res, next) => {
 
     try {
-
-        const response = await OrderProduct.findAll({
+        const response = await Transaction.findOne({
             where: {
                 [Op.and]: [
                     { UserId: req.auth.id }, 
@@ -20,25 +19,39 @@ let checkoutMid = async (req, res, next) => {
             attributes: {
                 exclude: ['createdAt', `updatedAt`]
             },    
-            include: {
-                model: Product,
-                attributes: {
-                    exclude: ['createdAt', `updatedAt`]
-                },
-            }, 
-        })
+        })     
+        
+        console.log(response.order_id)
 
         if (response.length < 1) {
             res.status(200).json({ msg: `there is no orders yet`})
         } else {
 
+            const response2 = await OrderProduct.findAll({
+                where: {
+                    [Op.and]: [
+                        { UserId: req.auth.id }, 
+                        { status: `pending` }
+                    ], 
+                },
+                attributes: {
+                    exclude: ['createdAt', `updatedAt`]
+                },    
+                include: {
+                    model: Product,
+                    attributes: {
+                        exclude: ['createdAt', `updatedAt`]
+                    },
+                }, 
+            })     
+
             let orderDetail = { 
-                order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
+                order_id: `${response.order_id}`,
                 totalPrice: 0,
                 product: [],
              }
 
-            response.forEach(element => {
+            response2.forEach(element => {
                 orderDetail.totalPrice += element.Product.price
                 orderDetail.product.push(element.Product)
             });
@@ -90,18 +103,18 @@ let requestSnapToken = async (req, res, next) => {
             ammount: parameter.transaction_details.gross_amount
         }
 
-        const HistoryLog = await Transaction.create({
-            order_id: parameter.transaction_details.order_id,
-            UserId: req.auth.id,
-            status: `pending`,
-            ammount: parameter.transaction_details.gross_amount
-        })
+        // const HistoryLog = await Transaction.create({
+        //     order_id: parameter.transaction_details.order_id,
+        //     UserId: req.auth.id,
+        //     status: `pending`,
+        //     ammount: parameter.transaction_details.gross_amount
+        // })
 
-        const removeAllItems = await OrderProduct.destroy({
-            where: {
-                UserId: req.auth.id,
-            }
-        })
+        // const removeAllItems = await OrderProduct.destroy({
+        //     where: {
+        //         UserId: req.auth.id,
+        //     }
+        // })
 
         let transporter = nodemailer.createTransport({
             service:  'gmail', 
@@ -191,11 +204,15 @@ let updateStatus = async (req, res, next) => {
         } else if ( status.transaction_status === `settlement` ||
                     status.transaction_status === `capture`) {
             newStatus = `on Shipping`
-        } else if ( status.transaction_status === `pending`){
-            newStatus = `pending`
-        }
+        } 
 
         if (!newStatus) throw { name: "PLEASE_PAY_FIRST" }
+
+        const removeAllItems = await OrderProduct.destroy({
+            where: {
+                UserId: req.auth.id,
+            }
+        })
 
         const findOneOrderId = await Transaction.update(
             {

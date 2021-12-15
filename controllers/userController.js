@@ -169,7 +169,6 @@ let checkout = async (req, res, next) => {
 
 
             let orderDerail = { 
-                order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
                 totalPrice: 0,
                 product: [],
              }
@@ -179,12 +178,39 @@ let checkout = async (req, res, next) => {
                 orderDerail.product.push(element.Product)
             });
 
-            orderDerail.totalPrice = format(orderDerail.totalPrice)
-            orderDerail.product.forEach(e => {
-                e.price = format(e.price)
+            const findOrderID = await Transaction.findOne({
+                where: {
+                    [Op.and]: [
+                        { UserId: req.auth.id }, 
+                        { status: `pending` }
+                    ], 
+                }
             })
 
-            res.status(200).json({orderDerail})
+            console.log(findOrderID)
+
+            if(findOrderID){
+                orderDerail.totalPrice = format(orderDerail.totalPrice)
+                orderDerail.product.forEach(e => {
+                    e.price = format(e.price)
+                })
+                console.log(`ini masuk netep`)
+                res.status(200).json({orderDerail})
+            } else {
+                const HistoryLog = await Transaction.create({
+                    order_id: `${req.auth.id}${(Math.random() + 1).toString(36).substring(7)}`,
+                    UserId: req.auth.id,
+                    status: `pending`,
+                    ammount: orderDerail.totalPrice
+                })
+                orderDerail.totalPrice = format(orderDerail.totalPrice)
+                orderDerail.product.forEach(e => {
+                    e.price = format(e.price)
+                })
+                console.log(`ini masuk create`)
+                res.status(200).json({orderDerail})
+            }
+
         }
     } catch (error) {
         next(error)
