@@ -11,7 +11,7 @@ router.post("/login", UserController.login);
 router.get("/classes", APIController.getClasses);
 router.get("/races", APIController.getRaces);
 router.get("/spells", APIController.getSpells);
-router.get("/avatar");
+router.get("/avatar", APIController.getImages);
 
 router.use(authenticate);
 router.get("/user/characters", CharController.getCharacters);
