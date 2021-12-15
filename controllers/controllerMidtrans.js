@@ -34,7 +34,7 @@ const postMidtrans = async (req, res, next) => {
       include: { model: CoffeePowder },
     });
 
-    // console.log(findOneOrderDetail.orderId, '<<<<<<<<<<<<<<, INI FIND ONE');
+    console.log(findOneOrderDetail.orderId, '<<<<<<<<<<<<<<, INI FIND ONE');
 
     // =================== HITUNG TOTAL PRICE CART ===================
     let totalPrice = 0;
@@ -117,7 +117,13 @@ const checkStatusPayment = async (req, res, next) => {
     //   throw { name: 'notFound' };
     // }
     const findOneOrderDetail = await OrderDetail.findOne({
-      where: { UserId: UserId, orderStatus: 'pending' },
+      where: {
+        UserId: UserId,
+        orderStatus: 'pending',
+        orderId: {
+          [Op.ne]: null,
+        },
+      },
       include: { model: CoffeePowder },
       raw: true,
     });
