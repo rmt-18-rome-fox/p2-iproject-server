@@ -41,19 +41,11 @@ class Controller {
             if(!isValid) {
                 throw {name: 'UserNotFound'};
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> 604d4cc32fa64ddc47bf7e4d47b089f689e334cb
             const user = {
                 id: findUser.id,
                 username: findUser.username,
                 email: findUser.email
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> 604d4cc32fa64ddc47bf7e4d47b089f689e334cb
             const payload = {
                 id: findUser.id,
                 username: findUser.username,
