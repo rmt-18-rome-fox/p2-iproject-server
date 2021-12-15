@@ -12,7 +12,7 @@ class Controller {
                     }
                 })
                 
-                res.status(200).json(standingTable.data)
+                res.status(200).json(standingTable.data.response[0].league.standings[0])
             } catch (err) {
                 console.log(err);
                 next(err);

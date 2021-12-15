@@ -42,12 +42,18 @@ class Controller {
                 throw {name: 'UserNotFound'};
             }
 
+            const user = {
+                id: findUser.id,
+                username: findUser.username,
+                email: findUser.email
+            }
+
             const payload = {
                 id: findUser.id,
                 username: findUser.username,
             }
             const token = signPayload(payload, isValid);
-            res.status(200).json({access_token: token, dataUser: payload});
+            res.status(200).json({access_token: token, dataUser: user});
 
         } catch (err) {
             next(err)
