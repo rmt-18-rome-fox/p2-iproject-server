@@ -40,6 +40,9 @@ router.post('/public/authGoogle',
 router.post('/public/auth/facebook',
     customerController.authFacebook)
 
+router.post('/public/auth/github',
+    customerController.authGitHub)    
+
 router.get('/public/products', 
     customerController.custProductList )
 
