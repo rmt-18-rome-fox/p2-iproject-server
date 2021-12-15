@@ -2,7 +2,7 @@ const {User} = require('../models')
 const compare = require('../helpers/bcrypt')
 const {maketoken} = require('../helpers/jwt')
 const nodemailer = require("nodemailer")
-// const {OAuth2Client} = require('google-auth-library');
+const {OAuth2Client} = require('google-auth-library');
 
 class UserController {
     static async register(req,res,next){
@@ -114,18 +114,17 @@ class UserController {
          
                 const newUser = {
                    id : user.id,
-                   username: user.username,
                    email: user.email,
                    role :user.role
                  }
+       
 
-               const acces_token = maketoken(newUser,secretkey)
-               res.status(201).json({acces_token,newUser})
+               const access_token = maketoken(newUser)
+               res.status(201).json({access_token,newUser})
           
-
             
         } catch (err) {
-           
+           console.log(err)
             next(err)
         }
       
