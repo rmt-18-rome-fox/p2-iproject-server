@@ -2,15 +2,27 @@ const { User, Profile, Portofolio, PortofoliosTag, Tag } = require('../models')
 
 class ArchitectController {
     static getArchitectPortofolio(req, res, next) {
-        Portofolio.findAll({where: {
-            UserId: req.user.id
-        }})
-        .then(data => {
-            res.status(200).json(data)
+        Portofolio.findAll({
+            where: {
+                UserId: req.user.id
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            },
+            include: {
+                model: Tag,
+                key: 'id',
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
+            }
         })
-        .catch(err => {
-            next(err)
-        })
+            .then(data => {
+                res.status(200).json(data)
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 
     static async addPortofolio(req, res, next) {
@@ -70,21 +82,35 @@ class ArchitectController {
         try {
             const { portofolioId } = req.params
             const { title, description, imageUrl, TagId } = req.body
-            await Portofolio.update({
-                title,
-                description,
-                imageUrl,
-                UserId: req.user.id
-            }, {
-                where: {
-                    id: portofolioId
-                }
-            })
+            if (!imageUrl) {
+                await Portofolio.update({
+                    title,
+                    description,
+                    UserId: req.user.id
+                }, {
+                    where: {
+                        id: portofolioId
+                    }
+                })
+            } else {
+                await Portofolio.update({
+                    title,
+                    description,
+                    imageUrl,
+                    UserId: req.user.id
+                }, {
+                    where: {
+                        id: portofolioId
+                    }
+                })
+            }
+            
             const portofolio = await Portofolio.findOne({
                 where: {
-                    id: req.user.id
+                    UserId: req.user.id
                 }
             })
+            console.log(portofolio)
             await TagId.forEach(tag => {
                 PortofoliosTag.destroy({
                     where: {
@@ -137,15 +163,27 @@ class ArchitectController {
 
     static deletePortofolio(req, res, next) {
         const { portofolioId } = req.params
-        Portofolio.destroy({where: {
-            id: portofolioId
-        }})
-        .then(data => {
-            res.status(200).json({message: 'Portofolio Deleted'})
+        Portofolio.destroy({
+            where: {
+                id: portofolioId
+            }
         })
-        .catch(err => {
-            next(err)
-        })
+            .then(data => {
+                res.status(200).json({ message: 'Portofolio Deleted' })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static fetchTags(req, res, next) {
+        Tag.findAll()
+            .then(data => {
+                res.status(200).json(data)
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 }
 

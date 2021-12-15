@@ -54,7 +54,7 @@ const register = async (req, res, next) => {
                 price: null,
                 UserId: newUser.id,
             })
-            main(validateCode)
+            main(validateCode, newUser.email)
             res.status(201).json(output)
         }
     } catch (err) {

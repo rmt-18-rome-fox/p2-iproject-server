@@ -14,7 +14,6 @@ async function main(validationCode, email) {
                 rejectUnauthorized: false
             }
         });
-
         // send mail with defined transport object
         let info = await transporter.sendMail({
             from: 'Siapa Hayo', // sender address
@@ -22,7 +21,7 @@ async function main(validationCode, email) {
             subject: "Account Verification", // Subject line
             text: `
             Please click this link to Verify your account 
-            http://localhost:8083/login?validate=${validationCode}
+            http://localhost:8084/login?validate=${validationCode}
             `, // plain text body
         });
 
