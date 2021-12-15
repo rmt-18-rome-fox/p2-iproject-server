@@ -14,6 +14,9 @@ function errorHandler(err, req, res, next) {
     case "Unauthorized":
       return res.status(401).json({ message: err.message });
       break;
+    case "Forbidden":
+      return res.status(401).json({ message: err.message });
+      break;
 
     default:
       break;
