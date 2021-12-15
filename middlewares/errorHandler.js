@@ -30,6 +30,22 @@ const ErrorHandler = (err, req, res, next) => {
             res.status(401).json({message: "Invalid Token"})
             break;
         }
+        
+        
+        case 'ACCOUNT_ALREADY_VERIFIED': {
+            res.status(401).json({message: "Account already verified"})
+            break;
+        }
+
+        case 'INVALID_CODE': {
+            res.status(401).json({message: "Invalid Code"})
+            break;
+        }
+
+        case 'VALIDATE_YOUR_ACCOUNT': {
+            res.status(401).json({message: "Please verify your account"})
+            break;
+        }
 
         case 'JsonWebTokenError': {
             res.status(401).json({message: "Invalid Token"})

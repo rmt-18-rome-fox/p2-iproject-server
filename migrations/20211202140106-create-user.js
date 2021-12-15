@@ -25,6 +25,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      validateCode: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
