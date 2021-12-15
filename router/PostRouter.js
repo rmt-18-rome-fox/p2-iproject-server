@@ -1,5 +1,4 @@
 const posts = require('express').Router()
-const authentication = require('../middleware/authentication')
 const PostController = require('../controller/PostController')
 const { instanceMulter } = require('../middleware/multer')
 const { fileUpload } = require('../middleware/fileUpload')

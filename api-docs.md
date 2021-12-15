@@ -328,7 +328,7 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-## 6. PUT /posts/post/:id
+## 7. PUT /posts/post/:id
 
 Request:
 
@@ -365,6 +365,75 @@ _Response (200 - OK)_
           "updatedAt": "2021-12-15T01:53:29.393Z"
       }
   ]
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
+}
+```
+
+## 8. DELETE /posts/delete/:id
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Post data with id 3 has deleted !"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
+}
+```
+
+
+## 9. POST /organization
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Post data with id 3 has deleted !"
 }
 ```
 

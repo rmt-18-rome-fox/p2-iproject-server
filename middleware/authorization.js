@@ -27,4 +27,8 @@ const postAuthorization = async (req, res, next) => {
   }
 }
 
-module.exports = { postAuthorization }
+const organizationAuthor = async (req, res, next) => {
+
+}
+
+module.exports = { postAuthorization, organizationAuthor }
