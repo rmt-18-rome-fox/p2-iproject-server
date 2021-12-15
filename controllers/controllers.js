@@ -99,8 +99,6 @@ const getHeroId = async (req,res,next) => {
         method:"get",
         url:`https://superheroapi.com/api/${superhero_token}/search/${result.name}`,
         })
-        // console.log(result2, '>>>>>>>>>>>>>>>>>>>>>>>>>> ini reult 2')
-        // console.log(result2.data, '>>>>>>>>>>>>>>>>>>>>>>>>>> ini reult 2 name')
         const result3 = {
             result: result,
             result2: result2.data
