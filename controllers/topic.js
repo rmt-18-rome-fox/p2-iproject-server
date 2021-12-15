@@ -1,4 +1,4 @@
-const { User, Topic, UserTopic } = require('../models');
+const { User, Topic, Reply } = require('../models');
 
 class TopicController {
     static async postTopic (req, res, next) {
@@ -32,22 +32,49 @@ class TopicController {
     static async getTopic (req, res, next) {
         try {
             const result = await Topic.findAll ({
-                // include: [
-                //     {
-                //         model: UserTopic,
-                //     },
-                //     {
-                //         model: User,
-                //         attributes: {
-                //             exclude: ["password", "createdAt", "updatedAt"]
-                //         }
-                //     },
-                // ],
+                include: [
+                    {
+                        model: Reply,
+                        
+                        include: [
+                            {
+                                model: User,
+
+                            }
+                        ]
+                    },
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["password", "createdAt", "updatedAt"]
+                        },
+                    },
+                ],
             })
             console.log(result, `result getTopic field`)
             res.status(200).json(result)
         } catch (err) {
             next(err)
+        }
+    }
+
+    static async patchLike (req, res, next) {
+        try {
+            const id = req.params.id
+            const foundTopic = await Topic.findByPk(id)
+            if (!foundTopic) {
+                throw ({ 
+                    name: `Error Not Found`,
+                    message: `Topic not Found`
+                })
+                
+            } else {
+                const like = req.body.like
+                const updatelike = await Topic.update({like}, {where: {id}})
+
+            }
+        } catch (err) {
+            
         }
     }
 }
