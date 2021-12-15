@@ -208,11 +208,16 @@ let updateStatus = async (req, res, next) => {
 
         if (!newStatus) throw { name: "PLEASE_PAY_FIRST" }
 
-        const removeAllItems = await OrderProduct.destroy({
-            where: {
-                UserId: req.auth.id,
+        const removeAllItems = await OrderProduct.update(
+            {
+                status: `completed`
+            },
+            {
+                where: {
+                    UserId: req.auth.id,
+                }
             }
-        })
+        )
 
         const findOneOrderId = await Transaction.update(
             {

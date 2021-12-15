@@ -187,14 +187,12 @@ let checkout = async (req, res, next) => {
                 }
             })
 
-            console.log(findOrderID)
-
             if(findOrderID){
+                orderDerail.order_id = findOrderID.order_id
                 orderDerail.totalPrice = format(orderDerail.totalPrice)
                 orderDerail.product.forEach(e => {
                     e.price = format(e.price)
                 })
-                console.log(`ini masuk netep`)
                 res.status(200).json({orderDerail})
             } else {
                 const HistoryLog = await Transaction.create({
@@ -203,6 +201,9 @@ let checkout = async (req, res, next) => {
                     status: `pending`,
                     ammount: orderDerail.totalPrice
                 })
+
+                orderDerail.order_id = HistoryLog.order_id
+
                 orderDerail.totalPrice = format(orderDerail.totalPrice)
                 orderDerail.product.forEach(e => {
                     e.price = format(e.price)
