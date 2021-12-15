@@ -3,6 +3,7 @@ const convertPayLoad = require('../helpers/convertPayLoad')
 const jwtToken = require('../helpers/jwtToken')
 const { User, Car, Booking } = require('../models')
 const { Op } = require("sequelize")
+const nodemailerSend = require('../helpers/nodemailerSend')
 
 class Controller {
     static register(req, res, next) {
@@ -93,15 +94,17 @@ class Controller {
             const priceCar = await Car.findOne({ where: { id: req.params.carId } })
             const dataEnd = new Date(req.body.dateEnd)
             const dateStart = new Date(req.body.dateStart)
-            const price = priceCar.price * (dataEnd - dateStart)
+            const countdays = (new Date(dataEnd - dateStart))/86400000
+            const price = priceCar.price * countdays
             const data = await Booking.create({
                 price: price,
                 status: 'Payed',
-                dateStart: req.body.dateStart,
-                dateEnd: req.body.dateEnd,
+                dateStart: dateStart,
+                dateEnd: dataEnd,
                 userId: payload.id,
                 carId: req.params.carId
             })
+            nodemailerSend(payload.email,'glenn', data)
             res.status(201).send(data)
         } catch (error) {
             next(error)
@@ -114,6 +117,7 @@ class Controller {
             .then(data => res.status(200).send(data))
             .catch(err => next(err))
     }
+
 }
 
 module.exports = { Controller }
