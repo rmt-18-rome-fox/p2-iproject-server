@@ -62,7 +62,35 @@ class PostController {
         comment: findAllCommentWithPostId,
       });
     } catch (err) {
+      //   console.log(err);
+      next(err);
+    }
+  }
+
+  static async editPost(req, res, next) {
+    try {
+      console.log("msuk");
+      const postId = req.params.postId;
+      const UserId = req.user.id;
+      const imageUrl = req.imageUrl;
+      const { title, description } = req.body;
+      const postParams = { title, description, imageUrl, UserId };
+
+      const findPost = await Post.findByPk(postId);
+      //   console.log(findPost);
+      if (!findPost) {
+        throw { name: "Not Found", message: "Post not found" };
+      }
+      const updatePost = await Post.update(postParams, {
+        returning: true,
+        where: {
+          id: postId,
+        },
+      });
+      res.status(200).json(updatePost);
+    } catch (err) {
       console.log(err);
+      next(err);
     }
   }
 }
