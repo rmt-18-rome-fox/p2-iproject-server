@@ -11,13 +11,19 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      class: {
+      gender: {
         type: Sequelize.STRING,
       },
       race: {
         type: Sequelize.STRING,
       },
+      className: {
+        type: Sequelize.STRING,
+      },
       spell: {
+        type: Sequelize.STRING,
+      },
+      imageUrl: {
         type: Sequelize.STRING,
       },
       UserId: {
