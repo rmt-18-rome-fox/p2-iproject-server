@@ -63,9 +63,9 @@ const login = async(req,res,next)=>{
 const addHero = async(req,res,next) => {
     try {
         
-        
-        const { name, location, imgUrl, date} = req.body
-        const result = await Hero.create({ name, location, imgUrl, date })  
+        const UserId = req.user.id
+        const { name, location, imgUrl, date,description} = req.body
+        const result = await Hero.create({ name, location, imgUrl, UserId,date,description })  
         res.status(201).json(result)
 
     } catch (err) {
