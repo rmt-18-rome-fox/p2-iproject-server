@@ -10,6 +10,7 @@ const upload = multer({
 
 const router = require('express').Router()
 router.get('/portofolio', architectAuthorization, ArchitectController.getArchitectPortofolio)
+router.get('/tags', architectAuthorization, ArchitectController.fetchTags)
 router.post('/portofolio/add', architectAuthorization, upload.single('file'), imageValidation, imageKit, ArchitectController.addPortofolio)
 router.get('/portofolio/:portofolioId', architectAuthorization, architectAuthorization2, ArchitectController.getEditPortofolioForm)
 router.put('/portofolio/:portofolioId', architectAuthorization, architectAuthorization2, upload.single('file'), imageValidation, imageKit, ArchitectController.editPortofolio)

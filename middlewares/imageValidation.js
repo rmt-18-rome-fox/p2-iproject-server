@@ -12,7 +12,6 @@ const imageValidation = (req, res, next) => {
             }
         }
     } else {
-        console.log('hehehehe')
         next()
     }
 
