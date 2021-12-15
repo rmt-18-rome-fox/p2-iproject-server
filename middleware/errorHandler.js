@@ -42,6 +42,12 @@ const errorHandler = async (err, req, res, next) => {
   else if (err.name === "NOT_FOUND") {
     status = 404;
     message = 'Not Found !';
+  } else if (err.name === "USER_NOT_FOUND") {
+    status = 404
+    message = 'Email Not Found !'
+  } else if (err.name === "ORGANIZATION_FAIL") {
+    status = 404
+    message = 'Organization Not Found !'
   }
 
   res.status(status).json({

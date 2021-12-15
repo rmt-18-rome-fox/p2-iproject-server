@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: {
+        msg: "Email Alread in Organization"
+      },
       validate: {
         notNull: {
           msg: "Please Follow with User ID"
@@ -42,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate (instance, options) {
+        instance.status = 'pending'
+      }
+    },
     sequelize,
     modelName: 'PaymentStatus',
   });

@@ -39,8 +39,61 @@ class OrganizationController {
       next(error)
     }
   }
-  static async putOrganization (req, res, next) {}
-  static async deleteOrganization (req, res, next) {}
+  static async putOrganization (req, res, next) {
+    const {
+      name,
+      description,
+      isPaid,
+      price
+    } = req.body
+    const { id } = req.params
+
+    try {
+      const organization = await Organization.update({
+        name, 
+        description,
+        isPaid,
+        price,
+        UserId: req.auth.id
+      }, 
+      {
+        where: {
+          id,
+          UserId: req.auth.id
+        },
+        attributes: {
+          exclude: ["cratedAt", "updatedAt"]
+        },
+        returning: true
+      })
+      
+      res.status(200).json({
+        message: `Organization ${organization[1][0].name} has updated !`,
+        organization: organization[1]
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+  static async deleteOrganization (req, res, next) {
+    const { id } = req.params
+    const { id: UserId } = req.auth
+    
+    try {
+      await Organization.destroy({
+        where: {
+          id,
+          UserId
+        }
+      })  
+      console.log(cekOrgs);
+      res.status(200).json({
+        message: `Organization has deleted !`
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = OrganizationController

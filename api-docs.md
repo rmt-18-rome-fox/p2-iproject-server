@@ -68,11 +68,15 @@ List of available endpoints:
 - `POST/post`
 - `PUT/post/:id`
 - `DELETE/post/:id`
-
 - `POST/organization`
-- `PUT/organization`
+- `GETT/organization`
+- `PUT/organization/update/:id`
+- `DELETE/organization/delete/:id`
+- `POST/payment/post`
+- `GET/payment/:UserId`
+
+- `POST/payment/xendit`
 - `PUT/profile/:id`
-- `POST/payment-status`
 
 ## 1. POST /register
 
@@ -418,8 +422,142 @@ _Response (403 - Forbidden)_
 }
 ```
 
-
 ## 9. POST /organization
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+- body:
+```json
+{
+  "name": string,
+  "description": text ,
+  "isPaid": boolean,
+  "price": integer
+}
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Your organization already created",
+  "organization": {
+      "id": 1,
+      "name": "Komplek Nusa Loka",
+      "description": "Forum Keluarga Tetangga Nusa Loka BSD",
+      "isPaid": false,
+      "price": 90000,
+      "UserId": 1,
+      "updatedAt": "2021-12-15T02:32:06.340Z",
+      "createdAt": "2021-12-15T02:32:06.340Z"
+  }
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+## 10. GET /organization
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (200 - OK)_
+```json
+[
+  {
+      "id": 1,
+      "UserId": 1,
+      "name": "Komplek Nusa Loka",
+      "description": "Forum Keluarga Tetangga Nusa Loka BSD",
+      "isPaid": false,
+      "price": 90000,
+      "createdAt": "2021-12-15T02:32:06.340Z",
+      "updatedAt": "2021-12-15T02:32:06.340Z"
+  }
+]
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+## 11. PUT /organization/update/:id
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+- body:
+```json
+{
+  "name": string,
+  "description": text ,
+  "isPaid": boolean,
+  "price": integer
+}
+
+_Response (200 - OK)_
+```json
+{
+  "message": "Organization undefined has updated !",
+  "organization": [
+    {
+      "id": 1,
+      "UserId": 1,
+      "name": "Komplek Nusa Loka",
+      "description": "Forum Keluarga Tetangga Nusa Loka BSD",
+      "isPaid": true,
+      "price": 90000,
+      "createdAt": "2021-12-15T02:32:06.340Z",
+      "updatedAt": "2021-12-15T02:42:21.578Z"
+    }
+  ]
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
+}
+```
+
+## 11. DELETE /organization/delete/:id
 
 Request:
 
@@ -433,7 +571,137 @@ Request:
 _Response (200 - OK)_
 ```json
 {
-  "message": "Post data with id 3 has deleted !"
+  "message": "Organization has deleted !"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
+}
+```
+
+## 12. POST /payment/post
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+- Body:
+```json
+{
+  "email": string,
+  "organization": string
+}
+```
+
+_Response (201 - CREATED)_
+```json
+{
+  "message": "tiakharisma@gmail.com already assign to Komplek Nusa Loka",
+  "data": {
+    "id": 2,
+    "UserId": 2,
+    "OrganizationId": 1,
+    "updatedAt": "2021-12-15T07:37:43.900Z",
+    "createdAt": "2021-12-15T07:37:43.900Z",
+    "status": "pending"
+  }
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
+}
+```
+
+## 13. GET /payment/:UserId
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (201 - CREATED)_
+```json
+{
+    "id": 1,
+    "UserId": 2,
+    "OrganizationId": 1,
+    "status": "pending",
+    "createdAt": "2021-12-15T07:35:59.021Z",
+    "updatedAt": "2021-12-15T07:35:59.021Z"
+    ...,
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+    "message": "Not Authorize !"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Access !"
+}
+```
+
+## 14. POST /payment/xendit
+
+Request:
+
+- headers:
+```json
+{
+  "access_token": string
+}
+```
+
+_Response (201 - CREATED)_
+```json
+{
+    "id": 1,
+    "UserId": 2,
+    "OrganizationId": 1,
+    "status": "pending",
+    "createdAt": "2021-12-15T07:35:59.021Z",
+    "updatedAt": "2021-12-15T07:35:59.021Z"
+    ...,
 }
 ```
 

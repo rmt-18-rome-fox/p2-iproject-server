@@ -66,7 +66,7 @@ class PostController {
     const { id } = req.params
     
     try {
-      await Post.findOne({
+      await Post.destroy({
         where: {
           id,
           UserId: req.auth.id
