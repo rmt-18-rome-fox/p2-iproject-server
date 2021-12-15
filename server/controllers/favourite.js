@@ -53,12 +53,14 @@ module.exports = class FavouriteFood {
 
   static deleteFavourite = async (req,res,next) => {
     try {
+      console.log(req.params.id, req.user.id);
       const id = req.params.id
       const UserId = req.user.id
-      const RecipeId = +id
-      const result = await Favourite.delete({where : UserId, RecipeId})
+      const RecipeId = id
+      const result = await Favourite.destroy({where : UserId, RecipeId})
       res.status(200).json(result)
     } catch (err) {
+      console.log(err);
       next(err)
     }
   }

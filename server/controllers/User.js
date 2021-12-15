@@ -45,4 +45,21 @@ module.exports = class UserAccount {
     }
   }
 
+  static updateStatus = async (req,res,next) => {
+    try {
+      const {id} = req.user
+      const status = "Premium"
+      const response = await User.update({status} ,{where: {id}, returning: true})
+      if (!response) {
+        next ({name: "user_not_found"})
+      } 
+    
+      res.status(200).json ({msg: "you're now premium member"}) 
+    } catch(err) {
+      console.log(err,">>>>>>>>>ini wktu ngefetch");
+      next(err)
+    }
+  }
+
+
 } 

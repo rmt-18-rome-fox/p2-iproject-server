@@ -28,12 +28,10 @@ module.exports = class Controller {
         expiry_date: expiryDate,
         invoice_url: invoiceUrl
       } = newInvoice
-      console.log(newInvoice,"....");
 
       // const dbInvoice = await InvoiceModel.create(invoiceInput)
       res.status(200).json({invoiceUrl})
     } catch (error) {
-      console.log(error,"....");
       next(error)
     }
   }
