@@ -1,5 +1,7 @@
 const { Task, User, Category } = require('../models')
-var cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary');
+const axios = require('axios')
+
 
 class TaskController {
     static async allTasks(req, res, next) {
@@ -13,17 +15,42 @@ class TaskController {
     }
     static async addTask(req, res, next) {
         try {
-            const UserId = req.user.id
-            // console.log(UserId, "userId<<<<<");
-            const { title, description, CategoryId } = req.body;
-            console.log(title, description, CategoryId);
-            if (!title || !description || !CategoryId) {
-                throw { name: 'badRequest' }
-            }
-            const resultCreated = await Task.create({ title, description, CategoryId, UserId })
-            res.status(201).json({ resultCreated })
+            // let imgUrl = ''
+            await cloudinary.config({
+                cloud_name: process.env.CLOUD_CLOUDINARY,
+                api_key: process.env.KEY_CLOUDINARY,
+                api_secret: process.env.SECRETKEY_CLOUDINARY,
+                secure: true
+            });
+            // console.log(req.file, '<<<<<<req.file')
+            cloudinary.v2.uploader.upload(
+                req.file.path,
+                {
+                    resource_type: "image", public_id: req.file.originalname,
+                    overwrite: true, notification_url: "http://localhost:3000"
+                },
+                function (error, result) {
+                    // console.log({ result, error })
+                   let imgUrl = result.url
+                    // console.log(imgUrl);
+                    const UserId = req.user.id
+                    const { title, description, CategoryId } = req.body;
+                    // console.log(title, description, imgUrl, CategoryId);
+                    if (!title || !description || !imgUrl || !CategoryId) {
+                        throw { name: 'badRequest' }
+                    }
+                    Task.create({ title, description, imgUrl, CategoryId, UserId })
+                        .then(response => {
+                            res.status(201).json({ response })
+                        })
+                        .catch(err => {
+                            // console.log('>>>>error', err);
+                            next(err)
+                        })
+                });
+
         } catch (err) {
-            console.log(err);
+            // console.log('error<<<<<<', err);
             next(err)
         }
     }
@@ -44,7 +71,7 @@ class TaskController {
             const UserId = req.user.id
             const id = req.params.id
             const { title, description, CategoryId } = req.body;
-            console.log({ title, description, CategoryId });
+            // console.log({ title, description, CategoryId });
             if (!title || !description || !CategoryId) {
                 throw { name: 'badRequest' }
             }
@@ -52,7 +79,7 @@ class TaskController {
                 where: { id }
             })
             const resultUpdated = await Task.findByPk(id)
-            console.log(resultUpdated);
+            // console.log(resultUpdated);
             if (resultUpdated) {
                 res.status(200).json({ resultUpdated })
             } else {
@@ -79,24 +106,6 @@ class TaskController {
             next(err)
         }
     }
-    // static postCloudinary(req, res, next) {
-    //     cloudinary.config({
-    //         cloud_name: 'hacktiv8-iproject',
-    //         api_key: '881916586884551',
-    //         api_secret: '_krk91A0-v3i-xF5-vrP5kQ-dwc',
-    //         secure: true
-    //     });
-    //     console.log(req.file, '<<<<<<req.file')
-    //     cloudinary.v2.uploader.upload(
-    //         req.file.path,
-    //         {
-    //             resource_type: "image", public_id: "iproject-tes",
-    //             overwrite: true, notification_url: "http://localhost:3000"
-    //         },
-    //         function (error, result) { console.log(result, error) });
-    // }
-
 }
-
 
 module.exports = TaskController;
