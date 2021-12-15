@@ -8,8 +8,4 @@ router.get('/', Controller.showPosts)
 
 router.post('/', upload.single('imgUrl'), imageKit, Controller.addPost)
 
-
-router.put('/:id', authorization, upload.single('imgUrl'), imageKit, Controller.putPost)
-router.delete('/:id', authorization, Controller.deletePost)
-
 module.exports = router;

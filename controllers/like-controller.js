@@ -9,11 +9,12 @@ class Controller {
                     UserId: userId
                 },
                 include: {
-                    model: User,
+                    model: Post,
                     include: {
-                        model: Post
+                        model: User
                     }
-                }
+                },
+                order: [['createdAt', 'DESC']]
             })
             res.status(200).json(response)
         } catch (err) {
@@ -35,6 +36,24 @@ class Controller {
             const postLike = await Like.create(likeData)
 
             res.status(201).json(foundPost)
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    static async removeLike(req, res, next) {
+        try {
+            const {likeId} = req.params
+            const foundLike = await Like.findByPk(likeId)
+            if(!foundLike) {
+                throw {name: 'LikeNotFound'}
+            }
+            await Like.destroy({
+                where: {
+                    id: likeId
+                }
+            })
+            res.status(200).json(foundLike)
         } catch (err) {
             next(err)
         }
