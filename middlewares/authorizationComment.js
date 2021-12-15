@@ -11,7 +11,7 @@ async function authorizationComment(req, res, next) {
       throw { name: "Not Found", message: "Comment not found" };
     }
     if (findComment.PostId !== PostId && findComment.UserId !== UserId) {
-      throw { name: "Forbidden", message: "You don't have permission this comment" };
+      throw { name: "Forbidden", message: "You don't have permission in this comment" };
     }
     next();
   } catch (err) {
