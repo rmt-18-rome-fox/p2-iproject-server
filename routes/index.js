@@ -61,6 +61,17 @@ router.put(
     '/public/checkout',
     productController.checkout)
 
+router.post('/charge', async (req, res, next) => {
+    try {
+        // https://app.sandbox.midtrans.com/snap/v1/transactions
+       
+        
+    } catch (err) {
+        console.log(err.response.data);
+        // next(err)
+    }
+})
+
 
 //FOR ADMIN
 router.get(

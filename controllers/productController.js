@@ -2,6 +2,8 @@ const { Product, Category, User, Favorite} = require('../models')
 const format = require('../helpers/currency')
 const nodemailer = require("nodemailer");
 
+const axios = require('axios')
+
 class productController {
     static async showProduct(req, res, next) {
         try {
@@ -104,6 +106,30 @@ class productController {
             let totalPrice = detailPrice.reduce(reducer)
 
             // MIDTRANS
+            const urlSB = `https://app.sandbox.midtrans.com/snap/v1/transactions`
+
+            const headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Basic ${Buffer.from("SB-Mid-server-gJLrsleoSKtr8IMhEGVYKxji").toString("base64")}`
+            }
+    
+            const body = {
+                "transaction_details": {
+                  "order_id": UserId + '-' + (Math.random() + 1).toString(36).substring(7),
+                  "gross_amount": totalPrice
+                }
+              }
+    
+              const resMid = await axios.post(
+                urlSB,
+                body,
+                {
+                    headers : headers
+                }
+              )
+    
+              
 
             // console.log(response);
             // let checkout = await response.forEach(product => {
@@ -144,9 +170,21 @@ With total cost ${format(totalPrice)}
                     console.log(`Email has been sent`);
                 }
             });
+
+            // let deleteFav = await response.forEach(product => {
+            //         Favorite.destroy(
+            //             {
+            //                 where: {
+            //                     UserId: req.user.id
+            //                 }
+            //             })
+            //     })
  
+
+
             // res.status(200).json(`You have to pay : ${format(totalPrice)}`)
-            res.status(200).json('Thank you for buy our stuff!')
+            const result = resMid.data
+            res.status(200).json(result)
             } catch (err) {
             console.log(err);
             next(err)
