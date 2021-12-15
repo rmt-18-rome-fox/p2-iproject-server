@@ -42,15 +42,20 @@ class PaymentController {
 
   static async midtransSuccess(req, res, next) {
     try {
-      const paid = Booking.update({
-        isPaid: true,
-        where: {
-          UserId: req.user.id,
-          MovieId: +req.params.id,
+      const paid = await Booking.update(
+        {
+          isPaid: true,
         },
-      });
+        {
+          where: {
+            UserId: req.user.id,
+            MovieId: +req.params.id,
+          },
+        }
+      );
       res.status(201).json({ message: paid });
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
