@@ -1,6 +1,6 @@
 const unsplash = require("../APIs/unsplash");
 const axios = require("axios");
-const { Post, User } = require("../models");
+const { Post, User, Comment } = require("../models");
 const { toJSON, parse, stringify } = require("flatted");
 
 class PostController {
@@ -38,6 +38,31 @@ class PostController {
     } catch (err) {
       //   console.log(err);
       next(err);
+    }
+  }
+
+  static async getPostsById(req, res, next) {
+    try {
+      const id = req.params.postId;
+
+      const findPost = await Post.findByPk(id);
+      if (!findPost) {
+        throw { name: "Not Found", message: "Post not found" };
+      }
+      const findAllCommentWithPostId = await Comment.findAll({
+        where: {
+          PostId: id,
+        },
+      });
+      if (!findAllCommentWithPostId) {
+        throw { name: "Not Found", message: "Comment not found" };
+      }
+      res.status(200).json({
+        post: findPost,
+        comment: findAllCommentWithPostId,
+      });
+    } catch (err) {
+      console.log(err);
     }
   }
 }
