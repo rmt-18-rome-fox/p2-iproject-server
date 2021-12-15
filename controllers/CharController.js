@@ -29,5 +29,14 @@ class CharController {
       next(err);
     }
   }
+  static async deleteChar(req, res, next) {
+    try {
+      const { id } = req.params;
+      await Character.destroy({ where: { id } });
+      res.status(200).json({ message: `Character ${req.character.name} successfully deleted` });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 module.exports = CharController;
