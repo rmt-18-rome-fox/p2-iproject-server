@@ -20,4 +20,5 @@ router.post('/consultation/:architectId', customerAuthorization, CustomerControl
 router.get('/profile', customerAuthorization, CustomerController.getProfile) // get customer profile
 router.put('/profile', customerAuthorization, upload.single('file'), imageValidation, imageKit, CustomerController.editProfile) // edit customer profile
 router.get('/architects/portofolios/:architectId', customerAuthorization, PortofolioController.architectPortofolios) // customer architect detail
+
 module.exports = router

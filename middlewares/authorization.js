@@ -28,7 +28,6 @@ const architectAuthorization2 = async (req, res, next) => {
             id: req.params.portofolioId,
             UserId: req.user.id
         }})
-        console.log(portofolio)
         if (portofolio == null) throw {name: 'ARCHITECT_UNAUTHORIZED'}
         else {
             next()

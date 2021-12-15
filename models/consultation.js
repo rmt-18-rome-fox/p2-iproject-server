@@ -64,8 +64,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'Price is required'}
       }
     },
-    status: {
-      type: DataTypes.STRING,
+    isPayed: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       validate: {
         notEmpty: {msg: 'Status is required'},
