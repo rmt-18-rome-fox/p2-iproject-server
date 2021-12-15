@@ -49,11 +49,12 @@ const allBookmarks = async (req, res, next) =>{
 const addBookmark = async (req, res, next) =>{
     try{
         const userId = req.user.id
-        const id = req.params.bookId
+        const id = +req.params.bookId
         const book = await axios.get(`${apiUrl}/books/${id}`)
 
         const newBookmark = await Bookmark.create({
             userId: userId,
+            bookId: id,
             title: book.data.title,
             authors: book.data.authors[0].name,
             imageUrl: book.data.formats['image/jpeg'],
@@ -68,18 +69,18 @@ const addBookmark = async (req, res, next) =>{
 
 const deleteBookmark = async (req, res, next) =>{
     try{
-        console.log("masuk");
         const userId = req.user.id
-        const id = req.params.bookId
-
+        const id = +req.params.bookId
+        console.log(userId, id);
         const book = await axios.get(`${apiUrl}/books/${id}`)
-
+        
         const bookDel = await Bookmark.destroy({
             where:{
                 userId: userId,
-                title: book.data.title
+                bookId: id
             }
         })
+        console.log("masuk function", book.data);
         res.status(201).json(book)
     }catch(err){
 
