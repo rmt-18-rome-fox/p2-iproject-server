@@ -14,17 +14,24 @@
         "summary": "Sad pug, need some warmth"
     },
     {
-        "name": "Puppy Pug",
-        "price": 3200000,
+        "name": "Puppy",
+        "price": 2200000,
         "quantity": 3,
-        "imgUrl": "https://images.unsplash.com/photo-1453227588063-bb302b62f50b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-        "summary": "Sad pug, need some warmth"
+        "imgUrl": "https://images.unsplash.com/photo-1636263931579-026c9ff96269?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1842&q=80",
+        "summary": "Innocent dog is hiding himself."
     },
     {
-        "name": "Puppy Pug",
+        "name": "Baby Bunny",
         "price": 3200000,
         "quantity": 3,
-        "imgUrl": "https://images.unsplash.com/photo-1453227588063-bb302b62f50b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-        "summary": "Sad pug, need some warmth"
+        "imgUrl": "https://images.unsplash.com/photo-1502899845910-573a1d1c390d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+        "summary": "Baby Bunny Playing in the Grass"
+    },
+    {
+        "name": "White Bunny",
+        "price": 1100000,
+        "quantity": 3,
+        "imgUrl": "https://images.unsplash.com/photo-1511542229800-663a99ca1817?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+        "summary": "White Bunny"
     }
 ]
