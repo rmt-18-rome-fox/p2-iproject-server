@@ -38,7 +38,7 @@ const login = async (req, res, next) => {
 
         const access_token = jwt.sign(payload, secretKey);
 
-        res.status(200).json({ access_token });
+        res.status(200).json({ access_token, payload });
     } catch (err) {
         next(err);
     }
@@ -94,7 +94,7 @@ const authGoogle = async (req, res, next) => {
     
         const access_token = jwt.sign(payloadUser, secretKey);
     
-        res.status(200).json({ access_token });
+        res.status(200).json({ access_token, payloadUser });
         } catch (err) {
             next(err);
         }
