@@ -30,7 +30,10 @@ const errHandler = (err, req, res, next) => {
     } else if (err.name === "ClubNotFound") {
         code = 404;
         message = "Club Not Found";
-      }
+    } else if (err.name === "LikeDenied") {
+      code = 400;
+      message = "Already like this post";
+  }
   
     res.status(code).json({
       statusCode: code,
