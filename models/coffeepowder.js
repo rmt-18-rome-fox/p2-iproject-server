@@ -77,6 +77,13 @@ module.exports = (sequelize, DataTypes) => {
           notNull: true,
         },
       },
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
     },
     {
       sequelize,
