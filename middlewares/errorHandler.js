@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-    res.send(err)
+    if(err.message === 'dateEnd cant be lower then dateStart') res.status(400).send({message: 'dateEnd cant be lower then dateStart'})
     if(err.message === 'Email must be inputed') res.status(400).send({message: 'Email must be inputed'})
     if(err.message === 'Password must be inputed') res.status(400).send({message: 'Password must be inputed'})
     if(err.errors[0].message === 'username must be unique') res.status(400).send({message: 'username must be unique'})

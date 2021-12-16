@@ -5,4 +5,4 @@ function dateFormating(date) {
     return `${day}-${month}-${year}`
 }
 
-module.exports = dateFormating
+module.exports = dateFormating  

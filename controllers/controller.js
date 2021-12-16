@@ -1,9 +1,12 @@
+require("dotenv").config()
+const { OAuth2Client } = require('google-auth-library')
 const bcryptCompare = require('../helpers/bcryptCompare')
 const convertPayLoad = require('../helpers/convertPayLoad')
 const jwtToken = require('../helpers/jwtToken')
 const { User, Car, Booking } = require('../models')
 const { Op } = require("sequelize")
 const nodemailerSend = require('../helpers/nodemailerSend')
+const oauth = process.env.OAUTH
 
 class Controller {
     static register(req, res, next) {
@@ -14,8 +17,8 @@ class Controller {
     }
 
     static login(req, res, next) {
-        if(!req.body.email || req.body.email === null) throw {message: 'Email must be inputed'}
-        if(!req.body.password || req.body.password === null) throw {message: 'Password must be inputed'}
+        if (!req.body.email || req.body.email === null) throw { message: 'Email must be inputed' }
+        if (!req.body.password || req.body.password === null) throw { message: 'Password must be inputed' }
         const email = req.body.email
         User.findOne({ where: { email } })
             .then(data => {
@@ -66,7 +69,6 @@ class Controller {
         let priceMax = req.query.priceMax
         let filterByBrand = req.query.filterByBrand
         if (!req.query.priceMin) priceMin = 0
-        console.log(Infinity)
         if (!req.query.priceMax) priceMax = 999999999999999999
         if (!req.query.filterByBrand) filterByBrand = ''
         Car.findAll({
@@ -94,8 +96,9 @@ class Controller {
             const priceCar = await Car.findOne({ where: { id: req.params.carId } })
             const dataEnd = new Date(req.body.dateEnd)
             const dateStart = new Date(req.body.dateStart)
-            const countdays = (new Date(dataEnd - dateStart))/86400000
+            const countdays = (new Date(dataEnd - dateStart)) / 86400000
             const price = priceCar.price * countdays
+            if(dataEnd < dateStart) throw { message:'dateEnd cant be lower then dateStart' }
             const data = await Booking.create({
                 price: price,
                 status: 'Payed',
@@ -104,7 +107,7 @@ class Controller {
                 userId: payload.id,
                 carId: req.params.carId
             })
-            nodemailerSend(payload.email,'glenn', data)
+            nodemailerSend(payload.email, 'glenn', data)
             res.status(201).send(data)
         } catch (error) {
             next(error)
@@ -115,6 +118,41 @@ class Controller {
         const payload = convertPayLoad(req.headers.access_token)
         Booking.findAll({ where: { userId: payload.id }, include: { model: Car, key: 'userId' } })
             .then(data => res.status(200).send(data))
+            .catch(err => next(err))
+    }
+
+    static async authGoogle(req, res, next) {
+        const { idToken } = req.body
+        const client = new OAuth2Client(oauth)
+
+        const ticket = await client.verifyIdToken({
+            idToken,
+            audience: oauth
+        })
+        const payload = ticket.getPayload()
+        const email = payload.email
+        const username = payload.name
+        const password = (Math.random() * 1000).toString()
+        const role = "Customer"
+        const phoneNumber = "RAHASIA"
+        User.findOrCreate({ where: { email }, defaults: { email, username, password, role, phoneNumber } })
+            .then(data => {
+                const payLoad = {
+                    id: data[0].dataValues.id,
+                    email: data[0].dataValues.email,
+                    role: data[0].dataValues.username
+                }
+                const access_token = jwtToken(payLoad)
+                res.status(200).json({ access_token, username: data[0].dataValues.username, role: data[0].dataValues.role })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static getCarById(req, res, next) {
+        Car.findOne({ where: { id: req.params.id } })
+            .then(data => { res.status(200).send(data) })
             .catch(err => next(err))
     }
 
