@@ -61,11 +61,11 @@ io.on('connection', (socket) => {
 
 })
 
-http.listen(PORT, function () {
-  console.log(`listening on ${PORT}`);
-})
+// http.listen(PORT, function () {
+//   console.log(`listening on ${PORT}`);
+// })
 
-
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 // httpServer.listen(port, () => {
 //   console.log(`Web app listening at http://localhost:${port}`);
 // })
