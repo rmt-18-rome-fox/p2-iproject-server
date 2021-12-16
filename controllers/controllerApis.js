@@ -8,6 +8,7 @@ const rajaOngkirHeaders = {
 };
 const xenditEndpoint = `https://api.xendit.co`;
 const xenditAPI = process.env.XENDIT_SECRET_API;
+const { Transaction } = require("../models");
 
 class ControllerApis {
   static async cities(req, res, next) {
@@ -79,10 +80,27 @@ class ControllerApis {
 
   static async xenditCallback(req, res, next) {
     try {
-      const data = req.body;
+      const { data } = req.body;
       console.log(data);
-      res.status(200).json(data);
+
+      const transactionId = data.id;
+      const transaction = await Transaction.findOne({
+        where: { transactionId },
+      });
+
+      console.log(data, "dataaa");
+      console.log(transaction);
+
+      if (transaction) {
+        const patchTransaction = await transaction.update({
+          status: data.status,
+        });
+        res.status(200).json(patchTransaction);
+      } else {
+        res.status(200).json({ message: "Not Found" });
+      }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

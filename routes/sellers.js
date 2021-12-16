@@ -9,5 +9,6 @@ router.use(authentication);
 router.use(authorizationSellerOnly);
 
 router.post("/books", ControllerSeller.book);
-
+router.get("/books", ControllerSeller.sellerBooks);
+router.delete("/books/:id", ControllerSeller.deleteBook);
 module.exports = router;

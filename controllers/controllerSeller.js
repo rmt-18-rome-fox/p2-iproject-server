@@ -51,6 +51,39 @@ class ControllerSeller {
       next(error);
     }
   }
+
+  static async sellerBooks(req, res, next) {
+    try {
+      const SellerId = +req.user.id;
+      const books = await Book.findAll({
+        where: {
+          SellerId,
+        },
+      });
+
+      console.log(books);
+      res.status(200).json(books);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteBook(req, res, next) {
+    try {
+      const id = +req.params.id;
+
+      const findBook = await Book.findByPk(id);
+      if (!findBook) throw { name: "bookNotFound" };
+
+      const destroyBook = findBook.destroy();
+
+      const message = "Book has been deleted";
+
+      res.status(200).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = ControllerSeller;
