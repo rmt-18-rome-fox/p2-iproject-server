@@ -53,6 +53,7 @@ class PostController {
         where: {
           PostId: id,
         },
+        include: "User",
       });
       if (!findAllCommentWithPostId) {
         throw { name: "Not Found", message: "Comment not found" };
