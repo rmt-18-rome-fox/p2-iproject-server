@@ -49,6 +49,7 @@ class TopicController {
                         },
                     },
                 ],
+                order: [["updatedAt", "DESC"]],
             })
             console.log(result, `result getTopic field`)
             res.status(200).json(result)
@@ -57,25 +58,25 @@ class TopicController {
         }
     }
 
-    static async patchLike (req, res, next) {
-        try {
-            const id = req.params.id
-            const foundTopic = await Topic.findByPk(id)
-            if (!foundTopic) {
-                throw ({ 
-                    name: `Error Not Found`,
-                    message: `Topic not Found`
-                })
+    // static async patchLike (req, res, next) {
+    //     try {
+    //         const id = req.params.id
+    //         const foundTopic = await Topic.findByPk(id)
+    //         if (!foundTopic) {
+    //             throw ({ 
+    //                 name: `Error Not Found`,
+    //                 message: `Topic not Found`
+    //             })
                 
-            } else {
-                const like = req.body.like
-                const updatelike = await Topic.update({like}, {where: {id}})
+    //         } else {
+    //             const like = req.body.like
+    //             const updatelike = await Topic.update({like}, {where: {id}})
 
-            }
-        } catch (err) {
+    //         }
+    //     } catch (err) {
             
-        }
-    }
+    //     }
+    // }
 }
 
 module.exports = TopicController
