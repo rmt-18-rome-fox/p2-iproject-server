@@ -110,7 +110,6 @@ class ArchitectController {
                     UserId: req.user.id
                 }
             })
-            console.log(portofolio)
             await TagId.forEach(tag => {
                 PortofoliosTag.destroy({
                     where: {

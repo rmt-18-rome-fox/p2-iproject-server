@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
         }})
         if (!loginUser) throw {name: 'unauthorized'}
         
-        const isValid = comparePassword(password, loginUser.password)
+        const isValid = await comparePassword(password, loginUser.password)
         if (!isValid) throw {name: 'unauthorized'}
         
         if (!loginUser.status) throw {name: 'VALIDATE_YOUR_ACCOUNT'}
@@ -21,7 +21,7 @@ const login = async (req, res, next) => {
             email: loginUser.email,
             role: loginUser.role
         }
-        let access_token = createToken(payload)
+        let access_token = await createToken(payload)
         res.status(200).json({access_token, role: payload.role})
     } catch (err) {
         next(err)
