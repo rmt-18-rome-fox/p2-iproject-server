@@ -190,7 +190,7 @@ With total cost ${format(totalPrice)}
             next(err)
         }
 
-    }
+    } 
 
     static async delete(req, res, next) {
         try {
