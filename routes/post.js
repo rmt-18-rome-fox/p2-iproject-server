@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {authorization} = require('../middlewares/middelware');
 const Controller = require('../controllers/post-controller');
-const imageKit = require('../middlewares/imagekit');
+const imageKit = require('../middlewares/imageKit');
 const upload = require('../middlewares/multer');
 
 router.get('/', Controller.showPosts)
