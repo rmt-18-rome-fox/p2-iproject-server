@@ -7,6 +7,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
 router.use(authentication)
+router.get('/voice', TaskController.voicerss)
 router.get('/', TaskController.allTasks)
 router.post('/', upload.single('image'),TaskController.addTask)
 router.get('/:id', authorization, TaskController.taskById)

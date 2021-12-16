@@ -2,7 +2,6 @@ const { Task, User, Category } = require('../models')
 const cloudinary = require('cloudinary');
 const axios = require('axios')
 
-
 class TaskController {
     static async allTasks(req, res, next) {
         try {
@@ -30,8 +29,8 @@ class TaskController {
                     overwrite: true, notification_url: "http://localhost:3000"
                 },
                 function (error, result) {
-                    // console.log({ result, error })
-                   let imgUrl = result.url
+                    console.log({ result, error })
+                    let imgUrl = result.url
                     // console.log(imgUrl);
                     const UserId = req.user.id
                     const { title, description, CategoryId } = req.body;
@@ -57,7 +56,13 @@ class TaskController {
     static async taskById(req, res, next) {
         try {
             const taskId = req.params.id
-            const resultDetail = await Task.findByPk(taskId)
+            // console.log(taskId, 'taskId<<<<<');
+            const resultDetail = await Task.findOne({
+                where: {
+                    id: taskId
+                },
+                include: [{ model: Category }, { model: User }]
+            })
             if (!resultDetail) {
                 throw { name: 'notFound' }
             }
@@ -105,6 +110,24 @@ class TaskController {
         catch (err) {
             next(err)
         }
+    }
+    static async voicerss(req, res, next) {
+        try {
+            const { text } = req.headers
+            // console.log({text});
+            const response = await axios({
+                method: 'GET',
+                url: `http://api.voicerss.org/?key=${process.env.VOICERS_KEY}&hl=en-us&src='${req.headers.text}'&c=mp3&f=44khz_16bit_stereo&b64=true`
+            })
+            if (!response) {
+                throw { name: 'notFound' }
+            }
+            res.status(200).json(response.data)
+        } catch (err) {
+            console.log(err);
+            next(err)
+        }
+
     }
 }
 

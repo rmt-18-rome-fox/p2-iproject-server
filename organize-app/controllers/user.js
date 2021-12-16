@@ -16,11 +16,15 @@ class UserController {
                     pass: process.env.PASSWORD_NODEMAILER,
                 },
             })
+            let contentHTML = `
+            <h1> Welcome to organize app <h1>
+            <p> Let's organize your task! <p>
+            `
             let notif = {
                 from: process.env.USER_NODEMAILER,
                 to: email,
                 subject: 'Success Register Organize App',
-                text: 'Welcome to organize app, lets organize your tasks!'
+                html: contentHTML
             }
             transporter.sendMail(notif, (err, data)=>{
                 if(err){
@@ -67,19 +71,6 @@ class UserController {
             next(err)
         }
     }
-    // static async loginFB(req, res, next) {
-    //     passport.use(new FacebookStrategy({
-    //         clientID: FACEBOOK_APP_ID,
-    //         clientSecret: FACEBOOK_APP_SECRET,
-    //         callbackURL: "http://localhost:3000/auth/facebook/callback"
-    //     },
-    //         function (accessToken, refreshToken, profile, cb) {
-    //             User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //                 return cb(err, user);
-    //             });
-    //         }
-    //     ));
-    // }
 }
 
 module.exports = UserController
