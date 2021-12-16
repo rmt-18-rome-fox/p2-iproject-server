@@ -8,7 +8,7 @@ class WeatherController {
         city: req.body.city,
         weather: req.body.weather[0].main,
         description: req.body.weather[0].description,
-        icon: req.body.weather[0].icon,
+        icon: `http://openweathermap.org/img/wn/${req.body.weather[0].icon}@2x.png`,
         temp: req.body.parameter.temp,
         time: req.body.datetime,
       }
