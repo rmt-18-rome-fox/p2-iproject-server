@@ -6,15 +6,15 @@ const authorization = async (req, res, next) => {
             next()
         } else {
             const id = req.params.id
-            const findProduct = await Task.findByPk(id)
-            if (!findProduct) {
+            const findTasks = await Task.findByPk(id)
+            if (!findTasks) {
                 throw { name: 'notFound' }
             }
             // if (findProduct.authorId !== req.user.id) {
             //     throw { name: 'unauthorized' }
             // }
             if (req.user.role === "Staff"){
-                if (findProduct.AuthorId !== req.user.id){
+                if (findTasks.UserId !== req.user.id){
                     throw {name: 'unauthorized'}
                 }
             }
