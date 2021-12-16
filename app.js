@@ -2,8 +2,10 @@ require('dotenv').config();
 const express = require('express')
 const cors = require('cors')
 const router = require('./routes');
+const history = require('connect-history-api-fallback');
 
 const app = express()
+app.use(history())
 app.use(cors())
 const http = require('http');
 const server = http.createServer(app);
