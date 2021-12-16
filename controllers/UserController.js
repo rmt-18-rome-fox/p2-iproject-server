@@ -72,17 +72,20 @@ const login = async (req, res, next) => {
     }
 }
 
-const githubLogin = async (req, res, next) => {
+const getAuthGithub = async (req, res, next) => {
+    console.log(req.body);
+    console.log(req.query);
     if (!req.query.code) {
         throw { name: 'githubNoCode' }
     }
 
     axios({
-        url: 'https://github.com/login/oauth/access_token',
-        method: 'post',
+        url: 'https://github.com/login/oauth/authorize',
+        method: 'get',
+        redirect_uri: 'http://localhost:8080/',
         client_id: '5b3c8f13cf108325a665',
         code: req.query.code,
-        client_secret: '5b3c8f13cf108325a665'
+        client_secret: '5b3c8f13cf108325a665',
     })
         .then(resp => {
         //   res.status(200).json({
@@ -92,6 +95,34 @@ const githubLogin = async (req, res, next) => {
         })
         .catch(err => {
             console.log(err)
+        })
+}
+
+const authGithub = (req, res, next) => {
+    console.log('masuk controller');
+    console.log(req.body.code);
+    if (!req.body.code) {
+        throw { name: 'githubNoCode' }
+    }
+
+    axios({
+        url: 'https://github.com/login/oauth/access_token',
+        method: 'post',
+        data: {
+            code: req.body.code,
+            client_id: 'ade64a4c4836b49e76eb',
+            client_secret: '08cd23d7c3c8e0c190222553fa1d0518d7b24106',
+            redirect_uri: 'http://localhost:8080/login/auth-github'
+        },
+    })
+        .then(resp => {
+            const access_token = resp.data.split(/=|&/)[1];
+            res.status(200).json({
+                access_token: access_token
+            })
+        })
+        .catch(err => {
+            console.log(err.data)
         })
 }
 
@@ -128,4 +159,4 @@ const authGoogle = async (req, res, next) => {
         }
 }
 
-module.exports = { register, login, authGoogle }
+module.exports = { register, login, authGoogle, authGithub, getAuthGithub }

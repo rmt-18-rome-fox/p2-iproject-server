@@ -4,6 +4,7 @@ const secretKey = process.env.SECRETKEY;
 
 const authentication = async (req, res, next) => {
     try {
+        console.log('authenticate');
         const access_token = req.headers.access_token;
         if (!access_token) throw { name: 'JsonWebTokenError' };
         
