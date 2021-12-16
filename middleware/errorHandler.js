@@ -21,7 +21,7 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "upgradeAccount") {
     res.status(401).json({message : 'You must upgrade your account'})
   } else {
-    res.status(500).json({message: err.message})
+    res.status(500).json({message: "Internal Server Error"})
   }
   console.log(err);
 }
