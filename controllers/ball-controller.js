@@ -1,4 +1,4 @@
-const footballAxios = require('../apis/footballAPI');
+const footballAxios = require('../apis/footballApi');
 const newsAxios = require('../apis/newsApi');
 
 class Controller {
