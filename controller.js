@@ -62,7 +62,7 @@ class Controller {
             if(!response) {
                 console.log('History not saved', err)
             }
-            res.status(200).json({message: 'Saved History'})
+            res.status(201).json({message: 'Saved History'})
         } catch (err) {
             next(err)
         }
