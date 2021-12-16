@@ -9,12 +9,16 @@ const CurrentWeather = async (req, res, next) => {
       methode: "POST",
       url: `weather?q=${city}&appid=${api_key}&units=metric&lang=id`
     })
-
+    console.log(response.data,"<<< DATA");
     req.body = {
-      city: req.body.city,
-      weather: response.data.weather,
+      city: response.data.name,
+      dataCountry: response.data.sys,
+      dataWeather: response.data.weather,
+      dataWind: response.data.wind,
+      dataCloud: response.data.clouds.all,
       parameter: response.data.main,
-      datetime: response.data.dt
+      datetime: response.data.dt,
+      timezone: response.data.timezone,
     }
     
     next()
