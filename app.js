@@ -5,8 +5,9 @@ const PORT = process.env.PORT || 3000;
 const cors = require('cors');
 const router = require('./routes')
 const {errHandler} = require('./middlewares/errorHandler');
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+// const http = require('http').createServer(app);
+// const io = require('socket.io')(http);
+const socketIO = require('socket.io');
 // const {Server} = require('socket.io');
 // const httpServer = createServer(app);
 
@@ -16,13 +17,19 @@ app.use(express.json());
 app.use(router)
 app.use(errHandler)
 
+const INDEX = '/index.html';
+
+  app.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = socketIO(app);
 
 // const io = new Server(httpServer, {
 //   cors: {
 //     origin: '*',
 //   }
 // });
-app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
+// app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
 
 
 // const io = socketIO(http);
