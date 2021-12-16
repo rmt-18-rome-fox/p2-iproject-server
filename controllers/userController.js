@@ -56,6 +56,21 @@ class UserController {
         }
     }
     
+    static async getUser (req, res, next) {
+        try {
+            let {access_token} = req.headers
+    
+            let isValid = verifyToken(access_token)
+            // console.log(isValid)
+            let user = {
+                id: isValid.id,
+                email: isValid.email
+            }
+            res.status(200).json(user)
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = UserController
