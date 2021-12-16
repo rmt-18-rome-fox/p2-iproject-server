@@ -1,5 +1,8 @@
 const API_URL = 'https://api.quran.com/api/v4'
-const axios = require ('axios')
+const axios = require ('axios');
+const { rmSync } = require('fs');
+const requestIp = require('request-ip');
+const { translation } = require('../helper/translation');
 
 class DataController {
     static async getAllJuzz (req, res, next) {
@@ -18,9 +21,28 @@ class DataController {
     static async getAyahByJuzs (req, res, next) {
         try {
             let juzsNumber = +req.params.juzsNumber
+            let page = +req.query.page
+            if(!juzsNumber) {
+                juzsNumber = 1
+            }else {
+                juzsNumber
+            }
+            if (!page) {
+                page = 1
+            }else {
+                page
+            }
+
+            let {translate, audio} = req.query
+            if(translate) {
+                translate = translation(translate)
+            }else {
+                translate = translation('english')
+            }
+            
             let allAyah = await axios({
                 method: 'GET',
-                url: `${API_URL}/verses/by_juz/${juzsNumber}?words=false&translations=131&audio=1&fields=text_indopak`
+                url: `${API_URL}/verses/by_juz/${juzsNumber}?words=false&translations=${translate}&audio=1&fields=text_indopak&page=${page}`
             })
             // console.log(allAyah)
             res.status(200).json(allAyah.data)
@@ -45,10 +67,16 @@ class DataController {
     static async getChapterById (req, res, next) {
         try {
             let id = req.params.chapterNumber
+            let {translate, audio} = req.query
+            if(translate) {
+                translate = translation(translate)
+            }else {
+                translate = translation('english')
+            }
 
             let surah = await axios({
                 method: 'GET',
-                url: `${API_URL}/verses/by_chapter/${id}?words=false&translations=131&audio=1&fields=text_indopak`
+                url: `${API_URL}/verses/by_chapter/${id}?words=false&translations=${translate}&audio=1&fields=text_indopak`
             })
             res.status(200).json(surah.data)
 
@@ -65,6 +93,38 @@ class DataController {
             })
             res.status(200).json(audioListVersion.data)
         } catch (err) {
+            next(err)
+        }
+    }
+
+    static async getPrayerTimes (req, res, next) {
+        try {
+            let date = new Date();
+            let month = date.getMonth();
+            let year = date.getFullYear();
+
+            let access_key = process.env.IPSTACK_KEY
+            let clientIp = requestIp.getClientIp(req)
+            // console.log(clientIp, '<<<<<<<<<<<')
+
+            let location = await axios({
+                method: 'GET',
+                url: `http://api.ipstack.com/${clientIp}?access_key=${access_key}`
+            })
+
+            // console.log(location.data)
+            // let city = location.city
+            // let country = location.country_name
+            // // console.log(ip)
+            // // console.log(access_key);
+            // console.log(location.data)
+            let prayerTime = await axios({
+                method: 'GET',
+                url: `http://api.aladhan.com/v1/calendarByCity?city=Surabaya&country=Indonesia&method=2&month=${month + 1}&year=${year}`
+            })
+            res.status(200).json(prayerTime.data)
+        } catch (err) {
+            console.log(err)
             next(err)
         }
     }

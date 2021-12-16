@@ -13,7 +13,8 @@ router.get('/juzz', DataController.getAllJuzz)
 router.get('/juzz/:juzsNumber', DataController.getAyahByJuzs)
 router.get('/chapters', DataController.getAllChapter)
 router.get('/chapters/:chapterNumber', DataController.getChapterById)
-
+router.get('/audios', DataController.getAudioList)
+router.get('/prayerTimes', DataController.getPrayerTimes)
 router.use(errorHandler)
 
 
