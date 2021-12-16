@@ -3,7 +3,6 @@ const { Comment, Article } = require("../models/index");
 const adminAuthorization = (req, res, next) => {
   try {
     const userRole = req.user.role;
-
     if (userRole !== "admin") {
       throw { name: "unauthorized" };
     }

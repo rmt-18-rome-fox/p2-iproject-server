@@ -2,6 +2,7 @@ const { Admin, User } = require("../models/index");
 const { compareHash } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
 const nodemailer = require("nodemailer");
+const { OAuth2Client } = require("google-auth-library");
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -10,8 +11,8 @@ let transporter = nodemailer.createTransport({
     pass: `${process.env.NODEMAILER_KEY}`,
   },
   tls: {
-    rejectUnauthorized: false
-}
+    rejectUnauthorized: false,
+  },
 });
 
 const adminRegister = async (req, res, next) => {
@@ -117,9 +118,41 @@ const userLogin = async (req, res, next) => {
   }
 };
 
+const authGoogle = async (req, res, next) => {
+  const { id_token } = req.body;
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: id_token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+
+    let admin = await Admin.findOne({
+      where: {
+        email: payload.email,
+      },
+    });
+    if (!admin) {
+      admin = await Admin.create({
+        email: payload.email,
+        password: String(Math.random()),
+        role: "admin",
+      });
+    }
+
+    const access_token = signToken({ id: admin.id, email: admin.email, role: admin.role });
+    res.status(201).json({ access_token });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
 module.exports = {
   adminRegister,
   adminLogin,
   userRegister,
   userLogin,
+  authGoogle
 };

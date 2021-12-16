@@ -139,7 +139,6 @@ const mediastackRoute = async(req, res, next) => {
         if(keyword) {
             response = await axios.get(`http://api.mediastack.com/v1/news?access_key=082efd54ede2e28fbf9f1690cd147412&languages=en&keywords=${keyword}`);
           } else {
-              console.log('masuk <<<<<3333');
             response = await axios.get("http://api.mediastack.com/v1/news?access_key=082efd54ede2e28fbf9f1690cd147412&languages=en");
           }
         res.status(200).json(response.data)
