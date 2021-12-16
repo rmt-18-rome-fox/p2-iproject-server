@@ -1,0 +1,33 @@
+{
+  "name": "p2-iproject-server",
+  "version": "1.0.0",
+  "description": "Individual Project - Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naufaladitya04/p2-iproject-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naufaladitya04/p2-iproject-server/issues"
+  },
+  "homepage": "https://github.com/naufaladitya04/p2-iproject-server#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.27.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "flatted": "^3.2.4",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.7.2",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-beta.3"
+  }
+}
