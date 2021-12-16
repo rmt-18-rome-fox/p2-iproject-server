@@ -99,13 +99,14 @@ class ControllerCustomer {
       const BookId = +req.query.bookId;
       const UserId = +req.user.id;
       const status = "Pending";
-      const { amount } = req.body;
+      const { amount, transactionId } = req.body;
 
       const transaction = await Transaction.create({
         BookId,
         UserId,
         status,
         amount,
+        transactionId,
       });
       res.status(201).json(transaction);
     } catch (error) {
