@@ -15,7 +15,7 @@ const errorHandler = (err,req,res,next)=>{
 
         case "NoGame":
             code = 404
-            errMessage = "Error Post Not Found"
+            errMessage = "Error Game Not Found"
             break;
 
         case "email":
