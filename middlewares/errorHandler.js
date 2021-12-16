@@ -65,6 +65,15 @@ function errorHandler(err, req, res, next) {
         .status(400)
         .json({ message: "Published Year field must not be empty" });
       break;
+    case "cartNotFound":
+      res.status(404).json({ message: "Cart not found" });
+      break;
+    case "transactionNotFound":
+      res.status(404).json({ message: "Transaction not found" });
+      break;
+    case "userNotFound":
+      res.status(404).json({ message: "User not found" });
+      break;
     default:
       res.status(500).json({ message: err.message });
       break;
