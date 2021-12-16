@@ -4,6 +4,7 @@ const {verifyToken} = require('../helpers/jwt')
 const authentication = async (req, res, next) => {
   try {
     const {access_token} = req.headers;
+    console.log({access_token});
     if(!access_token) throw {name: "Unauthorized Middleware"}
     const payload = verifyToken(access_token)
     if(!payload) throw {name: "Unauthorized Middleware"}

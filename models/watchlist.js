@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   WatchList.init({
+    title: {
+      allowNull:false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {msg: "Title is Required"},
+        notEmpty: {msg: "Title Cannot Be Empty"},
+      }
+    },
     priority: {
       allowNull:false,
       type: DataTypes.STRING,
@@ -29,6 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {msg: "Status is Required"},
         notEmpty: {msg: "Status Cannot Be Empty"},
+      }
+    },
+    image_url: {
+      allowNull:false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {msg: "Image URL is Required"},
+        notEmpty: {msg: "Image URL Cannot Be Empty"},
       }
     },
     UserId: {
