@@ -1,25 +1,30 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 const cors = require('cors');
 const router = require('./routes')
 const {errHandler} = require('./middlewares/errorHandler');
-const {createServer} = require('http');
-const {Server} = require('socket.io');
-const httpServer = createServer(app);
+const http = require('http').Server(app);
+const socketIO = require('socket.io')(http);
+// const {Server} = require('socket.io');
+// const httpServer = createServer(app);
 
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(router)
+app.use(errHandler)
 
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: '*',
-  }
-});
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: '*',
+//   }
+// });
+
+
+const io = socketIO(app);
 
 let userData = [];
 let messageData = [];
@@ -47,13 +52,13 @@ io.on('connection', (socket) => {
   })
 
 })
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 
-app.use(errHandler)
 
-// app.listen(port, () => {
-//   console.log(`Web app listening at http://localhost:${port}`)
-// })
-
-httpServer.listen(port, () => {
-  console.log(`Web app listening at http://localhost:${port}`);
+app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
+http.listen(PORT, function () {
+  console.log(`listening on ${PORT}`);
 })
+// httpServer.listen(port, () => {
+//   console.log(`Web app listening at http://localhost:${port}`);
+// })
