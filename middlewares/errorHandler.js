@@ -3,13 +3,15 @@ function errorHandler(error, req, res, next) {
   console.log(error, '<<< error')
 
   switch (error.name) {
-    case value:
-      
+    case 'CreateMeetingFailed':
+      res.status(400).json({
+        message: 'Post meeting failed due to server error',
+        error
+      })
       break;
-  
     default:
       res.status(500).json({
-        message: 'Internal Server error',
+        message: 'Internal server error',
         error
       })
       break;

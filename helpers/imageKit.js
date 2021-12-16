@@ -1,12 +1,12 @@
 const axios = require("axios")
 const FormData = require("form-data")
 
-async function uploadImage(image) {
+async function uploadImage(image, identifier) {
   try {
     // construct form
     const form = new FormData()
-    form.append("file", image.buffer.toString('base64'))
-    form.append("fileName", image.originalname)
+    form.append("file", image)
+    form.append("fileName", identifier)
 
     // tembak upload imageKit
     const response = await axios({
@@ -26,28 +26,8 @@ async function uploadImage(image) {
     }
 
   } catch (error) {
-    
-    // klo gagal ngembaliin object error
     return error
   }
 }
 
-async function deleteImage(fileId) {
-  // explore
-  try {
-    await axios({
-      url: `https://api.imagekit.io/v1/files/${fileId}`,
-      method: "DELETE",
-      auth: {
-        username: process.env.IMAGEKIT_PRIVATE,
-      },
-    })
-  } catch (error) {
-    return error
-  }
-}
-
-module.exports = {
-  uploadImage,
-  deleteImage
-}
+module.exports = uploadImage
