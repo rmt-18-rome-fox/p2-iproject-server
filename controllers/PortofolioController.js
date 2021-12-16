@@ -38,13 +38,22 @@ class PortofolioController {
             where: {
                 UserId
             },
-            include: {
+            include: [{
                 model: Tag,
                 key: 'id',
                 attributes: {
                     exclude: ['createdAt', 'updatedAt']
                 }
+            },
+            {
+                model: User,
+                key: 'id',
+                include: {
+                    model: Profile,
+                    key: 'id'
+                }
             }
+            ]
         })
             .then(data => {
                 res.status(200).json(data)
