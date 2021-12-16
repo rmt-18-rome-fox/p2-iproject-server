@@ -43,7 +43,7 @@ class DataController {
             
             let allAyah = await axios({
                 method: 'GET',
-                url: `${API_URL}/verses/by_juz/${juzsNumber}?words=false&translations=${translate}&audio=1&fields=text_indopak&page=${page}`
+                url: `${API_URL}/verses/by_juz/${juzsNumber}?words=false&translations=${translate}&audio=9&fields=text_indopak&page=${page}`
             })
             // console.log(allAyah)
             res.status(200).json(allAyah.data)
@@ -68,7 +68,14 @@ class DataController {
     static async getChapterById (req, res, next) {
         try {
             let id = req.params.chapterNumber
-            let {translate, audio} = req.query
+            let page = +req.query.page
+            if (!page) {
+                page = 1
+            }else {
+                page
+            }
+
+            let {translate} = req.query
             if(translate) {
                 translate = translation(translate)
             }else {
@@ -77,7 +84,7 @@ class DataController {
 
             let surah = await axios({
                 method: 'GET',
-                url: `${API_URL}/verses/by_chapter/${id}?words=false&translations=${translate}&audio=1&fields=text_indopak`
+                url: `${API_URL}/verses/by_chapter/${id}?words=false&translations=${translate}&audio=9&fields=text_indopak&page=${page}`
             })
             res.status(200).json(surah.data)
 
