@@ -8,6 +8,8 @@ const errorhandlers = (err,req,res,next) =>{
         res.status(400).json({message: "Password is required"})
     }  else if(err.name === "Invalid email/password"){
         res.status(401).json({message: "Invalid email/password"})
+    } else if(err.name === "JsonWebTokenError"){
+        res.status(401).json({message: "Invalid Token"})
     }
 
 
