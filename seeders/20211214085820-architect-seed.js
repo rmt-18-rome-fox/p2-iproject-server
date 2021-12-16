@@ -27,22 +27,6 @@ module.exports = {
       status: true,
       createdAt: new Date(),
       updatedAt: new Date()
-    },
-    {
-      email: 'customer1@mail.com',
-      password: 'customer1',
-      role: 'customer',
-      status: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      email: 'customer2@mail.com',
-      password: 'customer2',
-      role: 'customer',
-      status: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
     }
    ])
   },

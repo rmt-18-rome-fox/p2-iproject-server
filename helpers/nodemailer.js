@@ -21,7 +21,7 @@ async function main(validationCode, email) {
             subject: "Account Verification", // Subject line
             text: `
             Please click this link to Verify your account 
-            http://localhost:8084/login?validate=${validationCode}
+            https://archiline.web.app/login?validate=${validationCode}
             `, // plain text body
         });
 
