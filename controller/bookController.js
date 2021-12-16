@@ -39,11 +39,15 @@ const bookDetail = async (req, res, next) =>{
     try{
         const id = req.params.bookId
         const bookDetail = await axios.get(`${apiUrl}/books/${id}`)
-        if(!bookDetail.data.results.length == 0) throw {name: "BOOKS_NOT_FOUND"}
+        if(!bookDetail) throw {name: "BOOKS_NOT_FOUND"}
 
         res.status(200).json(bookDetail.data)
     }catch(err){
-        
+        if(err.name == "BOOKS_NOT_FOUND"){
+            res.status(404).json({msg: "Books not found"})
+        }else{
+            res.status(500).json({msg: "Something went down"})
+        }
     }
 }
 
