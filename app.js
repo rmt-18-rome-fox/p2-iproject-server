@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(router)
 
+
 const io = new Server(httpServer, {
   cors: {
     origin: '*',
@@ -52,6 +53,7 @@ app.use(errHandler)
 // app.listen(port, () => {
 //   console.log(`Web app listening at http://localhost:${port}`)
 // })
+
 httpServer.listen(port, () => {
   console.log(`Web app listening at http://localhost:${port}`);
 })
