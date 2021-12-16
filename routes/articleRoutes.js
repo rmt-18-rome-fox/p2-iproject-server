@@ -6,6 +6,7 @@ const instanceMulter = require('../middlewares/multer')
 const imageKitUpload = require('../middlewares/imagekit')
 
 router.get("/articles", articleController.getArticles)
+router.post("/articles/mediastack", articleController.mediastackRoute)
 
 router.use(userAuthentication)
 
