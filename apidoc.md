@@ -83,7 +83,7 @@ _Response (400 - Bad Request)_
 
 ```json
 {
-    "message": Email Is Required!"
+    "message": "Email Is Required!"
 }
 ```
 OR
@@ -215,7 +215,7 @@ Request:
     "platform" :"string",
     "publisher" :"string",
     "developer" :"string",
-    "release_date" :"string",
+    "release_date" :"DateOnly",
 }
 ```
 

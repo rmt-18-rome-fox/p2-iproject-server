@@ -43,25 +43,6 @@ const errorHandler = (err,req,res,next)=>{
             errMessage = "Unauthorized"
             break;
 
-        case "Forbidden":
-            code = 403
-            errMessage = "Forbidden Access"
-            break;
-
-        case "thisisnotimage":
-            code = 400
-            errMessage = "Type of image should be jpg , png , or jpeg"
-            break;
-
-        case "noimage":
-            code = 400
-            errMessage = "Please Pick An Image"
-            break;
-
-        case "notcustomer":
-            code = 403
-            errMessage = "Only Customer Can Add Favorite Game"
-            break;
         
         case "alreadyfavorite":
             code = 400
