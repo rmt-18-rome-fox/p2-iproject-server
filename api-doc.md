@@ -1,4 +1,4 @@
-# Movie API Documentation
+# Products API Documentation
 
 ## Endpoints :
 
@@ -6,11 +6,11 @@ List of available endpoints:
 
 - `POST /register`
 - `POST /login`
-- `GET /movies`
-- `POST /movies`
-- `GET /movies/:id`
-- `PUT /movies/:id`
-- `DELETE /movies/:id`
+- `GET /products`
+- `POST /products`
+- `GET /products/:id`
+- `PUT /products/:id`
+- `DELETE /products/:id`
 
 &nbsp;
 
@@ -149,10 +149,10 @@ _Response (401 - Unauthorized)_
 &nbsp;
 
 
-## 3. GET /movies
+## 3. GET /products
 
 Description:
-- Get all movie from database
+- Get all Products from database
 
 Request:
 
@@ -198,7 +198,7 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 4. POST/Movie
+## 4. POST /Products
 Request:
 
 - Headers:
@@ -252,7 +252,7 @@ _Status: (400 - BAD REQUEST)_
 }
 ```
 
-## 5. PUT/Movie/:id
+## 5. PUT/Products/:id
 Request:
 
 - Headers:
@@ -304,7 +304,7 @@ _Status: (500 - INTERNAL SERVER ERROR)_
 }
 ```
 
-## 6. GET/Movie/:id
+## 6. GET/Products/:id
 Request:
 
 - Headers:
@@ -344,10 +344,10 @@ _Status: (404 - OK)_
 }
 ```
 
-## 7. DELETE /movies/:id
+## 7. DELETE /products/:id
 
 Description:
-- Delete movie by id
+- Delete Products by id
 
 Request:
 
@@ -371,7 +371,7 @@ _Response (200 - OK)_
 
 ```json
 {
-  "msg": "Movie with ID 1 deleted successfully"
+  "msg": "Products with ID 1 deleted successfully"
 }
 ```
 
@@ -385,7 +385,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 8. PATCH/Movie/:id
+## 8. PATCH/Products/:id
 Request:
 
 - Headers:
@@ -409,7 +409,7 @@ _Status: (200 - OK)_
 
 ```json
 {
-    "Movie status has been changed from Active to Inactive"
+    "Products status has been changed from Active to Inactive"
 }
 ```
 

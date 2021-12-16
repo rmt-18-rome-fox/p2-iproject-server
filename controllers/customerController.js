@@ -5,6 +5,7 @@ const FacebookStrategy = require('passport-facebook').Strategy
 const passport = require('passport')
 const { createToken } = require('../helpers/jwt')
 const {Op} = require("sequelize")
+const axios = require('axios')
 
 class customerController {
     static async register(req, res, next) {
@@ -109,6 +110,64 @@ class customerController {
         } catch (err) {
             // console.log(err);
             next(err)
+        }
+    }
+
+    static async authGitHub(req, res, next) {
+        try {
+            const { username, password } = req.body
+            let auth = Buffer.from(`${username}:${password}`).toString("base64")
+
+            const response = await axios.post("https://api.github.com/user", {
+                headers: {
+                    'Authorization': 'Basic ' + auth
+                }
+            })
+            console.log(auth, "<<<<<<< INI AUTH");
+            console.log(response.data);
+
+
+            // const client = new OAuth2Client(process.env.CLIENT_ID)
+
+            // const ticket = await client.verifyIdToken({
+            //     idToken,
+            //     audience: process.env.CLIENT_ID,
+            // });
+
+            // const payload = ticket.getPayload();
+
+            // let [user, created] = await User.findOrCreate({
+            //     where: {
+            //         email  : payload.email
+            //     },
+            //     defaults : {
+            //         username: payload.name,
+            //         email  : payload.email,
+            //         password : "LoginGoogle",
+            //         role : 'Customer',
+            //         phoneNumber : 'Login from google',
+            //         address : 'Login from google'
+            //     }
+            // })
+
+            // const payloadUser = {
+            //     id: user.id,
+            //     username: user.username,
+            //     email: user.email
+            // }
+
+            // const dataUser = {
+            //     id : user.id,
+            //     email : user.email,
+            //     role: user.role
+            // }
+
+            // res.status(200).json({ token: createToken(payloadUser), dataUser })
+
+        } catch (err) {
+            // console.log(err);
+            console.log(err);
+            // next(err)
         }
     }
 
