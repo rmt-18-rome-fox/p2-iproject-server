@@ -51,10 +51,13 @@ class Controller {
     }
     static async postHistory (req, res, next) {
         try {
-            const { distance, carbonEmitted, origin, destination } = req.body
-            const { UserId } = req.params
+            let { distance, carbonEmitted, origin, destination } = req.body
+            const  UserId  = req.user.id
             const description = `shipment from ${origin} to ${destination}`
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", distance, carbonEmitted, origin, destination, UserId)
+            let newDistance = String(distance).split('.')[0]
+            distance = +newDistance
+            carbonEmitted = Math.floor(carbonEmitted)
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", distance, newDistance, carbonEmitted, origin, destination, UserId)
             const response =  await History.create({ distance, carbonEmitted, description, UserId })
             if(!response) {
                 console.log('History not saved', err)
@@ -66,7 +69,7 @@ class Controller {
     }
     static async getHistory (req, res, next) {
         try {
-            const { UserId } = req.params
+            const UserId  = req.user.id
             const response = await History.findAll({
                 where: {
                     UserId
