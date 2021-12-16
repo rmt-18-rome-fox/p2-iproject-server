@@ -6,7 +6,7 @@ const cors = require('cors');
 const router = require('./routes')
 const {errHandler} = require('./middlewares/errorHandler');
 const http = require('http').Server(app);
-const socketIO = require('socket.io')(http);
+const socketIO = require('socket.io');
 // const {Server} = require('socket.io');
 // const httpServer = createServer(app);
 
@@ -22,9 +22,12 @@ app.use(errHandler)
 //     origin: '*',
 //   }
 // });
+app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
+http.listen(PORT, function () {
+  console.log(`listening on ${PORT}`);
+})
 
-
-const io = socketIO(app);
+const io = socketIO(http);
 
 let userData = [];
 let messageData = [];
@@ -55,10 +58,7 @@ io.on('connection', (socket) => {
 
 
 
-app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
-http.listen(PORT, function () {
-  console.log(`listening on ${PORT}`);
-})
+
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 // httpServer.listen(port, () => {
 //   console.log(`Web app listening at http://localhost:${port}`);
