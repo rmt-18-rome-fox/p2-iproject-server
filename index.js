@@ -16,5 +16,5 @@ app.use(errorHandler)
 
 
 app.listen(port, () => {
-  console.log(`This app is running`)
+  console.log(`This app is listening at http://localhost:${port}`)
 })

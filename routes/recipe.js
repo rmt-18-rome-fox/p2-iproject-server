@@ -8,3 +8,4 @@ router.get ('/detail/:id', RecipeController.showDetail)
 
 
 module.exports= router
+
