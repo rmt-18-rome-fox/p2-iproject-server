@@ -9,7 +9,7 @@ const HistoricalWeather = async (req, res, next) => {
       methode: "POST",
       url: `history/city?q=${city}&${cityId}&type=hour&start=${start}&end=${end}&appid=${api_key}&units=metric&lang=id`
     })
-    console.log(response.data,"<<< DATA");
+    
     req.body = {
       cityId: response.data.city_id,
       day1: response.data.list[0],

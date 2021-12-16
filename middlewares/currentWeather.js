@@ -9,7 +9,7 @@ const CurrentWeather = async (req, res, next) => {
       methode: "POST",
       url: `weather?q=${city}&appid=${api_key}&units=metric&lang=id`
     })
-    console.log(response.data,"<<< DATA");
+    
     req.body = {
       city: response.data.name,
       dataCountry: response.data.sys,

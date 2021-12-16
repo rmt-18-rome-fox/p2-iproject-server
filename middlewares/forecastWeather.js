@@ -9,7 +9,7 @@ const ForecastWeather = async (req, res, next) => {
       methode: "POST",
       url: `forecast/daily?q=${city}&cnt=4&appid=${api_key}&units=metric&lang=id`
     })
-    console.log(response.data,"<<< DATA");
+    
     req.body = {
       cityName: response.data.city.name,
       countryCode: response.data.city.country,
