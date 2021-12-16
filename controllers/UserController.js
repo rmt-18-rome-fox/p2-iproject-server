@@ -98,9 +98,7 @@ const getAuthGithub = async (req, res, next) => {
         })
 }
 
-const authGithub = (req, res, next) => {
-    console.log('masuk controller');
-    console.log(req.body.code);
+const authGithub = async (req, res, next) => {
     if (!req.body.code) {
         throw { name: 'githubNoCode' }
     }
@@ -117,12 +115,42 @@ const authGithub = (req, res, next) => {
     })
         .then(resp => {
             const access_token = resp.data.split(/=|&/)[1];
-            res.status(200).json({
-                access_token: access_token
+
+            return axios({
+                url: 'https://api.github.com/user',
+                method: 'get',
+                headers: {
+                    Authorization: `token ${access_token}`
+                }
+            })
+            .then(resp => {
+                console.log(resp.data.email, 'respon')
+                const githubEmail = resp.data.email;
+                const checkUser = User.findOrCreate({
+                    where: {
+                        email: githubEmail
+                    },
+                    defaults: {
+                        email: githubEmail,
+                        password: githubEmail
+                    }
+                })
+                  .then(resp => {
+                      console.log(resp);
+                      const payloadUser = {
+                          id: resp.id,
+                          email: resp.email
+                      }
+                  
+                      const access_token = jwt.sign(payloadUser, secretKey);
+                      console.log(access_token);
+      
+                      res.status(200).json({ access_token });
+                  })
             })
         })
         .catch(err => {
-            console.log(err.data)
+            console.log(err, 'error')
         })
 }
 

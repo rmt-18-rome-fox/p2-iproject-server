@@ -12,7 +12,7 @@ router.post('/authGoogle', UserController.authGoogle);
 router.post('/login/auth-github', UserController.authGithub);
 // router.post('/auth-github', UserController.authGithub);
 
-// router.use(authentication);
+router.use(authentication);
 
 router.get('/notes', NoteController.getNotes);
 router.post('/notes', NoteController.postNote);
