@@ -6,7 +6,7 @@ const { authentication } = require('./middlewares/authentication')
 const { multerMiddleware } = require('./middlewares/multerMiddleware')
 const { uploadFile } = require('./middlewares/uploadFile')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 const { createServer } = require('http')
@@ -73,8 +73,8 @@ app.get('/book', Controller.getBook)
 
 app.use(errorHandler)
 
-httpServer.listen(3000, () =>{
-  console.log('listening on port 3000')
+httpServer.listen(port, () =>{
+  console.log('listening on port ' + port)
 })
 
 
