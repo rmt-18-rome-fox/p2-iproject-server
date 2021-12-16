@@ -20,33 +20,33 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        notNull: {msg: 'Title is required'},
+        notEmpty: {msg: 'Title is required'}
       }
     },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true,
-        isUrl: true
+        notNull: {msg: 'Image URL is required'},
+        notEmpty: {msg: 'Image URL is required'},
+        isUrl: {msg: 'Invalid URL format'}
       }
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        notNull: {msg: 'Description is required'},
+        notEmpty: {msg: 'Description is required'}
       }
     },
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        notNull: {msg: 'UserId is required'},
+        notEmpty: {msg: 'UserId is required'}
       }
     }
   }, {
