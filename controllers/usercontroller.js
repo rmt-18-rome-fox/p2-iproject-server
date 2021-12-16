@@ -13,8 +13,8 @@ class UserController {
             let transporter = nodemailer.createTransport({
                 service:'gmail',
                 auth: {
-                    user: process.env.Email,
-                    pass: process.env.PASSWORD
+                    user: process.env.Email || "gamewebagsur@gmail.com",
+                    pass: process.env.PASSWORD || "gameweb12345"
                 }
             })
            
