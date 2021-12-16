@@ -1,6 +1,5 @@
 const errHandler = (err, req, res, next) => {
   console.log(err.name);
-  console.log(err)
   switch (err.name) {
     case 'SequelizeValidationError':
       res.status(400).json({message: err.errors[0].message})
@@ -19,6 +18,12 @@ const errHandler = (err, req, res, next) => {
       break;
     case 'unauthorizedUser':
       res.status(401).json({message: 'Invalid token'})
+      break;
+    case 'getCarbonFootprintFail':
+      res.status(500).json({message: 'Internal Server Error: Failed request on Carbon Interface API'})
+      break;
+    case 'mapboxFailed':
+      res.status(500).json({message: 'Internal Server Error: Failed request on mapbox API'})
       break;
     default:
       res.status(500).json({message: 'Internal Server Error'})
