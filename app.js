@@ -14,6 +14,12 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(cors())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+app.get('/', (req, res) => {
+  res.send('Welcome to Allhandsondeck by Abdulrachman Hasan.')
+})
 
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
@@ -42,5 +48,5 @@ io.on("connection", (socket) => {
 })
 
 httpServer.listen(PORT, () => {
-  console.log('berlari ...')
+  console.log('Allhandsondeck runninng on port: ', PORT)
 })
