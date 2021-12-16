@@ -1,38 +1,24 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const cors = require('cors');
 const router = require('./routes')
 const {errHandler} = require('./middlewares/errorHandler');
-// const http = require('http').createServer(app);
-// const io = require('socket.io')(http);
-const socketIO = require('socket.io');
-// const {Server} = require('socket.io');
-// const httpServer = createServer(app);
+const {createServer} = require('http');
+const {Server} = require('socket.io');
+const httpServer = createServer(app);
 
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(router)
-app.use(errHandler)
 
-const INDEX = '/index.html';
-
-  app.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const io = socketIO(app);
-
-// const io = new Server(httpServer, {
-//   cors: {
-//     origin: '*',
-//   }
-// });
-// app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
-
-
-// const io = socketIO(http);
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*',
+  }
+});
 
 let userData = [];
 let messageData = [];
@@ -61,11 +47,11 @@ io.on('connection', (socket) => {
 
 })
 
-// http.listen(PORT, function () {
-//   console.log(`listening on ${PORT}`);
-// })
+app.use(errHandler)
 
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
-// httpServer.listen(port, () => {
-//   console.log(`Web app listening at http://localhost:${port}`);
+// app.listen(port, () => {
+//   console.log(`Web app listening at http://localhost:${port}`)
 // })
+httpServer.listen(port, () => {
+  console.log(`Web app listening at http://localhost:${port}`);
+})
