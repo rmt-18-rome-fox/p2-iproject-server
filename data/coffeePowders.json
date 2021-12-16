@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Kalosi Toraja Kopi",
+    "description": "Kopi Toraja sangat disukai karena memiliki karakteristik yang khas, keasaman yang rendah, dan aroma yang harum. Salah satu chain toko kopi di Indonesia, Excelso, juga menjual produk kopi yang berasal dari daerah penghasil kopi terbesar di Indonesia ini. Kopi ini pun dikemas secara cantik. Kopi Toraja Excelso mudah ditemukan di supermarket dan cocok dijadikan suvenir.",
+    "type": "Kalosi",
+    "roastLevel": "Light",
+    "grindSize": "Fine",
+    "price": 30000,
+    "stock": 25,
+    "imageUrl": "https://img.my-best.id/item_part_images/82e5f109977305d67592fb3af33f42cc.jpg?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
+  },
+  {
+    "name": "Kopi Arabika Aceh Gayo",
+    "description": "Kopi ini bisa dinikmati baik dalam kondisi dingin ataupun panas. Namun, kopi ini lebih nikmat disajikan dalam kondisi panas, apalagi ketika cuaca sedang hujan. Selain berkhasiat untuk mengusir kantuk, kopi Arabika Gayo juga memberikan kenikmatan yang luar biasa di setiap seduhannya.",
+    "type": "Arabika",
+    "roastLevel": "Medium",
+    "grindSize": "Medium",
+    "price": 40000,
+    "stock": 35,
+    "imageUrl": "https://img.my-best.id/item_part_images/72d0b72bcfa97c0cced26727d3117b50.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
+  },
+  {
+    "name": "Lintong Arabica",
+    "description": "Bagi Anda pencinta kopi sejati, cobalah kopi dengan tingkat keasaman dan kekentalan yang tinggi ini. Rasakan juga sensasi aroma cokelat dan nutty yang nikmat sesaat setelah Anda menyeduh produk Ranah Kopi ini. Dengan rasa yang kompleks dan seimbang, kopi ini juga ideal untuk Anda yang kurang menyukai rasa pahit kopi.",
+    "type": "Arabika",
+    "roastLevel": "Dark",
+    "grindSize": "Coarse",
+    "price": 69000,
+    "stock": 15,
+    "imageUrl": "https://img.my-best.id/press_component/item_part_images/92e61013d76ee1fda857d3a2936e9151.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
+  },
+  {
+    "name": "100% Pure Luwak Robusta Coffee (JJ Royal Coffee)",
+    "description": "Kopi luwak merupakan salah satu kopi langka dan termahal di dunia karena proses pembuatannya yang tergolong unik. Siapa sangka bila bahan bakunya berasal dari biji kopi paling matang yang telah melewati sistem pencernaan luwak! Namun, tak perlu khawatir, produk ini telah melalui proses pembersihan dan pemanggangan ketat sehingga bebas dari bakteri.",
+    "type": "Luwak",
+    "roastLevel": "Light",
+    "grindSize": "Medium",
+    "price": 470000,
+    "stock": 10,
+    "imageUrl": "https://img.my-best.id/press_component/item_part_images/acdaaff945e9bbb7cda84799b8f80f1f.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
+  }
+]
