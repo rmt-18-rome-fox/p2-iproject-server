@@ -117,18 +117,31 @@ _Response (200 - OK)_
 
 ```json
 [
-  {
-	"id": 1,
-	"name": "testing",
-	"gender": "male",
-	"race": "dwarf",
-	"className": "conjurer",
-	"spell": "conjuration,shapeshift",
-	"imageUrl": "https://i.pinimg.com/originals/ed/f7/04/edf70416e42f0d9da0de7d7e9f451156.png",
-	"UserId": 1,
-  },
-  ...,
-],
+	{
+		"spell": [
+			"conjuration",
+			"shapeshift"
+		],
+		"id": 1,
+		"name": "testing",
+		"gender": "male",
+		"race": "dwarf",
+		"className": "conjurer",
+		"imageUrl": "https://i.pinimg.com/originals/ed/f7/04/edf70416e42f0d9da0de7d7e9f451156.png",
+		"UserId": 1
+	},
+	{
+		"spell": null,
+		"id": 2,
+		"name": "abal",
+		"gender": "female",
+		"race": "tiefling",
+		"className": "bard",
+		"imageUrl": "https://tse2.mm.bing.net/th?id=OIP.Oe02jQh-bD8yF8ihOY_TQAHaIV&amp",
+		"UserId": 1
+	},
+	...,
+]
 ```
 
 &nbsp;
@@ -310,18 +323,12 @@ _Response (200 - OK)_
 
 ```json
 {
-	"count": 12,
+	"image_name": "dnd human bard",
 	"results": [
-		{
-			"index": "barbarian",
-			"name": "Barbarian",
-			"url": "/api/classes/barbarian"
-		},
-		{
-			"index": "bard",
-			"name": "Bard",
-			"url": "/api/classes/bard"
-		},
+		"https://tse1.mm.bing.net/th?id=OIP.5AlFN5ElLbST-3hkjHftaQHaLc&amp",
+		"https://tse1.mm.bing.net/th?id=OIP.5AlFN5ElLbST-3hkjHftaQHaLc&amp",
+		"https://tse2.mm.bing.net/th?id=OIP.an5paNGQJftBSf6WpFiGqAHaJ1&amp",
+		"https://tse2.mm.bing.net/th?id=OIP.an5paNGQJftBSf6WpFiGqAHaJ1&amp",
 		...,
 	]
 }

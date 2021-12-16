@@ -18,7 +18,13 @@ module.exports = (sequelize, DataTypes) => {
       gender: DataTypes.STRING,
       race: DataTypes.STRING,
       className: DataTypes.STRING,
-      spell: DataTypes.STRING,
+      spell: {
+        type: DataTypes.STRING,
+        get() {
+          const rawValue = this.getDataValue("spell");
+          return rawValue ? rawValue.split(",") : null;
+        },
+      },
       imageUrl: DataTypes.STRING,
       UserId: DataTypes.INTEGER,
     },
