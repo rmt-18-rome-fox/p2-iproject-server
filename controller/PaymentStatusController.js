@@ -69,8 +69,8 @@ class PaymentStatusController {
         payment_method_types: ['card'],
         mode: 'payment',
         line_items: req.body.stripe,
-        success_url: `${process.env.CLIENT_URL}`,
-        cancel_url: `${process.env.CLIENT_URL}/about`
+        success_url: `${process.env.CLIENT_URL}/payment?success=true`,
+        cancel_url: `${process.env.CLIENT_URL}/payment?success=fail`
       })
       
       /**

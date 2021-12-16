@@ -8,8 +8,9 @@ const UserController = require('../controller/UserController')
 
 user.post('/register', UserController.register)
 user.post('/login', UserController.login)
+user.post('/google-oauth', UserController.loginGoogle)
 
-user.post('/profiles', 
+user.post('/profile', 
   authentication, 
   instanceMulter.single('profileImg'),
   fileUpload,

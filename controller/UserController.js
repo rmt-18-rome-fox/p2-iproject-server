@@ -1,11 +1,12 @@
 const { User, Profile } = require('../models')
 const { comparePassword } = require('../helper/bcryipt')
 const { createToken } = require('../helper/jwt')
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
   static async register (req, res, next) {
     const { email, password } = req.body
-    
+    console.log(email, password);
     try {
       const data = await User.create({
         email, 
@@ -64,6 +65,18 @@ class UserController {
     } = req.body
     const { id } = req.auth
     
+    console.log(      
+      namaLengkap,
+      alamat,
+      rtRw,
+      kelurahan,
+      kecamatan,
+      kotaKab,
+      provinsi,
+      lat,
+      long
+    );
+
     try {
       const profile = await Profile.create({
         UserId: id,
@@ -105,12 +118,12 @@ class UserController {
     try {
       const data = await Profile.findOne({
         where: {
-          id: req.auth.id
+          UserId: req.auth.id
         },
         include: {
           model: User,
           attributes: {
-            exclude: ["createdAt", "updatedAt", "password", "id"]
+            exclude: ["createdAt", "updatedAt", "password"]
           }
         },
         attributes: {
@@ -121,6 +134,46 @@ class UserController {
       res.status(200).json(data)
     } catch (error) {
       next(error)
+    }
+  }
+  static async loginGoogle(req, res, next) {
+    const { idToken, email } = req.body;
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID
+    });
+    const payload = ticket.getPayload();
+    const password = payload['sub'];
+
+    try {
+      const userData = await User.findOrCreate({
+        where: {
+          email
+        },
+        defaults: {
+          email,
+          password
+        }
+      });
+
+      const access_token = createToken({
+        id: userData[0].id,
+        email: payload['email'],
+        username: payload['name']
+      });
+
+      res.status(200).json({
+        access_token,
+        id: userData[0].id,
+        email: userData[0].email,
+        role: userData[0].role,
+        picture: payload['picture'],
+        name: payload['name']
+      })
+    } catch (error) {
+      next(error);
     }
   }
 }
