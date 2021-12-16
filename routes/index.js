@@ -3,7 +3,9 @@ const routerUser = require('./routerUser')
 const routerWatchList = require('./routerWatchList')
 const errorHandlers = require('../middleware/errorHandlers')
 const authentication = require('../middleware/authentication')
+const ControllerSynopsisReader = require('../controllers/ControllerSynopsisReader')
 
+router.get('/synopsis-reader', ControllerSynopsisReader.synopsisReader)
 router.use(routerUser)
 
 router.use(authentication)
