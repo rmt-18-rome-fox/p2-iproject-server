@@ -3,7 +3,7 @@ const {Favourite} = require("../models")
 const authorization= async (req,res,next) => {
   try {
     const UserId = req.user.id
-    console.log(UserId);
+    console.log(UserId,">>>>>>>>>>>>>>");
     const result = await Favourite.findOne({
       where : {UserId}
     })

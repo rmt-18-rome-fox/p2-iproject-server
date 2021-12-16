@@ -51,6 +51,7 @@ module.exports = class FavouriteFood {
 
   static addFavourite = async (req,res,next) =>{
     try {
+      console.log("masuk>>>>>>>>>>>>>");
       const {notes} = req.body
       const id = req.params.id
       const UserId = req.user.id
@@ -67,6 +68,7 @@ module.exports = class FavouriteFood {
       res.status(200).json(result)
 
     } catch(err) {
+      console.log(err);
       next(err)
     }
   }
