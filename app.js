@@ -7,7 +7,7 @@ const errorHandler = require('./middlewares/errorHandler')
 // const { Server } = require("socket.io");
 // const io = new Server(server);
 
-const port = 3000
+const port = process.env.PORT || 3000;
 
 app.use(cors())
 app.use(express.json()) // for parsing application/json
