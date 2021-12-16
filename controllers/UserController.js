@@ -72,32 +72,6 @@ const login = async (req, res, next) => {
     }
 }
 
-const getAuthGithub = async (req, res, next) => {
-    console.log(req.body);
-    console.log(req.query);
-    if (!req.query.code) {
-        throw { name: 'githubNoCode' }
-    }
-
-    axios({
-        url: 'https://github.com/login/oauth/authorize',
-        method: 'get',
-        redirect_uri: 'http://localhost:8080/',
-        client_id: '5b3c8f13cf108325a665',
-        code: req.query.code,
-        client_secret: '5b3c8f13cf108325a665',
-    })
-        .then(resp => {
-        //   res.status(200).json({
-        //       access_token
-        //   })
-        console.log(resp)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}
-
 const authGithub = async (req, res, next) => {
     if (!req.body.code) {
         throw { name: 'githubNoCode' }
@@ -124,7 +98,6 @@ const authGithub = async (req, res, next) => {
                 }
             })
             .then(resp => {
-                console.log(resp.data.email, 'respon')
                 const githubEmail = resp.data.email;
                 const checkUser = User.findOrCreate({
                     where: {
@@ -136,21 +109,18 @@ const authGithub = async (req, res, next) => {
                     }
                 })
                   .then(resp => {
-                      console.log(resp);
                       const payloadUser = {
-                          id: resp.id,
-                          email: resp.email
+                          id: resp[0].id,
+                          email: resp[0].email
                       }
-                  
                       const access_token = jwt.sign(payloadUser, secretKey);
-                      console.log(access_token);
       
                       res.status(200).json({ access_token });
                   })
             })
         })
         .catch(err => {
-            console.log(err, 'error')
+            next(err);
         })
 }
 
@@ -187,4 +157,4 @@ const authGoogle = async (req, res, next) => {
         }
 }
 
-module.exports = { register, login, authGoogle, authGithub, getAuthGithub }
+module.exports = { register, login, authGoogle, authGithub }
