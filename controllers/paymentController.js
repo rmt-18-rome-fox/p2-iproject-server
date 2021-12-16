@@ -48,7 +48,7 @@ class PaymentController {
 
   static async midtransSuccess(req, res, next) {
     try {
-      const orderId=req.params.order_id
+      const orderId=req.query.order_id
       let UserId=orderId.split('-')[0]
       let MovieId=orderId.split('-')[1]
       const paid = await Booking.update(
