@@ -9,6 +9,8 @@ const express = require("express")
 const { createServer } = require("http")
 const { Server } = require("socket.io")
 const cors = require("cors")
+const router = require('./routes')
+const errorHandler = require('./middlewares/errorHandler')
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -17,9 +19,8 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Allhandsondeck by Abdulrachman Hasan.')
-})
+app.use(router)
+app.use(errorHandler)
 
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
@@ -32,7 +33,6 @@ const io = new Server(httpServer, {
 })
 
 io.on("connection", (socket) => {
-  // di sini isi methods socket io
   socket.on('chat', function (data) {
     socket.broadcast.emit('chat', data)
   })
