@@ -49,6 +49,7 @@ class TopicController {
                         },
                     },
                 ],
+                order: [["updatedAt", "DESC"]],
             })
             console.log(result, `result getTopic field`)
             res.status(200).json(result)
