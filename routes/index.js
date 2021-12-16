@@ -5,6 +5,7 @@ const CustomerController = require('../controllers/CustomerController')
 const upload = require('../middleware/multer')
 const {  uploadImagekit } = require('../middleware/imgaekit')
 const {authentication} = require('../middleware/authentication')
+const {authorizeMiddleware } = require('../middleware/authorization')
 
 
 router.post('/register', Controller.register)
