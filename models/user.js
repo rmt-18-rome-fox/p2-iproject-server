@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.OrderDetail, { foreignKey: 'UserId' });
+      User.hasMany(models.OrderDetail, { foreignKey: 'UserId' }); // HASMANY 2X
+      User.belongsToMany(models.CoffeePowder, { through: models.OrderDetail, foreignKey: 'UserId' }); // BELONGSTOMANY
     }
   }
   User.init(

@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   OrderDetail.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       UserId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -43,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
           notNull: true,
           notEmpty: true,
         },
+      },
+      orderId: {
+        type: DataTypes.STRING,
       },
     },
     {

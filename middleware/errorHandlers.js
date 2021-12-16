@@ -1,9 +1,9 @@
 const errorHandlers = (err, req, res, next) => {
   console.log(err);
-  if (err.name === 'SequelizeValidationError') {
-    const tampungErrors = err.errors.map((el) => el.message);
-    console.log(tampungErrors);
-    res.status(400).json({ message: tampungErrors.toString() });
+  if (err.UnhandledPromiseRejectionWarning === 'SequelizeValidationError') {
+    // const tampungErrors = err.errors.map((el) => el.message);
+    // console.log(tampungErrors);
+    res.status(400).json({ message: 'Error Validation' });
   } else if (err.name === 'emailIsRequired') {
     res.status(400).json({ message: 'Email is required' });
   } else if (err.name === 'passwordIsRequired') {

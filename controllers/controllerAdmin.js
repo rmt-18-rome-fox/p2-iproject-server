@@ -5,7 +5,7 @@ const postCoffeePowder = async (req, res, next) => {
     const { name, description, type, roastLevel, grindSize, price, stock, imageUrl } = req.body;
     // console.log('MASUK CONTROLLER');
 
-    const result = CoffeePowder.create({ name, description, type, roastLevel, grindSize, price, stock, imageUrl });
+    const result = CoffeePowder.create({ name, description, type, roastLevel, grindSize, price, stock, imageUrl, isDelete: false });
 
     res.status(201).json({ message: 'Success added new Product Coffee Powder' });
   } catch (err) {
@@ -50,6 +50,7 @@ const updateCoffeePowder = async (req, res, next) => {
           price,
           stock,
           imageUrl,
+          isDelete: false,
         },
         {
           where: {
@@ -61,7 +62,34 @@ const updateCoffeePowder = async (req, res, next) => {
     } else {
       throw { name: 'notFound' };
     }
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 };
 
-module.exports = { postCoffeePowder, deleteCoffeePowder, updateCoffeePowder };
+const patchIsDeleteCoffeePowder = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const resultUpdated = await CoffeePowder.findByPk(id);
+
+    if (resultUpdated) {
+      await CoffeePowder.update(
+        {
+          isDelete: true,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+      res.status(200).json({ message: `Coffee Powder with id '${resultUpdated.id}' has been patch/deleted` });
+    } else {
+      throw { name: 'notFound' };
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { postCoffeePowder, deleteCoffeePowder, updateCoffeePowder, patchIsDeleteCoffeePowder };

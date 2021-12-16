@@ -7,7 +7,8 @@
     "grindSize": "Fine",
     "price": 30000,
     "stock": 25,
-    "imageUrl": "https://img.my-best.id/item_part_images/82e5f109977305d67592fb3af33f42cc.jpg?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip"
+    "imageUrl": "https://img.my-best.id/item_part_images/82e5f109977305d67592fb3af33f42cc.jpg?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
   },
   {
     "name": "Kopi Arabika Aceh Gayo",
@@ -17,7 +18,8 @@
     "grindSize": "Medium",
     "price": 40000,
     "stock": 35,
-    "imageUrl": "https://img.my-best.id/item_part_images/72d0b72bcfa97c0cced26727d3117b50.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip"
+    "imageUrl": "https://img.my-best.id/item_part_images/72d0b72bcfa97c0cced26727d3117b50.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
   },
   {
     "name": "Lintong Arabica",
@@ -27,7 +29,8 @@
     "grindSize": "Coarse",
     "price": 69000,
     "stock": 15,
-    "imageUrl": "https://img.my-best.id/press_component/item_part_images/92e61013d76ee1fda857d3a2936e9151.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip"
+    "imageUrl": "https://img.my-best.id/press_component/item_part_images/92e61013d76ee1fda857d3a2936e9151.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
   },
   {
     "name": "100% Pure Luwak Robusta Coffee (JJ Royal Coffee)",
@@ -37,6 +40,7 @@
     "grindSize": "Medium",
     "price": 470000,
     "stock": 10,
-    "imageUrl": "https://img.my-best.id/press_component/item_part_images/acdaaff945e9bbb7cda84799b8f80f1f.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip"
+    "imageUrl": "https://img.my-best.id/press_component/item_part_images/acdaaff945e9bbb7cda84799b8f80f1f.png?ixlib=rails-4.2.0&q=70&lossless=0&w=640&h=640&fit=clip",
+    "isDelete": false
   }
 ]

@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      CoffeePowder.hasMany(models.OrderDetail, { foreignKey: 'CoffeeId' });
+      CoffeePowder.hasMany(models.OrderDetail, { foreignKey: 'CoffeeId' }); // HASMANY 2X
+      CoffeePowder.belongsToMany(models.User, { through: models.OrderDetail, foreignKey: 'CoffeeId' }); // BELONGSTOMANY
     }
   }
   CoffeePowder.init(
@@ -71,6 +72,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       stock: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
+      isDelete: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         validate: {
           notNull: true,
