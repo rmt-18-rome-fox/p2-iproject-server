@@ -131,18 +131,18 @@ class productController {
     
               
 
-            // console.log(response);
-            // let checkout = await response.forEach(product => {
-            //     Product.decrement(
-            //         {
-            //             stock: 1
-            //         },
-            //         {
-            //             where: {
-            //                 id: product.ProductId
-            //             }
-            //         })
-            // })
+            console.log(response);
+            let checkout = await response.forEach(product => {
+                Product.decrement(
+                    {
+                        stock: 1
+                    },
+                    {
+                        where: {
+                            id: product.ProductId
+                        }
+                    })
+            })
 
             let transporter = nodemailer.createTransport({
                 service:  'gmail', 
@@ -171,14 +171,14 @@ With total cost ${format(totalPrice)}
                 }
             });
 
-            // let deleteFav = await response.forEach(product => {
-            //         Favorite.destroy(
-            //             {
-            //                 where: {
-            //                     UserId: req.user.id
-            //                 }
-            //             })
-            //     })
+            let deleteFav = await response.forEach(product => {
+                    Favorite.destroy(
+                        {
+                            where: {
+                                UserId: req.user.id
+                            }
+                        })
+                })
  
 
 
