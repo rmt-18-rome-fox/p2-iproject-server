@@ -84,7 +84,7 @@ const authGithub = async (req, res, next) => {
             code: req.body.code,
             client_id: 'ade64a4c4836b49e76eb',
             client_secret: '08cd23d7c3c8e0c190222553fa1d0518d7b24106',
-            redirect_uri: 'http://localhost:8080/login/auth-github'
+            redirect_uri: 'https://hallita-kanban.web.app/login/auth-github'
         },
     })
         .then(resp => {
