@@ -3,6 +3,7 @@ const axios = require ('axios');
 const { rmSync } = require('fs');
 const requestIp = require('request-ip');
 const { translation } = require('../helper/translation');
+const ipify = require('ipify')
 
 class DataController {
     static async getAllJuzz (req, res, next) {
@@ -102,29 +103,25 @@ class DataController {
             let date = new Date();
             let month = date.getMonth();
             let year = date.getFullYear();
-
+            const getip = await ipify({useIPv6: false})
+            // console.log(getip)
             let access_key = process.env.IPSTACK_KEY
-            let clientIp = requestIp.getClientIp(req)
-            // console.log(clientIp, '<<<<<<<<<<<')
-
             let location = await axios({
                 method: 'GET',
-                url: `http://api.ipstack.com/${clientIp}?access_key=${access_key}`
+                url: `http://api.ipstack.com/${getip}?access_key=${access_key}`
             })
 
             // console.log(location.data)
-            // let city = location.city
-            // let country = location.country_name
-            // // console.log(ip)
-            // // console.log(access_key);
-            // console.log(location.data)
+            let city = location.data.city
+            let country = location.data.country_name
+            // console.log(city, country)
             let prayerTime = await axios({
                 method: 'GET',
-                url: `http://api.aladhan.com/v1/calendarByCity?city=Surabaya&country=Indonesia&method=2&month=${month + 1}&year=${year}`
+                url: `http://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=2&month=${month + 1}&year=${year}`
             })
             res.status(200).json(prayerTime.data)
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             next(err)
         }
     }
