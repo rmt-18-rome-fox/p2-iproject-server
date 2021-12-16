@@ -1,4 +1,4 @@
-const { deleteFavourite } = require("../controllers/favourite")
+const { deleteFavourite, editNote, getFavouriteByRecipeId } = require("../controllers/favourite")
 const FavouriteFood = require("../controllers/favourite")
 const { createInvoice } = require("../controllers/payment")
 const {updateStatus } = require("../controllers/User")
@@ -13,6 +13,8 @@ router.get('/subscribe', createInvoice)
 router.patch ('/status', updateStatus)
 router.use(authorization)
 router.get ('/favourites', FavouriteFood.showFavourite)
-router.delete ('/delete', deleteFavourite)
+router.get('/favourites/recipe/:id', getFavouriteByRecipeId)
+router.patch ('/favourites/:id', editNote)
+router.delete ('/delete/:id', deleteFavourite)
 
 module.exports= router

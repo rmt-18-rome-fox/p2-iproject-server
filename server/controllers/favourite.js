@@ -13,18 +13,39 @@ module.exports = class FavouriteFood {
         }
       )
       const recipeIds = response.map(el => el.dataValues.RecipeId)
-      const find = await axios ({
+      const recipes = await axios ({
         method: "get",
         url: spoon + `/recipes/informationBulk?ids=${recipeIds}&apiKey=${apiKey}`,
       })
-      const result = []
-      find.data.forEach (el => {
-        result.push ({id: el.id, title: el.title, image: el.image, dishTypes: el.dishTypes, cuisines: el.cuisines})
+      const result = response.map(el => el.dataValues)
+      recipes.data.forEach (recipeEl => {
+        const {title, image, dishTypes, cuisines,id} = recipeEl
+        const favIndex = result.findIndex(el => el.RecipeId === id)
+        result[favIndex].recipes = {
+          title,
+          image,
+          dishTypes, 
+          cuisines
+        }
       })
       res.status(200).json(result)
     }
     catch (err) {
+      console.log(err);
       next(err)
+    }
+  }
+
+  static getFavouriteByRecipeId = async (req,res,next) => {
+    try {
+      const UserId = req.user.id
+      const RecipeId = req.params.id
+
+      const favourite = await Favourite.findOne({where: {UserId, RecipeId}})
+      res.json(favourite)
+
+    } catch (error) {
+      next(error)
     }
   }
 
@@ -46,21 +67,27 @@ module.exports = class FavouriteFood {
       res.status(200).json(result)
 
     } catch(err) {
-      console.log(err);
       next(err)
     }
   }
 
   static deleteFavourite = async (req,res,next) => {
     try {
-      console.log(req.params.id, req.user.id);
       const id = req.params.id
-      const UserId = req.user.id
-      const RecipeId = id
-      const result = await Favourite.destroy({where : UserId, RecipeId})
-      res.status(200).json(result)
+      const result = await Favourite.destroy({where :{id}})
+      res.status(200).json({msg : "Success delete data"})
     } catch (err) {
-      console.log(err);
+      next(err)
+    }
+  }
+
+  static editNote = async (req,res,next) => {
+    try {
+      const {notes} = req.body
+      const {id} = req.params
+      const result = await Favourite.update({notes}, {where : {id}, returning:true})
+      res.status(200).json({msg : "Recipe's notes updated"})
+    } catch (err) {
       next(err)
     }
   }

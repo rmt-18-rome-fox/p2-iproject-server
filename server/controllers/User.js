@@ -53,10 +53,7 @@ module.exports = class UserAccount {
       if (!response) {
         next ({name: "user_not_found"})
       } 
-    
-      res.status(200).json ({msg: "you're now premium member"}) 
     } catch(err) {
-      console.log(err,">>>>>>>>>ini wktu ngefetch");
       next(err)
     }
   }
