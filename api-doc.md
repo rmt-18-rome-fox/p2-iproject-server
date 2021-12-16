@@ -326,7 +326,7 @@ _Response (500 - Internal Server Error)_
 }
 ```
 
-## PUT /users/status
+## PATCH /users/status
 > Update status
 
 _Request Header_
@@ -495,6 +495,81 @@ _Response (500 - Internal Server Error)_
   "message": "Internal Server Error"
 }
 ```
+
+## PATCH /favouritees/:id
+> edit note
+
+_Request Header_
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+```
+{
+  "note": "string"
+}
+```
+
+_Request Params_
+```
+{
+  "id": "<id to put update into>"
+}
+```
+
+_Response (200 - OK)_
+```
+{
+    "message": "status updated"
+}
+```
+
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
+## DELETE /delete/:id
+> Deletefavourite
+
+_Request Header_
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+Request Params_
+```
+{
+  "id": "<id to put update into>"
+}
+```
+_Response (200 - OK)_
+```
+{
+  "message": ""Success delete data""
+}
+```
+
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+_Response (404 -  Not Found)_
+```
+{
+  "message": "favourite not found"
+}
+```
+
 
 
 
