@@ -6,6 +6,12 @@ const midtrans = process.env.MIDTRANS;
 class PaymentController {
   static async midtrans(req, res, next) {
     try {
+      const booking=await Booking.findOne({
+        where:{
+          UserId:req.user.id,
+          MovieId:req.body.MovieId
+        }
+      })
       const config = {
         method: "post",
         url: "https://app.sandbox.midtrans.com/snap/v1/transactions",
@@ -14,7 +20,7 @@ class PaymentController {
         },
         data: {
           transaction_details: {
-            order_id: "YOUR-ORDERID-" + req.user.email + Date.now(),
+            order_id: `${booking.UserId}-${booking.MovieId}`,//"YOUR-ORDERID-" + req.user.email + Date.now(),
             gross_amount: 50000,
           },
           credit_card: {
@@ -42,14 +48,17 @@ class PaymentController {
 
   static async midtransSuccess(req, res, next) {
     try {
+      const orderId=req.params.order_id
+      let UserId=orderId.split('-')[0]
+      let MovieId=orderId.split('-')[1]
       const paid = await Booking.update(
         {
           isPaid: true,
         },
         {
           where: {
-            UserId: req.user.id,
-            MovieId: +req.params.id,
+            UserId: +UserId,
+            MovieId: +MovieId,
           },
         }
       );
