@@ -38,7 +38,7 @@ class Controller {
       if (created) {
         res.status(201).json({
           message: 'Success post meeting',
-          created
+          link: `${process.env.BASE_URL}/meetings/${identifier}`
         })
       } else {
         throw { name: 'CreateMeetingFailed' }
@@ -49,7 +49,7 @@ class Controller {
   }
   static async getMeetings(req, res, next) {
     try {
-      const { identifier } = req.body
+      const { identifier } = req.params
       if (!identifier) throw { name: 'BadRequest' }
       const meetings = await Meeting.findAll({
         where: {
