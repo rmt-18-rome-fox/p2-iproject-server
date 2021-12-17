@@ -3,12 +3,20 @@ const OpenWeather = require('../apis/openWeather')
 const CurrentWeather = async (req, res, next) => {
 
   try {
-    const { city, lat, lon } = req.body
+    const { city, lat, lng } = req.body
     const api_key = process.env.OPEN_WEATHER_KEY
+
+    if(city) {
+      baseUrl = `weather?q=${city}&appid=${api_key}&units=metric&lang=id`
+    } else {
+      baseUrl = `weather?lat=${lat}&lon=${lng}&appid=${api_key}&units=metric&lang=id`
+    }
+    
     const response = await OpenWeather({
       methode: "POST",
-      url: `weather?q=${city}&appid=${api_key}&units=metric&lang=id`
+      url: baseUrl
     })
+
     
     req.body = {
       city: response.data.name,
