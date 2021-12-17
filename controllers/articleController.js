@@ -24,7 +24,11 @@ const createArticle = async (req, res, next) => {
 
 const getArticles = async (req, res, next) => {
   try {
-    const articlesData = await Article.findAll();
+    const articlesData = await Article.findAll({
+      order: [
+        ['id', 'DESC']
+    ],
+    });
     res.status(200).json(articlesData);
   } catch (err) {
     console.log(err);
