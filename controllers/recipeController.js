@@ -22,4 +22,18 @@ const fetchRecipes = async (req, res, next) => {
 	}
 }
 
-module.exports = { fetchRecipes }
+const recipeReader = async (req, res, next) => {
+	try {
+		const {text} = req.body
+		console.log(text)
+		const rss = process.env.RSS_KEY
+		const string = text.replace(/[^a-zA-Z0-9]/g,' ')
+		const response = await axios.get(`http://api.voicerss.org/?key=${rss}&hl=en-us&src='${string}'&c=mp3&f=44khz_16bit_stereo&b64=true`)
+		res.status(200).json(response.data)
+	} catch (err) {
+		console.log(err);
+		next(err)
+	}
+}
+
+module.exports = { fetchRecipes, recipeReader }

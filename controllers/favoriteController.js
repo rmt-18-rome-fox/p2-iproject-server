@@ -37,6 +37,7 @@ const getFavorite = async (req, res) => {
 		})
 		res.status(200).json({ favourites })
 	} catch (err) {
+    console.log(err);
 		next(err)
 	}
 }
