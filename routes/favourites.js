@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const favouriteController = require('../controllers/favouriteController')
-const authorize = require('../middlewares/authorization')
+const favoriteController = require('../controllers/favoriteController')
+const authorization = require('../middleware/authorization')
 
-router.get('/', authorize.customerAuthorization, bookmarkController.getCustBookmark)
-router.post('/:newsId', authorize.customerAuthorization, bookmarkController.postCustBookmark)
-router.delete('/:id', authorize.customerAuthorization, bookmarkController.deleteCustBookmark)
+router.get('/', favoriteController.getFavorite)
+router.post('/', favoriteController.postFavorite)
+router.delete('/:label', authorization, favoriteController.deleteFavorite)
 
 module.exports = router

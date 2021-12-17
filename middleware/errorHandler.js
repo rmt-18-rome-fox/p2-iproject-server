@@ -18,7 +18,7 @@ const errorHandler = async (err, req, res, next) => {
       res.status(401).json({ message })
       break
     case 'NotFound':
-      res.status(404).json({ message: `${err.entityName} with id ${err.id} not found` })
+      res.status(404).json({ message: `Sorry we cant found your recipe` })
       break
     case 'RecipeNotFound':
       res.status(404).json({ message: `Recipe not found` })
@@ -31,6 +31,9 @@ const errorHandler = async (err, req, res, next) => {
       break
     case 'UsernameExists':
       res.status(409).json({ message: 'Username already exists' })
+      break
+    case 'RecipeExists':
+      res.status(409).json({ message: 'Recipe already exists on your favourites' })
       break
     default:
       res.status(500).json({ message: 'Internal server error' })
