@@ -20,7 +20,7 @@ class UserController {
 
       const findUser = await User.findOne({ where: { email } });
       // console.log(findUser);
-      if (!findUser || !compare(password, findUser.password)) throw { name: "invalid" };
+      if (!findUser || !compare(password, findUser.password)) throw { name: "Invalid" };
 
       const payload = sign({ id: findUser.id, email: findUser.email });
 
