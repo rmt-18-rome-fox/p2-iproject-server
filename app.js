@@ -25,7 +25,7 @@ app.use(errorHandler)
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:8080",
+    origin: "https://allhandsondeck-v0.web.app",
     methods: ["GET", "POST"],
     credentials: true
   },
