@@ -57,7 +57,7 @@ _Response (201 - Created)_
 ```json
 {
   "id": "integer",
-  "email": "string"
+  "name": "string"
 }
 ```
 
@@ -157,7 +157,7 @@ _Response (200 - OK)_
     "id": 13,
     "distance": 1759,
     "carbonEmitted": 5,
-    "description": "shipment from Trans Sulawesi to  Jl. Poros Masamba Tomoni",
+    "description": "shipment from origin to destination",
     "createdAt": "2021-12-16T16:04:33.422Z",
     "updatedAt": "2021-12-16T16:04:33.422Z",
     "UserId": 1
@@ -253,7 +253,24 @@ Request:
 
 _Response (200 - OK)_
 ```json
-  
+{
+  "data": {
+    "id": "4746e4ba-6605-4acc-802b-fd229a9503b4",
+    "type": "estimate",
+    "attributes": {
+      "distance_value": "2000.0",
+      "distance_unit": "km",
+      "weight_value": "200.0",
+      "weight_unit": "g",
+      "transport_method": "truck",
+      "estimated_at": "2020-07-31T13:00:04.446Z",
+      "carbon_g": 25,
+      "carbon_lb": 0.06,
+      "carbon_kg": 0.03,
+      "carbon_mt": 0.0
+    }
+  }
+}  
 ```
 
 &nbsp;
