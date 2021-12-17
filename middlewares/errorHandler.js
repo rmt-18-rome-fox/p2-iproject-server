@@ -9,6 +9,18 @@ function errorHandler(error, req, res, next) {
         error
       })
       break;
+    case 'GetMeetingsFailed':
+      res.status(400).json({
+        message: 'Get meeting failed due to server error',
+        error
+      })
+      break;
+    case 'BadRequest':
+      res.status(400).json({
+        message: 'Missing required input',
+        error
+      })
+      break;
     default:
       res.status(500).json({
         message: 'Internal server error',

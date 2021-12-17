@@ -48,8 +48,23 @@ class Controller {
     }
   }
   static async getMeetings(req, res, next) {
-    res.send('di getMeetings')
-    console.log(req.body)
+    try {
+      const { identifier } = req.body
+      if (!identifier) throw { name: 'BadRequest' }
+      const meetings = await Meeting.findAll({
+        where: {
+          identifier
+        }
+      })
+
+      if (meetings) {
+        res.status(200).json(meetings)
+      } else {
+        throw { name: 'GetMeetingsFailed' }
+      }
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
