@@ -13,11 +13,11 @@ app.use(express.urlencoded({extended: true}))
 
 app.post('/register', Controller.register)
 app.post('/login', Controller.login)
+app.post('/api/mapbox', ApiController.mapbox)
+app.post('/api/carbon-interface', ApiController.carbonInterface)
 app.use(auth)
 app.post('/:UserId/history', Controller.postHistory)
 app.get('/:UserId/history', Controller.getHistory)
-app.post('/api/mapbox', ApiController.mapbox)
-app.post('/api/carbon-interface', ApiController.carbonInterface)
 
 app.use(errHandler)
 app.listen(port, () => {

@@ -66,7 +66,10 @@ class ApiController {
                 res.status(200).json(data)
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err.response.data.message)
+                if (err.response.data.message === 'Your account has hit its monthly API request limit. Please upgrade to make more requests.') {
+                    res.status(500).json({message: err.response.data.message })
+                }
                 throw {name: 'getCarbonFootprintFail'}
             })
         } catch (err) {
