@@ -5,16 +5,25 @@ const { decryptPassword } = require("../helpers/bcrypt");
 class ControllerCustomer {
   static async register(req, res, next) {
     try {
-      const { name, email, password, CityId, cityName } = req.body;
+      const { name, email, password, CityId, cityName, phoneNumber } = req.body;
 
       if (!name) throw { name: "emptyName" };
       if (!email) throw { name: "emptyEmail" };
       if (!password) throw { name: "emptyPassword" };
       if (!CityId) throw { name: "emptyCity" };
       if (!cityName) throw { name: "emptyCity" };
+      if (!phoneNumber) throw { name: "emptyPhoneNumber" };
 
       const role = "customer";
-      const data = { name, email, password, CityId, role, cityName };
+      const data = {
+        name,
+        email,
+        password,
+        CityId,
+        role,
+        cityName,
+        phoneNumber,
+      };
 
       const user = await User.create(data);
 
@@ -159,7 +168,7 @@ class ControllerCustomer {
 
       res.status(200).json({ message: `Verified` });
     } catch (error) {
-      next(error);  
+      next(error);
     }
   }
 }
