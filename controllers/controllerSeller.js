@@ -12,6 +12,23 @@ class ControllerSeller {
       if (!cityName) throw { name: "emptyCity" };
       if (!phoneNumber) throw { name: "emptyPhoneNumber" };
 
+      const avatars = [
+        "ade",
+        "chris",
+        "christian",
+        "daniel",
+        "elliot",
+        "helen",
+        "jenny",
+        "joe",
+        "justen",
+      ];
+
+      const randomNumber = Math.floor(Math.random() * avatars.length);
+      const chosenAvatar = avatars[randomNumber];
+
+      const avatar = `https://semantic-ui.com/images/avatar/large/${chosenAvatar}.png`;
+
       const role = "seller";
       const data = {
         name,
@@ -21,6 +38,7 @@ class ControllerSeller {
         role,
         cityName,
         phoneNumber,
+        avatar,
       };
 
       const user = await User.create(data);
