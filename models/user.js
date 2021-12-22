@@ -116,13 +116,25 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Balance field must not be empty",
           },
         },
+        defaultValue: 0,
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Phone Number field must not be empty",
+          },
+          notEmpty: {
+            msg: "Phone Number field must not be empty",
+          },
+        },
       },
     },
     {
       hooks: {
         beforeCreate: (user, options) => {
           user.password = hash(user.password);
-          user.balance = 0;
         },
       },
       sequelize,

@@ -30,6 +30,9 @@ function errorHandler(err, req, res, next) {
     case "emptyCity":
       res.status(400).json({ message: "City field must not be empty" });
       break;
+    case "emptyPhoneNumber":
+      res.status(400).json({ message: "Phone Number field must not be empty" });
+      break;
     case "loginFailed":
       res.status(401).json({ message: "Wrong email or password" });
       break;
