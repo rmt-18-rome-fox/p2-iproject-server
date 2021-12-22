@@ -2,19 +2,56 @@
   {
     "id": 1,
     "name": "Johannes",
-    "email": "johannes@gmail.com",
+    "email": "johannes@mail.com",
     "password": "password",
     "role": "customer",
-    "CityId": 1,
-    "cityName": "Aceh Barat"
+    "CityId": 153,
+    "cityName": "Jakarta Selatan",
+    "balance": 0,
+    "phoneNumber": "+6289972445215"
   },
   {
     "id": 2,
     "name": "Udine",
-    "email": "udine@gmail.com",
+    "email": "udine@mail.com",
     "password": "password",
     "role": "seller",
     "CityId": 1,
-    "cityName": "Aceh Barat"
+    "cityName": "Aceh Barat",
+    "balance": 0,
+    "phoneNumber": "+6287789118223"
+  },
+  {
+    "id": 3,
+    "name": "Ivan",
+    "email": "ivan@mail.com",
+    "password": "password",
+    "role": "seller",
+    "CityId": 114,
+    "cityName": "Denpasar",
+    "balance": 0,
+    "phoneNumber": "+628998676021"
+  },
+  {
+    "id": 4,
+    "name": "Bambang",
+    "email": "bambang@mail.com",
+    "password": "password",
+    "role": "seller",
+    "CityId": 109,
+    "cityName": "Cirebon",
+    "balance": 0,
+    "phoneNumber": "+627556619191"
+  },
+  {
+    "id": 5,
+    "name": "Joko",
+    "email": "joko@mail.com",
+    "password": "password",
+    "role": "seller",
+    "CityId": 151,
+    "cityName": "Jakarta Barat",
+    "balance": 0,
+    "phoneNumber": "+629585957777"
   }
 ]
