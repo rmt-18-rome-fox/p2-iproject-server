@@ -62,15 +62,18 @@ class ControllerApis {
           currency: "IDR",
           amount: +amount,
           checkout_method: "ONE_TIME_PAYMENT",
-          channel_code: "ID_OVO",
+          channel_code: "ID_DANA",
           channel_properties: {
             mobile_number: "+628998676094",
+            success_redirect_url: "http://localhost:8080/transaction",
           },
           metadata: {
             branch_code: "tree_branch",
           },
         },
       });
+
+      console.log(response.data);
 
       res.status(201).json(response.data);
     } catch (error) {
@@ -81,15 +84,11 @@ class ControllerApis {
   static async xenditCallback(req, res, next) {
     try {
       const { data } = req.body;
-      console.log(data);
 
       const transactionId = data.id;
       const transaction = await Transaction.findOne({
         where: { transactionId },
       });
-
-      console.log(data, "dataaa");
-      console.log(transaction);
 
       if (transaction) {
         const patchTransaction = await transaction.update({
