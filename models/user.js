@@ -130,6 +130,18 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Avatar field must not be empty",
+          },
+          notEmpty: {
+            msg: "Avatar field must not be empty",
+          },
+        },
+      },
     },
     {
       hooks: {
