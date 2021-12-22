@@ -65,13 +65,13 @@ class ControllerApis {
           channel_code: "ID_OVO",
           channel_properties: {
             mobile_number: "+628998676094",
+            success_redirect_url: "http://localhost:8080/transaction",
           },
           metadata: {
             branch_code: "tree_branch",
           },
         },
       });
-
       res.status(201).json(response.data);
     } catch (error) {
       next(error);
@@ -81,15 +81,11 @@ class ControllerApis {
   static async xenditCallback(req, res, next) {
     try {
       const { data } = req.body;
-      console.log(data);
 
       const transactionId = data.id;
       const transaction = await Transaction.findOne({
         where: { transactionId },
       });
-
-      console.log(data, "dataaa");
-      console.log(transaction);
 
       if (transaction) {
         const patchTransaction = await transaction.update({

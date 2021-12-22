@@ -105,11 +105,24 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      balance: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Balance field must not be empty",
+          },
+          notEmpty: {
+            msg: "Balance field must not be empty",
+          },
+        },
+      },
     },
     {
       hooks: {
         beforeCreate: (user, options) => {
           user.password = hash(user.password);
+          user.balance = 0;
         },
       },
       sequelize,

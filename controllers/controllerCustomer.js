@@ -1,5 +1,6 @@
 const { User, Cart, Book, Transaction } = require("../models");
 const { Op } = require("sequelize");
+const { decryptPassword } = require("../helpers/bcrypt");
 
 class ControllerCustomer {
   static async register(req, res, next) {
@@ -114,20 +115,6 @@ class ControllerCustomer {
     }
   }
 
-  static async patchTransaction(req, res, next) {
-    try {
-      const id = +req.params.id;
-
-      const transaction = await Transaction.findByPk(id);
-      if (!transaction) throw { name: "transactionNotFound" };
-      const patchStatus = await transaction.update({ status: "Success" });
-      const message = `Transaction success`;
-      res.status(200).json(message);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async deleteCartByQuery(req, res, next) {
     try {
       const CustomerId = +req.user.id;
@@ -156,6 +143,23 @@ class ControllerCustomer {
       }
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async paymentAuth(req, res, next) {
+    try {
+      const userId = +req.user.id;
+      const user = await User.findByPk(userId);
+
+      const { password } = req.body;
+      if (!password) throw { name: "wrongPassword" };
+
+      const isValidPassword = decryptPassword(password, user.password);
+      if (!isValidPassword) throw { name: "loginFailed" };
+
+      res.status(200).json({ message: `Verified` });
+    } catch (error) {
+      next(error);  
     }
   }
 }

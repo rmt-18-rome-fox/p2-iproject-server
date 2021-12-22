@@ -33,6 +33,9 @@ function errorHandler(err, req, res, next) {
     case "loginFailed":
       res.status(401).json({ message: "Wrong email or password" });
       break;
+    case "wrongPassword":
+      res.status(401).json({ message: "Wrong password" });
+      break;
     case "unathorized":
       res.status(401).json({ message: "Invalid token" });
       break;

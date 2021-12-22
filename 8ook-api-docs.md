@@ -4,28 +4,17 @@
 
 ## Endpoints :
 
-- `GET /information/cities`
-- `POST /information/shipping`
+- `GET /apis/cities`
+- `POST /apis/shipping`
+- `POST /apis/xendit/ovo`
 
 &nbsp;
 
-## 1. GET /information/cities
+## 1. GET /apis/cities
 
 Description
 
-- Get all cities data in Indonesia
-
-Request
-
-- Body
-  ```json
-  {
-    "origin": "string",
-    "destination": "string",
-    "weight": "integer",
-    "courier": "string"
-  }
-  ```
+- Get all cities data in Indonesia from Raja Ongkir
 
 _Response (200 - OK)_
 
@@ -62,11 +51,30 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 2. POST /information/shipping
+## 2. POST /apis/shipping
 
 Description
 
-- Get shipping information data
+- Get shipping information from Raja Ongkir
+
+Request
+
+- Body
+  ```json
+  {
+    "origin": "string",
+    "destination": "string",
+    "weight": "integer",
+    "courier": "string"
+  }
+  ```
+
+- Headers
+  ```json
+  {
+    "access_token": "string"
+  }
+  ```
 
 _Response (200 - OK)_
 
@@ -153,4 +161,27 @@ OR
 }
 ```
 
-``
+
+&nbsp;
+
+## 3. POST /information/shipping
+Request
+
+- Body
+  ```json
+  {
+    "origin": "string",
+    "destination": "string",
+    "weight": "integer",
+    "courier": "string"
+  }
+  ```
+
+- Headers
+  ```json
+  {
+    "access_token": "string"
+  }
+  ```
+
+_Response (200 - OK)_
