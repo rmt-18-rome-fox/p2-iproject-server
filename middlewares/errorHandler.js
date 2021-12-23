@@ -66,6 +66,9 @@ function errorHandler(err, req, res, next) {
     case "emptyImageUrl":
       res.status(400).json({ message: "Image Url field must not be empty" });
       break;
+    case "emptyAmount":
+      res.status(400).json({ message: "Amount field must not be empty" });
+      break;
     case "emptyPublishedYear":
       res
         .status(400)

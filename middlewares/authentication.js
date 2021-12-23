@@ -21,6 +21,7 @@ const authentication = async (req, res, next) => {
       id: user.id,
       CityId: user.CityId,
       role: user.role,
+      phoneNumber: user.phoneNumber,
     };
 
     next();

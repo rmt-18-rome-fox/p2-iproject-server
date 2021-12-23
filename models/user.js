@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "Transactions",
         foreignKey: "UserId",
       });
+      User.hasMany(models.TopUp);
     }
   }
   User.init(
