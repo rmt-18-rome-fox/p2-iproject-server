@@ -9,39 +9,43 @@ const nodemailer = require('nodemailer');
 const register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        const newUser = await User.create({ email, password });
-        const myEmail = process.env.EMAIL;
-        const myPassword = process.env.PASSWORD;
-
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: myEmail,
-                pass: myPassword
+        const user = await User.findOne({ where: { email } });
+        if (user) throw { name: 'UniqueEmail' };
+        else {
+            const newUser = await User.create({ email, password });
+            const myEmail = process.env.EMAIL;
+            const myPassword = process.env.PASSWORD;
+    
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: myEmail,
+                    pass: myPassword
+                }
+            })
+    
+            const notification = {
+                from: myEmail,
+                to: email,
+                subject: 'Welcome to Hallita!',
+                text: 'Hello! We are really glad to welcome you aboard.\nYou can help manage your life right away using our app!'
             }
-        })
-
-        const notification = {
-            from: myEmail,
-            to: email,
-            subject: 'Welcome to Hallita!',
-            text: 'Hello! We are really glad to welcome you aboard.\nYou can help manage your life right away using our app!'
+    
+            let notif;
+            transporter.sendMail(notification, (err, data) => {
+                if (err) {
+                  throw { name: 'FailedEmailNotif' }
+                } else {
+                    notif = 'We have emailed you a warm welcome!'
+                }
+            })
+    
+            res.status(201).json({
+                id: newUser.id,
+                email: newUser.email,
+                notif: notif
+            });
         }
-
-        let notif;
-        transporter.sendMail(notification, (err, data) => {
-            if (err) {
-              throw { name: 'FailedEmailNotif' }
-            } else {
-                notif = 'We have emailed you a warm welcome!'
-            }
-        })
-
-        res.status(201).json({
-            id: newUser.id,
-            email: newUser.email,
-            notif: notif
-        });
     } catch (err) {
         next(err);
     }

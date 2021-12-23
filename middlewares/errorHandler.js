@@ -35,6 +35,12 @@ const errorHandler = (err, req, res, next) => {
         case 'githubNoCode':
             res.status(400).json({ message: 'Github sign-in error' });
             break;
+        case 'FailedEmailNotif':
+            res.status(400).json({ message: 'Email has not been sent' });
+            break;
+        case 'UniqueEmail':
+            res.status(400).json({ message: 'Email has been taken' });
+            break;
         default:
             res.status(500).json({ message: 'Internal server error' });
             break;
