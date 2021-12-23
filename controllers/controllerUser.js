@@ -29,6 +29,7 @@ class ControllerUser {
         cityId: user.CityId,
         cityName: user.cityName,
         role: user.role,
+        avatar: user.avatar,
       };
 
       res.status(200).json({ access_token, userData });
@@ -63,6 +64,15 @@ class ControllerUser {
       if (!book) throw { name: "bookNotFound" };
 
       res.status(200).json(book);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async balance(req, res, next) {
+    try {
+      const user = await User.findByPk(+req.user.id);
+      res.status(200).json(user.balance);
     } catch (error) {
       next(error);
     }
