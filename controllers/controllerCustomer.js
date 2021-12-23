@@ -218,6 +218,36 @@ class ControllerCustomer {
       next(error);
     }
   }
+
+  static async payment(req, res, next) {
+    try {
+      const userId = +req.user.id;
+      const customer = await User.findByPk(userId);
+      const customerBalance = customer.balance;
+      const { amount, BookId, shippingCost } = req.body;
+
+      if (amount > customerBalance) throw { name: "insufficientBalance" };
+
+      const decrementBalance = customer.decrement({ balance: amount });
+
+      const book = await Book.findByPk(BookId);
+      const incrementBookSold = book.increment({ sold: 1 });
+
+      const seller = await User.findByPk(book.SellerId);
+      const incrementSellerBalance = seller.increment({
+        balance: amount - shippingCost,
+      });
+
+      const transaction = Transaction.create({
+        UserId: userId,
+        BookId,
+        amount,
+      });
+      res.status(201).json(transaction);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = ControllerCustomer;

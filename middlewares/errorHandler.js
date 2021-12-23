@@ -83,6 +83,11 @@ function errorHandler(err, req, res, next) {
     case "userNotFound":
       res.status(404).json({ message: "User not found" });
       break;
+    case "insufficientBalance":
+      res
+        .status(401)
+        .json({ message: "Insufficient balance, please top up first" });
+      break;
     default:
       res.status(500).json({ message: err.message });
       break;
