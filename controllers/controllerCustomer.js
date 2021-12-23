@@ -1,4 +1,4 @@
-const { User, Cart, Book, Transaction } = require("../models");
+const { User, Cart, Book, Transaction, TopUp } = require("../models");
 const { Op } = require("sequelize");
 const { decryptPassword } = require("../helpers/bcrypt");
 
@@ -182,9 +182,38 @@ class ControllerCustomer {
       if (!password) throw { name: "wrongPassword" };
 
       const isValidPassword = decryptPassword(password, user.password);
-      if (!isValidPassword) throw { name: "loginFailed" };
+      if (!isValidPassword) throw { name: "wrongPassword" };
 
       res.status(200).json({ message: `Verified` });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async postTopUp(req, res, next) {
+    try {
+      const UserId = +req.user.id;
+      const { amount, merchant, transactionId } = req.body;
+
+      const topUp = await TopUp.create({
+        UserId,
+        amount,
+        merchant,
+        transactionId,
+      });
+
+      res.status(201).json(topUp);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getTopUp(req, res, next) {
+    try {
+      const UserId = +req.user.id;
+      const topUp = await TopUp.findAll({ where: { UserId } });
+
+      res.status(200).json(topUp);
     } catch (error) {
       next(error);
     }

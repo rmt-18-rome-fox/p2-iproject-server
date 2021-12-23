@@ -17,4 +17,6 @@ router.post("/carts/:bookId", ControllerCustomer.postCart);
 router.get("/transactions", ControllerCustomer.transactions);
 router.post("/transactions", ControllerCustomer.postTransaction);
 router.post("/paymentAuth", ControllerCustomer.paymentAuth);
+router.post("/topup", ControllerCustomer.postTopUp);
+router.get("/topup", ControllerCustomer.getTopUp);
 module.exports = router;

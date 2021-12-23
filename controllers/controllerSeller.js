@@ -13,21 +13,21 @@ class ControllerSeller {
       if (!phoneNumber) throw { name: "emptyPhoneNumber" };
 
       const avatars = [
-        "ade",
-        "chris",
-        "christian",
-        "daniel",
-        "elliot",
-        "helen",
-        "jenny",
-        "joe",
-        "justen",
+        "elyse",
+        "kristy",
+        "lena",
+        "lindsay",
+        "mark",
+        "matthew",
+        "molly",
+        "patrick",
+        "rachel",
       ];
 
       const randomNumber = Math.floor(Math.random() * avatars.length);
       const chosenAvatar = avatars[randomNumber];
 
-      const avatar = `https://semantic-ui.com/images/avatar/large/${chosenAvatar}.png`;
+      const avatar = `https://semantic-ui.com/images/avatar2/large/${chosenAvatar}.png`;
 
       const role = "seller";
       const data = {

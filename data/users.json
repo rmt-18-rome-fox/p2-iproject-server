@@ -21,7 +21,7 @@
     "cityName": "Aceh Barat",
     "balance": 0,
     "phoneNumber": "+6287789118223",
-    "avatar": "https://semantic-ui.com/images/avatar/large/chris.png"
+    "avatar": "https://semantic-ui.com/images/avatar2/large/molly.png"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "cityName": "Denpasar",
     "balance": 0,
     "phoneNumber": "+628998676021",
-    "avatar": "https://semantic-ui.com/images/avatar/large/christian.png"
+    "avatar": "https://semantic-ui.com/images/avatar2/large/matthew.png"
   },
   {
     "id": 4,
@@ -45,7 +45,7 @@
     "cityName": "Cirebon",
     "balance": 0,
     "phoneNumber": "+627556619191",
-    "avatar": "https://semantic-ui.com/images/avatar/large/daniel.png"
+    "avatar": "https://semantic-ui.com/images/avatar2/large/mark.png"
   },
   {
     "id": 5,
@@ -57,6 +57,6 @@
     "cityName": "Jakarta Barat",
     "balance": 0,
     "phoneNumber": "+629585957777",
-    "avatar": "https://semantic-ui.com/images/avatar/large/joe.png"
+    "avatar": "https://semantic-ui.com/images/avatar2/large/lena.png"
   }
 ]
