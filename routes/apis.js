@@ -12,6 +12,5 @@ router.use(authentication);
 
 router.post("/shipping", ControllerApis.shipping);
 router.post("/topup/ewallet", ControllerApis.topUpEwallet);
-// router.post("/xendit/ovo", ControllerApis.createPayment);
 
 module.exports = router;

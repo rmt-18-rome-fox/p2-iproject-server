@@ -19,4 +19,5 @@ router.post("/transactions", ControllerCustomer.postTransaction);
 router.post("/paymentAuth", ControllerCustomer.paymentAuth);
 router.post("/topup", ControllerCustomer.postTopUp);
 router.get("/topup", ControllerCustomer.getTopUp);
+router.post("/payment", ControllerCustomer.payment);
 module.exports = router;

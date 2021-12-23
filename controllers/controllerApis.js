@@ -48,38 +48,6 @@ class ControllerApis {
     }
   }
 
-  static async createPayment(req, res, next) {
-    try {
-      const url = `${xenditEndpoint}/ewallets/charges`;
-      const { amount } = req.body;
-      const response = await axios({
-        method: "POST",
-        url,
-        auth: {
-          username: xenditAPI,
-          password: "",
-        },
-        data: {
-          reference_id: new Date(),
-          currency: "IDR",
-          amount: +amount,
-          checkout_method: "ONE_TIME_PAYMENT",
-          channel_code: "ID_OVO",
-          channel_properties: {
-            mobile_number: "+628998676094",
-            success_redirect_url: "http://localhost:8080/transaction",
-          },
-          metadata: {
-            branch_code: "tree_branch",
-          },
-        },
-      });
-      res.status(201).json(response.data);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async topUpEwallet(req, res, next) {
     try {
       const url = `${xenditEndpoint}/ewallets/charges`;
