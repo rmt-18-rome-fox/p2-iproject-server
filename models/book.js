@@ -117,6 +117,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: `Sold field must not be empty`,
           },
         },
+        defaultValue: 0,
       },
     },
     {
