@@ -71,7 +71,7 @@ class ControllerApis {
           channel_code: merchant,
           channel_properties: {
             mobile_number: "+628998676094",
-            success_redirect_url: "http://localhost:8080/wallet",
+            success_redirect_url: "https://eight-book.web.app/wallet",
           },
           metadata: {
             branch_code: "tree_branch",
