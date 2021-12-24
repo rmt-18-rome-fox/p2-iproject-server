@@ -106,8 +106,26 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      sold: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `Sold field must not be empty`,
+          },
+          notEmpty: {
+            msg: `Sold field must not be empty`,
+          },
+        },
+        defaultValue: 0,
+      },
     },
     {
+      hooks: {
+        beforeCreate: (user, options) => {
+          user.sold = 0;
+        },
+      },
       sequelize,
       modelName: "Book",
     }

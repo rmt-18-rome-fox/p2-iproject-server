@@ -1,5 +1,6 @@
-const { User, Cart, Book, Transaction } = require("../models");
+const { User, Cart, Book, Transaction, TopUp } = require("../models");
 const { Op } = require("sequelize");
+const { decryptPassword } = require("../helpers/bcrypt");
 
 class ControllerCustomer {
   static async register(req, res, next) {
@@ -12,8 +13,33 @@ class ControllerCustomer {
       if (!CityId) throw { name: "emptyCity" };
       if (!cityName) throw { name: "emptyCity" };
 
+      const avatars = [
+        "elyse",
+        "kristy",
+        "lena",
+        "lindsay",
+        "mark",
+        "matthew",
+        "molly",
+        "patrick",
+        "rachel",
+      ];
+
+      const randomNumber = Math.floor(Math.random() * avatars.length);
+      const chosenAvatar = avatars[randomNumber];
+
+      const avatar = `https://semantic-ui.com/images/avatar2/large/${chosenAvatar}.png`;
+
       const role = "customer";
-      const data = { name, email, password, CityId, role, cityName };
+      const data = {
+        name,
+        email,
+        password,
+        CityId,
+        role,
+        cityName,
+        avatar,
+      };
 
       const user = await User.create(data);
 
@@ -114,20 +140,6 @@ class ControllerCustomer {
     }
   }
 
-  static async patchTransaction(req, res, next) {
-    try {
-      const id = +req.params.id;
-
-      const transaction = await Transaction.findByPk(id);
-      if (!transaction) throw { name: "transactionNotFound" };
-      const patchStatus = await transaction.update({ status: "Success" });
-      const message = `Transaction success`;
-      res.status(200).json(message);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async deleteCartByQuery(req, res, next) {
     try {
       const CustomerId = +req.user.id;
@@ -154,6 +166,82 @@ class ControllerCustomer {
         message = "Book is not in the cart";
         res.status(200).json(message);
       }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async paymentAuth(req, res, next) {
+    try {
+      const userId = +req.user.id;
+      const user = await User.findByPk(userId);
+
+      const { password } = req.body;
+      if (!password) throw { name: "wrongPassword" };
+
+      const isValidPassword = decryptPassword(password, user.password);
+      if (!isValidPassword) throw { name: "wrongPassword" };
+
+      res.status(200).json({ message: `Verified` });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async postTopUp(req, res, next) {
+    try {
+      const UserId = +req.user.id;
+      const { amount, merchant, transactionId } = req.body;
+
+      const topUp = await TopUp.create({
+        UserId,
+        amount,
+        merchant,
+        transactionId,
+      });
+
+      res.status(201).json(topUp);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getTopUp(req, res, next) {
+    try {
+      const UserId = +req.user.id;
+      const topUp = await TopUp.findAll({ where: { UserId } });
+
+      res.status(200).json(topUp);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async payment(req, res, next) {
+    try {
+      const userId = +req.user.id;
+      const customer = await User.findByPk(userId);
+      const customerBalance = customer.balance;
+      const { amount, BookId, shippingCost } = req.body;
+
+      if (amount > customerBalance) throw { name: "insufficientBalance" };
+
+      const decrementBalance = customer.decrement({ balance: amount });
+
+      const book = await Book.findByPk(BookId);
+      const incrementBookSold = book.increment({ sold: 1 });
+
+      const seller = await User.findByPk(book.SellerId);
+      const incrementSellerBalance = seller.increment({
+        balance: amount - shippingCost,
+      });
+
+      const transaction = Transaction.create({
+        UserId: userId,
+        BookId,
+        amount,
+      });
+      res.status(201).json(transaction);
     } catch (error) {
       next(error);
     }

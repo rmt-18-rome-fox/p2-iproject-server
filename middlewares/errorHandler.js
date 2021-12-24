@@ -30,8 +30,14 @@ function errorHandler(err, req, res, next) {
     case "emptyCity":
       res.status(400).json({ message: "City field must not be empty" });
       break;
+    case "emptyPhoneNumber":
+      res.status(400).json({ message: "Phone Number field must not be empty" });
+      break;
     case "loginFailed":
       res.status(401).json({ message: "Wrong email or password" });
+      break;
+    case "wrongPassword":
+      res.status(401).json({ message: "Wrong password" });
       break;
     case "unathorized":
       res.status(401).json({ message: "Invalid token" });
@@ -60,6 +66,9 @@ function errorHandler(err, req, res, next) {
     case "emptyImageUrl":
       res.status(400).json({ message: "Image Url field must not be empty" });
       break;
+    case "emptyAmount":
+      res.status(400).json({ message: "Amount field must not be empty" });
+      break;
     case "emptyPublishedYear":
       res
         .status(400)
@@ -73,6 +82,11 @@ function errorHandler(err, req, res, next) {
       break;
     case "userNotFound":
       res.status(404).json({ message: "User not found" });
+      break;
+    case "insufficientBalance":
+      res
+        .status(401)
+        .json({ message: "Insufficient balance, please top up first" });
       break;
     default:
       res.status(500).json({ message: err.message });

@@ -1,5 +1,7 @@
 require("dotenv").config();
 const axios = require("axios");
+const { response } = require("express");
+const { where } = require("sequelize/dist");
 const rajaOngkirEndpoint = `https://api.rajaongkir.com/starter`;
 const rajaOngkirHeaders = {
   headers: {
@@ -8,7 +10,7 @@ const rajaOngkirHeaders = {
 };
 const xenditEndpoint = `https://api.xendit.co`;
 const xenditAPI = process.env.XENDIT_SECRET_API;
-const { Transaction } = require("../models");
+const { Transaction, User, TopUp } = require("../models");
 
 class ControllerApis {
   static async cities(req, res, next) {
@@ -46,10 +48,14 @@ class ControllerApis {
     }
   }
 
-  static async createPayment(req, res, next) {
+  static async topUpEwallet(req, res, next) {
     try {
       const url = `${xenditEndpoint}/ewallets/charges`;
-      const { amount } = req.body;
+      // const phoneNumber = req.user.phoneNumber;
+      const { amount, merchant } = req.body;
+
+      if (!amount) throw { name: "emptyAmount" };
+
       const response = await axios({
         method: "POST",
         url,
@@ -62,16 +68,16 @@ class ControllerApis {
           currency: "IDR",
           amount: +amount,
           checkout_method: "ONE_TIME_PAYMENT",
-          channel_code: "ID_OVO",
+          channel_code: merchant,
           channel_properties: {
             mobile_number: "+628998676094",
+            success_redirect_url: "http://localhost:8080/wallet",
           },
           metadata: {
             branch_code: "tree_branch",
           },
         },
       });
-
       res.status(201).json(response.data);
     } catch (error) {
       next(error);
@@ -81,26 +87,24 @@ class ControllerApis {
   static async xenditCallback(req, res, next) {
     try {
       const { data } = req.body;
-      console.log(data);
 
       const transactionId = data.id;
-      const transaction = await Transaction.findOne({
+      const topUp = await TopUp.findOne({
         where: { transactionId },
       });
 
-      console.log(data, "dataaa");
-      console.log(transaction);
-
-      if (transaction) {
-        const patchTransaction = await transaction.update({
+      if (topUp) {
+        const patchStatus = await topUp.update({
           status: data.status,
         });
-        res.status(200).json(patchTransaction);
+
+        const user = await User.findByPk(topUp.UserId);
+        const addBalance = await user.increment({ balance: topUp.amount });
+        res.status(200).json(patchStatus);
       } else {
         res.status(200).json({ message: "Not Found" });
       }
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

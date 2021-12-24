@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "Transactions",
         foreignKey: "UserId",
       });
+      User.hasMany(models.TopUp);
     }
   }
   User.init(
@@ -102,6 +103,31 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "City ID field must not be empty",
+          },
+        },
+      },
+      balance: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Balance field must not be empty",
+          },
+          notEmpty: {
+            msg: "Balance field must not be empty",
+          },
+        },
+        defaultValue: 0,
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Avatar field must not be empty",
+          },
+          notEmpty: {
+            msg: "Avatar field must not be empty",
           },
         },
       },

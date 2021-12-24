@@ -3,10 +3,66 @@
     "id": 1,
     "title": "Si Putih",
     "author": "Tere Liye",
-    "genre": "Fantasi",
+    "genre": "Fantasy",
     "publishedYear": "2021",
     "price": 85000,
     "imageUrl": "https://cdn.gramedia.com/uploads/items/Si_Putih_cov.jpg",
-    "SellerId": 2
+    "SellerId": 2,
+    "sold": 0
+  },
+  {
+    "id": 2,
+    "title": "Bulan",
+    "author": "Tere Liye",
+    "genre": "Fantasy",
+    "publishedYear": "2018",
+    "price": 78000,
+    "imageUrl": "https://cdnwpseller.gramedia.net/wp-content/uploads/2021/10/08110223/BULAN-TERE-LIYE.jpg",
+    "SellerId": 3,
+    "sold": 0
+  },
+  {
+    "id": 3,
+    "title": "Bintang",
+    "author": "Tere Liye",
+    "genre": "Fantasy",
+    "publishedYear": "2016",
+    "price": 105000,
+    "imageUrl": "https://s3-ap-southeast-1.amazonaws.com/ebook-previews/38033/133088/1.jpg",
+    "SellerId": 4,
+    "sold": 0
+  },
+  {
+    "id": 4,
+    "title": "Selena",
+    "author": "Tere Liye",
+    "genre": "Fantasy",
+    "publishedYear": "2019",
+    "price": 70000,
+    "imageUrl": "https://ebooks.gramedia.com/ebook-covers/50996/image_highres/ID_SA2020MTH03SA.jpg",
+    "SellerId": 5,
+    "sold": 0
+  },
+  {
+    "id": 5,
+    "title": "Nebula",
+    "author": "Tere Liye",
+    "genre": "Fantasy",
+    "publishedYear": "2015",
+    "price": 82000,
+    "imageUrl": "https://inc.mizanstore.com/aassets/img/com_cart/produk/nebula-pre-order.jpeg",
+    "SellerId": 3,
+    "sold": 0
+  },
+  {
+    "id": 6,
+    "title": "Komet Minor",
+    "author": "Tere Liye",
+    "genre": "Fantasy",
+    "publishedYear": "2015",
+    "price": 60000,
+    "imageUrl": "https://ebooks.gramedia.com/ebook-covers/46404/image_highres/ID_KM2019MTH03KM.jpg",
+    "SellerId": 4,
+    "sold": 0
   }
 ]

@@ -3,10 +3,14 @@ const ControllerApis = require("../controllers/controllerApis");
 const {
   authorizationCustomerOnly,
 } = require("../middlewares/authorizationUser");
+const { authentication } = require("../middlewares/authentication");
 
 router.get("/cities", ControllerApis.cities);
-router.post("/shipping", ControllerApis.shipping);
-router.post("/xendit/ovo", ControllerApis.createPayment);
 router.post("/xendit/callback", ControllerApis.xenditCallback);
+
+router.use(authentication);
+
+router.post("/shipping", ControllerApis.shipping);
+router.post("/topup/ewallet", ControllerApis.topUpEwallet);
 
 module.exports = router;

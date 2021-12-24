@@ -10,9 +10,33 @@ class ControllerSeller {
       if (!password) throw { name: "emptyPassword" };
       if (!CityId) throw { name: "emptyCity" };
       if (!cityName) throw { name: "emptyCity" };
+      const avatars = [
+        "elyse",
+        "kristy",
+        "lena",
+        "lindsay",
+        "mark",
+        "matthew",
+        "molly",
+        "patrick",
+        "rachel",
+      ];
+
+      const randomNumber = Math.floor(Math.random() * avatars.length);
+      const chosenAvatar = avatars[randomNumber];
+
+      const avatar = `https://semantic-ui.com/images/avatar2/large/${chosenAvatar}.png`;
 
       const role = "seller";
-      const data = { name, email, password, CityId, role, cityName };
+      const data = {
+        name,
+        email,
+        password,
+        CityId,
+        role,
+        cityName,
+        avatar,
+      };
 
       const user = await User.create(data);
 
