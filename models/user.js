@@ -119,18 +119,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         defaultValue: 0,
       },
-      phoneNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Phone Number field must not be empty",
-          },
-          notEmpty: {
-            msg: "Phone Number field must not be empty",
-          },
-        },
-      },
       avatar: {
         type: DataTypes.STRING,
         allowNull: false,
