@@ -25,9 +25,7 @@ const createArticle = async (req, res, next) => {
 const getArticles = async (req, res, next) => {
   try {
     const articlesData = await Article.findAll({
-      order: [
-        ['id', 'DESC']
-    ],
+      order: [["id", "DESC"]],
     });
     res.status(200).json(articlesData);
   } catch (err) {
@@ -136,21 +134,54 @@ const getArticleDetail = async (req, res, next) => {
   }
 };
 
-const mediastackRoute = async(req, res, next) => {
-    try {
-        const keyword = req.body.payload 
-        let response = []
-        if(keyword) {
-            response = await axios.get(`http://api.mediastack.com/v1/news?access_key=082efd54ede2e28fbf9f1690cd147412&languages=en&keywords=${keyword}`);
-          } else {
-            response = await axios.get("http://api.mediastack.com/v1/news?access_key=082efd54ede2e28fbf9f1690cd147412&languages=en");
-          }
-        res.status(200).json(response.data)
-    } catch (err) {
-        console.log(err);
-        next(err)
+const mediastackRoute = async (req, res, next) => {
+  try {
+    const keyword = req.body.payload;
+    let response = [];
+    if (keyword) {
+      response = await axios.get(
+        `http://api.mediastack.com/v1/news?access_key=082efd54ede2e28fbf9f1690cd147412&languages=en&keywords=${keyword}`
+      );
+    } else {
+      response = await axios.get(
+        "http://api.mediastack.com/v1/news?access_key=082efd54ede2e28fbf9f1690cd147412&languages=en"
+      );
     }
-}
+    res.status(200).json(response.data);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
+const nytimesRoute = async (req, res, next) => {
+  try {
+    const response = await axios.get(
+      "https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=XIgkrjOQL13AOXeCYFykMwGPORZ6Vaal"
+    );
+
+    let result = response.data.results.map((el) => {
+      let image = "";
+      if (el.media.length === 0) {
+        image = "-";
+      } else {
+        image = el.media[0]['media-metadata'][2].url;
+      }
+
+      return {
+        title: el.title,
+        description: el.abstract,
+        image: image,
+        url: el.url,
+      };
+    });
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
 
 module.exports = {
   createArticle,
@@ -160,5 +191,6 @@ module.exports = {
   deleteArticle,
   deleteComment,
   getArticleDetail,
-  mediastackRoute
+  mediastackRoute,
+  nytimesRoute,
 };
