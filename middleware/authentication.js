@@ -3,6 +3,7 @@ const {verifyToken} = require('../helpers/jwt')
 
 const authentication = async (req, res, next) => {
   try {
+    console.log('masuk auth');
     const {access_token} = req.headers;
     console.log({access_token});
     if(!access_token) throw {name: "Unauthorized Middleware"}
