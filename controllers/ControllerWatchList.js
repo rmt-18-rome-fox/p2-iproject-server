@@ -4,9 +4,7 @@ const postWatchList = async (req, res, next) => {
   try {
     const UserId = req.user.id
     const {title, priority, JikanAnimeId, image_url} = req.body
-    console.log({title, priority, JikanAnimeId, image_url});
     const isExists = await WatchList.findOne({where: {UserId, JikanAnimeId}})
-    // console.log(isExists);
     if(isExists) throw {name: "This Anime Has Been Added To Your WatchList"}
     const watchList = await WatchList.create({
       title,
@@ -26,8 +24,7 @@ const patchStatusWatchList = async (req, res, next) => {
   try {
     const {JikanAnimeId} = req.params
     const {status} = req.body
-    console.log({JikanAnimeId, status});
-    const watchList = await WatchList.update({status}, {where: {JikanAnimeId}})
+    await WatchList.update({status}, {where: {JikanAnimeId}})
     res.status(201).json({status})
   } catch (err) {
     next(err)

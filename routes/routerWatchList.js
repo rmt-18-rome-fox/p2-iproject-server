@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Controller = require('../controllers/controllerWatchList')
+const Controller = require('../controllers/ControllerWatchList')
 const authorization = require('../middleware/authorization')
 
 router.get('/watchlists', Controller.getWatchLists)
